@@ -1,2 +1,1 @@
-# fantasy-fitness-native
-Fantasy Fitness Native App
+Fantasy Fitness Native
