@@ -3,16 +3,15 @@ import { StyleSheet } from 'react-native';
 export const AppStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'powderblue',
   },
-  childOne: {
-    padding: 60,
+  navigation: {
+    backgroundColor: 'black',
+    height: 60,
+  },
+  home: {
+    paddingTop: 60,
+    paddingLeft: 40,
     flex: 1.5,
-    backgroundColor: 'green'
+    backgroundColor: 'lightgrey'
   },
-  childTwo: {
-    padding: 60,
-    flex: 1,
-    backgroundColor: 'orange'
-  },
-});
+})

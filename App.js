@@ -2,22 +2,8 @@ import React from 'react';
 import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native';
 import { AppStyle } from './styles/AppStyle';
 
-import HomePage from './components/HomePage'
-import ProfilePage from './components/ProfilePage'
 import RootAdapter from './adapters/RootAdapter'
-import { createStackNavigator } from 'react-navigation';
-
-
-
-const Stack = createStackNavigator({
-    Home: HomePage,
-    Profile: ProfilePage
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
-
+import Stack from './stack/Stack'
 
 export default class App extends React.Component {
 

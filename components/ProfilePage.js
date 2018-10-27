@@ -1,23 +1,48 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
-// import { createStackNavigator } from 'react-navigation';
+import { View, Text, Button, Image } from 'react-native'
 import { AppStyle } from '../styles/AppStyle';
+
+import RootAdapter from '../adapters/RootAdapter'
+
 
 
 class ProfilePage extends Component {
+  state = {
+    user: {}
+  }
 
-  goToProfile = () => {
-    this.props.navigation.navigate('Home', {name: 'arren'})
+  componentDidMount(){
+    const { UserAdapter } = RootAdapter
+    UserAdapter.show(1).then(json => {
+      console.log(json)
+      this.setState({ user: json.data })
+    })
+    // UserAdapter.show(1).then(console.log)
+  }
+
+  renderUser = () => {
+    const { attributes } = this.state.user
+
+    const image = attributes.avatar
+    console.log(image);
+
+    return (
+      <View>
+        <Text>{ `${attributes.first_name} ${attributes.last_name}` }</Text>
+        <Text>{ attributes.bio }</Text>
+        <Image
+          source={{uri: image }}
+          style={{width: 200, height: 200 }} />
+      </View>
+    )
   }
 
   render(){
-    console.log(this.props);
+    console.log(this.state.user);
+    const { attributes } = this.state.user
     return(
-      <View style={ AppStyle.childOne }>
-        <Text>Prof Page</Text>
-        <Button
-          title="Go to Home Page"
-          onPress={this.goToProfile} />
+      <View style={ AppStyle.home } >
+      { attributes ? this.renderUser() : null }
       </View>
     )
   }
