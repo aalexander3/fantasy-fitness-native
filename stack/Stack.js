@@ -37,7 +37,7 @@ const Stack = createBottomTabNavigator({
       // showLabel: false,
       style: AppStyle.navigation
     },
-    initialRouteName: 'Home',
+    initialRouteName: 'Profile',
   }
 );
 

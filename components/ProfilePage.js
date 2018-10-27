@@ -3,6 +3,7 @@ import { View, Text, Button, Image } from 'react-native'
 import { AppStyle } from '../styles/AppStyle';
 
 import RootAdapter from '../adapters/RootAdapter'
+import UserCard from './UserCard'
 
 
 
@@ -14,31 +15,19 @@ class ProfilePage extends Component {
   componentDidMount(){
     const { UserAdapter } = RootAdapter
     UserAdapter.show(1).then(json => {
-      console.log(json)
       this.setState({ user: json.data })
     })
-    // UserAdapter.show(1).then(console.log)
   }
 
   renderUser = () => {
-    const { attributes } = this.state.user
-
-    const image = attributes.avatar
-    console.log(image);
+    const { user } = this.state
 
     return (
-      <View>
-        <Text>{ `${attributes.first_name} ${attributes.last_name}` }</Text>
-        <Text>{ attributes.bio }</Text>
-        <Image
-          source={{uri: image }}
-          style={{width: 200, height: 200 }} />
-      </View>
+      <UserCard user={ user } />
     )
   }
 
   render(){
-    console.log(this.state.user);
     const { attributes } = this.state.user
     return(
       <View style={ AppStyle.home } >
