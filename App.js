@@ -1,23 +1,26 @@
-import React from 'react';
-import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native';
-import { AppStyle } from './styles/AppStyle';
+import React, { Component } from 'react'
+import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native'
+import { AppStyle } from './styles/AppStyle'
 
+import { Provider, connect } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+
+import rootReducer from './reducers/rootReducer'
 import RootAdapter from './adapters/RootAdapter'
 import Stack from './stack/Stack'
 
-export default class App extends React.Component {
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
-  // componentDidMount(){
-  //   const { WorkoutAdapter } = RootAdapter
-  //   console.log(WorkoutAdapter)
-  //   WorkoutAdapter.index().then(console.log)
-  // }
+export default class App extends Component {
 
   render() {
     return (
-      <View style={AppStyle.container}>
-        <Stack />
-      </View>
-    );
+      <Provider store={store} >
+        <View style={AppStyle.container}>
+          <Stack />
+        </View>
+      </Provider>
+    )
   }
 }

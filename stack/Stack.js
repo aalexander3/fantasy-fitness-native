@@ -1,10 +1,13 @@
-import React from 'react';
+import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { createBottomTabNavigator } from 'react-navigation';
-import { AppStyle } from '../styles/AppStyle';
+import { createBottomTabNavigator } from 'react-navigation'
+import { AppStyle } from '../styles/AppStyle'
+import{ Animated } from 'react-native'
 
 import HomePage from '../components/HomePage'
 import ProfilePage from '../components/ProfilePage'
+
+
 
 const Stack = createBottomTabNavigator({
     Home: HomePage,
@@ -28,7 +31,11 @@ const Stack = createBottomTabNavigator({
         }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
-        return <Ionicons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+        return <Ionicons
+                  name={iconName} 
+                  transform={[{ rotateX: '45deg' }]}
+                  size={focused ? 30 : 25}
+                  color={tintColor} />
       },
     }),
     tabBarOptions: {
