@@ -21,11 +21,13 @@ export const AppStyle = StyleSheet.create({
     paddingBottom: 300,
     paddingLeft: 40,
     paddingRight: 40,
-    flex: 1,
+    flex: 2,
     backgroundColor: 'lightgrey'
   },
   userCard: {
-    height: 250,
+    paddingTop: 60,
+    paddingLeft: 40,
+    paddingRight: 40,
     alignItems: 'center',
     backgroundColor: 'white',
     borderStyle: 'solid',

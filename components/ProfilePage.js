@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, ScrollView } from 'react-native'
+import { View, Text, Button, Image, ScrollView, Animated } from 'react-native'
 import { AppStyle } from '../styles/AppStyle';
 import { connect } from 'react-redux'
 import { setUser } from '../actions/userActions'
@@ -11,7 +11,7 @@ import TeamCard from './TeamCard'
 
 class ProfilePage extends Component {
   state = {
-    scrollHeight: 0
+    scrollHeight: 0,
   }
 
   componentDidMount(){
@@ -35,7 +35,6 @@ class ProfilePage extends Component {
   }
 
   handleScroll = (e) => {
-    console.log('scrolling y is:', e.nativeEvent.contentOffset.y)
     this.setState({
       scrollHeight: e.nativeEvent.contentOffset.y
     })
@@ -44,20 +43,23 @@ class ProfilePage extends Component {
   render(){
     const { attributes } = this.props.user
     return (
-      <View>
-        { attributes ? this.renderUser() : null }
-        <ScrollView style={ AppStyle.profile } onScrollEndDrag={this.handleScroll} >
+      // <View>
+        <ScrollView
+          style={ AppStyle.profile }
+          onScroll={this.handleScroll}
+          scrollEventThrottle={1} >
+          { attributes ? this.renderUser() : null }
           <Text style={ AppStyle.header }>
             My Teams
           </Text>
-          <ScrollView horizontal style={{flex: .6, height: 380, marginBottom: 30}}>
+          <ScrollView horizontal style={{height: 380, marginBottom: 30}}>
             { attributes ? this.renderTeams() : null }
           </ScrollView>
-          <ScrollView horizontal style={{flex: .6, height: 380, marginBottom: 30}}>
+          <ScrollView horizontal style={{height: 380, marginBottom: 30}}>
             { attributes ? this.renderTeams() : null }
           </ScrollView>
         </ScrollView>
-      </View>
+      // </View>
     )
   }
 }
