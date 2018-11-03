@@ -1,17 +1,19 @@
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { createBottomTabNavigator } from 'react-navigation'
-import { AppStyle } from '../styles/AppStyle'
-import{ Animated } from 'react-native'
+import { StackStyle } from '../styles/StackStyle'
+// import{ Animated } from 'react-native'
 
 import HomePage from '../components/HomePage'
-import ProfilePage from '../components/ProfilePage'
-
-
+import TeamPage from '../components/TeamPage'
+import LeaguePage from '../components/LeaguePage'
+import WorkoutsPage from '../components/WorkoutsPage'
 
 const Stack = createBottomTabNavigator({
     Home: HomePage,
-    Profile: ProfilePage
+    Team: TeamPage,
+    League: LeaguePage,
+    Workouts: WorkoutsPage,
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -20,19 +22,25 @@ const Stack = createBottomTabNavigator({
         let iconName;
         switch (routeName) {
           case 'Home':
-            iconName = `ios-information-circle${focused ? '' : '-outline'}`
+            iconName = `ios-person${focused ? '' : '-outline'}`
             break;
-          case 'Profile':
-            iconName = `ios-contact${focused ? '' : '-outline'}`
+          case 'Team':
+            iconName = `ios-people${focused ? '' : '-outline'}`
+            break;
+          case 'League':
+            iconName = `ios-trophy${focused ? '' : '-outline'}`
+            break;
+          case 'Workouts':
+            iconName = `ios-heart${focused ? '' : '-outline'}`
             break;
           default:
-            iconName = `ios-options${focused ? '' : '-outline'}`
+            iconName = `ios-heart${focused ? '' : '-outline'}`
             break;
         }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
         return <Ionicons
-                  name={iconName} 
+                  name={iconName}
                   transform={[{ rotateX: '45deg' }]}
                   size={focused ? 30 : 25}
                   color={tintColor} />
@@ -40,11 +48,11 @@ const Stack = createBottomTabNavigator({
     }),
     tabBarOptions: {
       activeTintColor: 'white',
-      inactiveTintColor: 'white',
+      inactiveTintColor: 'lightgrey',
       // showLabel: false,
-      style: AppStyle.navigation
+      style: StackStyle.navigation
     },
-    initialRouteName: 'Profile',
+    initialRouteName: 'Home',
   }
 );
 

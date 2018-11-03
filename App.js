@@ -5,25 +5,21 @@ import { AppStyle } from './styles/AppStyle'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import rootReducer from './reducers/rootReducer'
-import RootAdapter from './adapters/RootAdapter'
 import Stack from './stack/Stack'
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
-
-// compose(applyMiddleware(thunk),
-//    window.devToolsExtension ? window.devToolsExtension() : f => f
-//  )
+const enhancer = composeWithDevTools({})(applyMiddleware(thunk));
+// const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer, {}, enhancer)
 
 export default class App extends Component {
 
   render() {
     return (
       <Provider store={store} >
-        <View style={AppStyle.container}>
-          <Stack />
-        </View>
+        <Stack />
       </Provider>
     )
   }
