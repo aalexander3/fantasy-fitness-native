@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, ScrollView, TouchableHighlight } from 'react-native'
+import { View, Text, Button, Image, ScrollView, TouchableHighlight, Animated, Easing } from 'react-native'
 import { AppStyle } from '../styles/AppStyle'
 import { HomeStyle } from '../styles/HomeStyle'
 import { connect } from 'react-redux'
@@ -12,17 +12,55 @@ import TeamAvatar from './TeamAvatar'
 
 class HomePage extends Component {
   state = {
-    scrollHeight: 0,
-    display: 'PROFILE'
+    display: 'PROFILE',
+    profileY:  new Animated.Value(0)
   }
 
   componentDidMount(){
     const { UserAdapter } = RootAdapter
     UserAdapter.show(7).then(this.props.setUser)
+    this.profileIn()
   }
 
   changeDisplay = newDisplay => {
-    this.setState({ display: newDisplay})
+    switch (newDisplay) {
+      case 'PROFILE':
+        this.setState({ display: newDisplay, profileY: new Animated.Value(0) }, this.profileIn)
+        break;
+      case 'TEAMS':
+        this.setState({ display: newDisplay, profileY: new Animated.Value(1) }, () => {
+          this.profileOut()
+        })
+        break;
+      case 'PROFILE':
+
+        break;
+      default:
+
+    }
+  }
+
+  profileIn = () => {
+    Animated.timing(
+    this.state.profileY,
+      {
+        toValue: 1,
+        duration: 400,
+        easing: Easing.linear
+      }
+    ).start()
+  }
+
+  profileOut = () => {
+    console.log(this.state.profileY);
+    Animated.timing(
+      this.state.profileY,
+        {
+          toValue: 0,
+          duration: 400,
+          easing: Easing.linear
+        }
+      ).start()
   }
 
   renderUser = () => {
@@ -32,16 +70,32 @@ class HomePage extends Component {
     const fullName = `${first_name} ${last_name}`
 
     if (display !== 'PROFILE') {
+      const profileY = this.state.profileY.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 200]
+        })
+
       return (
-        <TouchableHighlight
-          onPress={()=>this.changeDisplay("PROFILE")}
-          underlayColor='white' >
-            <Text style={AppStyle.header}>
-              { fullName }
-            </Text>
-        </TouchableHighlight>)
+        <Animated.View style={{ transform: [{translateY: profileY }] }} >
+          <TouchableHighlight
+            onPress={()=>this.changeDisplay('PROFILE')}
+            underlayColor='white' >
+              <Text style={AppStyle.header}>
+                { fullName }
+              </Text>
+          </TouchableHighlight>
+        </Animated.View>)
     } else {
-      return <UserCard user={ user } />
+      const profileY = this.state.profileY.interpolate({
+          inputRange: [0, 1],
+          outputRange: [-200, 0]
+        })
+
+      return (
+        <Animated.View style={{ transform: [{translateY: profileY }] }} >
+          <UserCard user={ user } />
+        </Animated.View>
+      )
     }
   }
 

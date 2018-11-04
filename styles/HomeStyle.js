@@ -6,8 +6,6 @@ export const HomeStyle = StyleSheet.create({
     backgroundColor: '#D5DDE7'
   },
   userCard: {
-    paddingLeft: 40,
-    paddingRight: 40,
     alignItems: 'center',
     backgroundColor: '#D5DDE7',
     padding: 10,
