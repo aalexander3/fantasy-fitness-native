@@ -25,7 +25,7 @@ class LeaguePage extends Component {
         this.state.spinValue,
         {
           toValue: 1,
-          duration: 4000,
+          duration: 2000,
           easing: Easing.linear
         }
       ).start(this.spin)

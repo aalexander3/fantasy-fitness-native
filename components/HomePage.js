@@ -22,22 +22,34 @@ class HomePage extends Component {
     this.profileIn()
   }
 
+  // componentDidUpdate(prevProps, prevState, snashot){
+  //   if (prevState.display === 'PROFILE' && this.state.display !== "PROFILE") this.profileOut()
+  // }
+
   changeDisplay = newDisplay => {
+    // what pieces need to be animated??
+    // when do they need to change?
+    // in what order of events does this need to happen?
+    // change to begin animations ==> In/Out ==> setState of display
+
     switch (newDisplay) {
       case 'PROFILE':
         this.setState({ display: newDisplay, profileY: new Animated.Value(0) }, this.profileIn)
-        break;
+        break
       case 'TEAMS':
-        this.setState({ display: newDisplay, profileY: new Animated.Value(1) }, () => {
-          this.profileOut()
-        })
-        break;
-      case 'PROFILE':
-
-        break;
+        this.setState({ profileY: new Animated.Value(1) }, this.profileOut)
+        break
+      case 'WORKOUTS':
+        this.setState({ display: newDisplay, profileY: new Animated.Value(1) })
+        break
       default:
-
+        this.setState({ display: newDisplay, profileY: new Animated.Value(0) }, this.profileIn)
+        break
     }
+  }
+
+  afterAnimation = () => {
+    this.setState({ display: "TEAMS" })
   }
 
   profileIn = () => {
@@ -52,7 +64,6 @@ class HomePage extends Component {
   }
 
   profileOut = () => {
-    console.log(this.state.profileY);
     Animated.timing(
       this.state.profileY,
         {
@@ -60,7 +71,7 @@ class HomePage extends Component {
           duration: 400,
           easing: Easing.linear
         }
-      ).start()
+      ).start(this.afterAnimation)
   }
 
   renderUser = () => {
@@ -69,30 +80,32 @@ class HomePage extends Component {
     const { display } = this.state
     const fullName = `${first_name} ${last_name}`
 
-    if (display !== 'PROFILE') {
-      const profileY = this.state.profileY.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 200]
-        })
+    const profileY = this.state.profileY.interpolate({
+        inputRange: [0, 1],
+        outputRange: [-200, 0]
+      })
 
+    const height = this.state.profileY.interpolate({
+        inputRange: [0, 1],
+        outputRange: [100, 275]
+      })
+    const opacity = this.state.profileY.interpolate({
+        inputRange: [0, 1],
+        outputRange: [.35, 1]
+      })
+
+    if (display !== 'PROFILE') {
       return (
-        <Animated.View style={{ transform: [{translateY: profileY }] }} >
           <TouchableHighlight
             onPress={()=>this.changeDisplay('PROFILE')}
             underlayColor='white' >
               <Text style={AppStyle.header}>
                 { fullName }
               </Text>
-          </TouchableHighlight>
-        </Animated.View>)
+          </TouchableHighlight>)
     } else {
-      const profileY = this.state.profileY.interpolate({
-          inputRange: [0, 1],
-          outputRange: [-200, 0]
-        })
-
       return (
-        <Animated.View style={{ transform: [{translateY: profileY }] }} >
+        <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
           <UserCard user={ user } />
         </Animated.View>
       )
