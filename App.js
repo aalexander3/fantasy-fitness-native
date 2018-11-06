@@ -1,37 +1,26 @@
-import React from 'react';
-import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native';
-import { AppStyle } from './styles/AppStyle';
+import React, { Component } from 'react'
+import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native'
+import { AppStyle } from './styles/AppStyle'
 
-import HomePage from './components/HomePage'
-import ProfilePage from './components/ProfilePage'
-import RootAdapter from './adapters/RootAdapter'
-import { createStackNavigator } from 'react-navigation';
+import { Provider, connect } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
+import rootReducer from './reducers/rootReducer'
+import Stack from './stack/Stack'
 
+const enhancer = composeWithDevTools({})(applyMiddleware(thunk));
+// const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer, {}, enhancer)
 
-const Stack = createStackNavigator({
-    Home: HomePage,
-    Profile: ProfilePage
-  },
-  {
-    initialRouteName: 'Home',
-  }
-);
-
-
-export default class App extends React.Component {
-
-  // componentDidMount(){
-  //   const { WorkoutAdapter } = RootAdapter
-  //   console.log(WorkoutAdapter)
-  //   WorkoutAdapter.index().then(console.log)
-  // }
+export default class App extends Component {
 
   render() {
     return (
-      <View style={AppStyle.container}>
+      <Provider store={store} >
         <Stack />
-      </View>
-    );
+      </Provider>
+    )
   }
 }
