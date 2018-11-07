@@ -1,14 +1,12 @@
 {
-  "name": "Fantasy Fitness",
+  "name": "fantasy-fitness",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "start": "expo start",
+    "start": "REACT_DEBUGGER='unset ELECTRON_RUN_AS_NODE && open -g 'rndebugger://set-debugger-loc?port=19001' ||' npm start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject",
-    "inject": "REACT_DEBUGGER='rndebugger-open --open --port 8081' npm start",
-    "postinstall": "rndebugger-open"
+    "eject": "expo eject"
   },
   "dependencies": {
     "expo": "^30.0.1",
