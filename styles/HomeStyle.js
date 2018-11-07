@@ -9,6 +9,7 @@ export const HomeStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#D5DDE7',
     padding: 10,
+    paddingTop: 50,
   },
   teamCard: {
     height: 300,
@@ -41,7 +42,8 @@ export const HomeStyle = StyleSheet.create({
     borderRadius: 10,
   },
   firstLayer: {
-    paddingTop: 50,
+    flex: 1,
+    paddingTop: 80,
     backgroundColor: '#D5DDE7'
   },
   secondLayer: {
@@ -52,7 +54,6 @@ export const HomeStyle = StyleSheet.create({
     marginBottom: -15,
   },
   thirdLayer: {
-    flex: 1,
     backgroundColor: '#B994D8',
     borderTopLeftRadius: 15,
     borderTopEndRadius: 15,

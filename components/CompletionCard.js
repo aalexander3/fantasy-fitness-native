@@ -4,8 +4,7 @@ import { AppStyle } from '../styles/AppStyle';
 import { HomeStyle } from '../styles/HomeStyle';
 import { connect } from 'react-redux'
 
-
-class UserCard extends Component {
+class CompletionCard extends Component {
 
   state = {
     profileY:  new Animated.Value(0)
@@ -16,9 +15,8 @@ class UserCard extends Component {
   }
 
   componentDidUpdate(prevProps){
-    if (this.props.nextDisplay !== 'PROFILE') {
+    if (this.props.nextDisplay !== 'WORKOUTS') {
       this.profileOut()
-      // this.setState({ profileY:  new Animated.Value(1)}, this.profileOut)
     }
   }
 
@@ -45,26 +43,19 @@ class UserCard extends Component {
   }
 
   render(){
-    const { first_name, last_name, avatar, bio } = this.props.user.attributes
-    const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
 
-    const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 275]})
+    const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
+    const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 325]})
     const opacity = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
 
     return (
-      <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
-        <View style={HomeStyle.userCard} >
-          <Image
-            source={{uri: avatar }}
-            style={[AppStyle.avatar, { height: 150, width: 150, borderRadius: 75}]} />
-          <Text style={ AppStyle.header }>
-            { `${first_name} ${last_name}` }
-          </Text>
-          <Text>{ bio }</Text>
+      <Animated.View style={{ height, opacity }} >
+        <View style={ HomeStyle.teamCard } >
+          YO
         </View>
-      </Animated.View >
+      </Animated.View>
     )
   }
 }
 
-export default UserCard
+export default CompletionCard
