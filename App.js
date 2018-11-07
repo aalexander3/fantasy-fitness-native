@@ -1,18 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native'
-import { AppStyle } from './styles/AppStyle'
-
 import { Provider, connect } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootReducer from './reducers/rootReducer'
+import { AppStyle } from './styles/AppStyle'
 import Stack from './stack/Stack'
+import initStore from './store'
 
-const enhancer = composeWithDevTools({})(applyMiddleware(thunk));
-// const store = createStore(rootReducer, applyMiddleware(thunk))
-const store = createStore(rootReducer, {}, enhancer)
+const store = initStore()
 
 export default class App extends Component {
 

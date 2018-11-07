@@ -52,7 +52,7 @@ const Stack = createBottomTabNavigator({
       // showLabel: false,
       style: StackStyle.navigation
     },
-    initialRouteName: 'Home',
+    initialRouteName: 'Workouts',
   }
 );
 
