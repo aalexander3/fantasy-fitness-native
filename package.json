@@ -1,5 +1,5 @@
 {
-  "name": "Fantasy-Fitness",
+  "name": "fantasy-fitness",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {

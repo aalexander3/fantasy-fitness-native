@@ -8,70 +8,31 @@ import { setUser } from '../actions/userActions'
 import RootAdapter from '../adapters/RootAdapter'
 import UserCard from './UserCard'
 import TeamCard from './TeamCard'
+import CompletionCard from './CompletionCard'
 import TeamAvatar from './TeamAvatar'
 
 class HomePage extends Component {
+
   state = {
     display: 'PROFILE',
-    profileY:  new Animated.Value(0)
+    nextDisplay: 'PROFILE'
   }
 
   componentDidMount(){
     const { UserAdapter } = RootAdapter
     UserAdapter.show(7).then(this.props.setUser)
-    this.profileIn()
   }
-
-  // componentDidUpdate(prevProps, prevState, snashot){
-  //   if (prevState.display === 'PROFILE' && this.state.display !== "PROFILE") this.profileOut()
-  // }
 
   changeDisplay = newDisplay => {
     // what pieces need to be animated??
     // when do they need to change?
     // in what order of events does this need to happen?
     // change to begin animations ==> In/Out ==> setState of display
-
-    switch (newDisplay) {
-      case 'PROFILE':
-        this.setState({ display: newDisplay, profileY: new Animated.Value(0) }, this.profileIn)
-        break
-      case 'TEAMS':
-        this.setState({ profileY: new Animated.Value(1) }, this.profileOut)
-        break
-      case 'WORKOUTS':
-        this.setState({ display: newDisplay, profileY: new Animated.Value(1) })
-        break
-      default:
-        this.setState({ display: newDisplay, profileY: new Animated.Value(0) }, this.profileIn)
-        break
-    }
+    this.setState({ nextDisplay: newDisplay })
   }
 
   afterAnimation = () => {
-    this.setState({ display: "TEAMS" })
-  }
-
-  profileIn = () => {
-    Animated.timing(
-    this.state.profileY,
-      {
-        toValue: 1,
-        duration: 400,
-        easing: Easing.linear
-      }
-    ).start()
-  }
-
-  profileOut = () => {
-    Animated.timing(
-      this.state.profileY,
-        {
-          toValue: 0,
-          duration: 400,
-          easing: Easing.linear
-        }
-      ).start(this.afterAnimation)
+    this.setState({ display: this.state.nextDisplay })
   }
 
   renderUser = () => {
@@ -79,20 +40,6 @@ class HomePage extends Component {
     const { first_name, last_name } = user.attributes
     const { display } = this.state
     const fullName = `${first_name} ${last_name}`
-
-    const profileY = this.state.profileY.interpolate({
-        inputRange: [0, 1],
-        outputRange: [-200, 0]
-      })
-
-    const height = this.state.profileY.interpolate({
-        inputRange: [0, 1],
-        outputRange: [100, 275]
-      })
-    const opacity = this.state.profileY.interpolate({
-        inputRange: [0, 1],
-        outputRange: [.35, 1]
-      })
 
     if (display !== 'PROFILE') {
       return (
@@ -104,20 +51,16 @@ class HomePage extends Component {
               </Text>
           </TouchableHighlight>)
     } else {
-      return (
-        <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
-          <UserCard user={ user } />
-        </Animated.View>
-      )
+      return <UserCard user={ user } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation }/>
     }
   }
 
   renderTeams = () => {
     const { teams } = this.props.user.attributes
-    const {display } = this.state
+    const { display } = this.state
 
     if (display === 'TEAMS'){
-      const teamCards = teams.map((team) => <TeamCard team={ team } key={ team.name } />)
+      const teamCards = teams.map((team) => <TeamCard team={ team } key={ team.name } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teamCards}
@@ -134,8 +77,27 @@ class HomePage extends Component {
   }
 
   renderCompletions = () => {
+    const { completions } = this.props.user.attributes
+    const { display } = this.state
+
     // render claimed workouts, with name and icon as a little avatar
     // shows more detail when display is WORKOUTS
+
+    if (display === 'WORKOUTS'){
+      const workoutCards = completions.map((completion) => <CompletionCard completion={ completion } key={ completion.id } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } />)
+      return (
+        <ScrollView horizontal style={{padding: 10}} >
+          {workoutCards}
+        </ScrollView>
+      )
+    } else {
+      const workoutCards = completions.map((completion) => <TeamAvatar team={ completion } key={ completion.id } />)
+      return (
+        <ScrollView horizontal style={{padding: 10}}>
+          {workoutCards}
+        </ScrollView>
+      )
+    }
   }
 
   render(){
@@ -161,6 +123,7 @@ class HomePage extends Component {
             underlayColor='white' >
             <Text style={AppStyle.header}>Claimed Workouts</Text>
           </TouchableHighlight>
+          { attributes ? this.renderCompletions() : null }
         </View>
       </View>
     )
