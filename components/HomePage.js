@@ -37,7 +37,7 @@ class HomePage extends Component {
 
   renderUser = () => {
     const { user } = this.props
-    const { first_name, last_name } = user.attributes
+    const { first_name, last_name, avatar } = user.attributes
     const { display } = this.state
     const fullName = `${first_name} ${last_name}`
 
@@ -45,10 +45,15 @@ class HomePage extends Component {
       return (
           <TouchableHighlight
             onPress={()=>this.changeDisplay('PROFILE')}
-            underlayColor='white' >
+            underlayColor='transparent' >
+            <View style={{display: 'flex', flexDirection: "row", alignItems: 'center' }}>
+              <Image
+                source={{uri: avatar }}
+                style={[AppStyle.avatar, { height: 40, width: 40, borderRadius: 20, marginLeft: 10}]} />
               <Text style={AppStyle.header}>
-                { fullName }
+              { fullName }
               </Text>
+            </View>
           </TouchableHighlight>)
     } else {
       return <UserCard user={ user } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation }/>
@@ -60,14 +65,14 @@ class HomePage extends Component {
     const { display } = this.state
 
     if (display === 'TEAMS'){
-      const teamCards = teams.map((team) => <TeamCard team={ team } key={ team.name } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } />)
+      const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teamCards}
         </ScrollView>
       )
     } else {
-      const teamCards = teams.map((team) => <TeamAvatar team={ team } key={ team.name } />)
+      const teamCards = teams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {teamCards}
@@ -91,7 +96,7 @@ class HomePage extends Component {
         </ScrollView>
       )
     } else {
-      const workoutCards = completions.map((completion) => <TeamAvatar team={ completion } key={ completion.id } />)
+      const workoutCards = completions.map((completion) => <TeamAvatar image_url={ completion.workout.image_url } key={ completion.id } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {workoutCards}
@@ -112,7 +117,7 @@ class HomePage extends Component {
         <View style={ HomeStyle.secondLayer }>
           <TouchableHighlight
             onPress={()=>this.changeDisplay("TEAMS")}
-            underlayColor='white' >
+            underlayColor='transparent' >
             <Text style={AppStyle.header}>My Teams</Text>
           </TouchableHighlight>
           { attributes ? this.renderTeams() : null }
@@ -120,7 +125,7 @@ class HomePage extends Component {
         <View style={ HomeStyle.thirdLayer }>
           <TouchableHighlight
             onPress={()=>this.changeDisplay("WORKOUTS")}
-            underlayColor='white' >
+            underlayColor='transparent' >
             <Text style={AppStyle.header}>Claimed Workouts</Text>
           </TouchableHighlight>
           { attributes ? this.renderCompletions() : null }
