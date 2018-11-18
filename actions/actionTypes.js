@@ -1,4 +1,6 @@
 export const SET_USER = 'SET_USER'
-
 export const SET_WORKOUTS = 'SET_WORKOUTS'
 export const SET_WORKOUT = 'SET_WORKOUT'
+export const UPDATE_USER_COMPLETION = 'UPDATE_USER_COMPLETION'
+export const SET_TEAM = 'SET_TEAM'
+export const SET_LEAGUE = 'SET_LEAGUE'

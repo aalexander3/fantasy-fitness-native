@@ -4,6 +4,7 @@ import { AppStyle } from '../styles/AppStyle'
 import { HomeStyle } from '../styles/HomeStyle'
 import { connect } from 'react-redux'
 import { setUser } from '../actions/userActions'
+import { setTeam } from '../actions/teamActions'
 
 import RootAdapter from '../adapters/RootAdapter'
 import UserCard from './UserCard'
@@ -20,7 +21,10 @@ class HomePage extends Component {
 
   componentDidMount(){
     const { UserAdapter } = RootAdapter
-    UserAdapter.show(7).then(this.props.setUser)
+    UserAdapter.show(7).then((user) => {
+      this.props.setUser(user)
+      this.props.setTeam(user.data.attributes.teams[0])
+    })
   }
 
   changeDisplay = newDisplay => {
@@ -65,7 +69,7 @@ class HomePage extends Component {
     const { display } = this.state
 
     if (display === 'TEAMS'){
-      const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } />)
+      const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teamCards}
@@ -139,4 +143,4 @@ const mapStateToProps = state => {
   return { user: state.user }
 }
 
-export default connect(mapStateToProps, { setUser })(HomePage)
+export default connect(mapStateToProps, { setUser, setTeam })(HomePage)

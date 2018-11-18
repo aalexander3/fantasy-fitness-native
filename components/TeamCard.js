@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing } from 'react-native'
+import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../styles/AppStyle';
 import { HomeStyle } from '../styles/HomeStyle';
 import { connect } from 'react-redux'
+import { setTeam } from '../actions/teamActions'
 
 class TeamCard extends Component {
 
@@ -42,6 +43,12 @@ class TeamCard extends Component {
       ).start(this.props.afterAnimation)
   }
 
+  goToTeam = () => {
+    // switch to the team page & dispatch state of selected team w/ team id
+    this.props.setTeam(this.props.team)
+    this.props.navigation.navigate('Team')
+  }
+
   render(){
     const { name, motto, image_url, league_id } = this.props.team
 
@@ -55,9 +62,11 @@ class TeamCard extends Component {
           <Image
             source={{uri: image_url }}
             style={ AppStyle.avatar } />
-          <Text style={ AppStyle.header }>
-            { name }
-          </Text>
+          <TouchableHighlight
+            onPress={this.goToTeam}
+            underlayColor='transparent' >
+            <Text style={AppStyle.header}>{name}</Text>
+          </TouchableHighlight>
           <Text>{ motto }</Text>
         </View>
       </Animated.View>
@@ -65,4 +74,4 @@ class TeamCard extends Component {
   }
 }
 
-export default TeamCard
+export default connect(null, { setTeam })(TeamCard)
