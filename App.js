@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, Button, Alert, TouchableHighlight, ScrollView } from 'react-native'
-import { Provider, connect } from 'react-redux'
-
-import { AppStyle } from './styles/AppStyle'
+import { Provider } from 'react-redux'
+import LandingPage from './components/LandingPage'
 import Stack from './stack/Stack'
-import initStore from './store'
 
+import initStore from './store'
 const store = initStore()
 
-export default class App extends Component {
-
+class App extends Component {
   render() {
     return (
       <Provider store={store} >
-        <Stack />
+        <LandingPage />
       </Provider>
     )
   }
 }
+
+export default App

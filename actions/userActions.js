@@ -1,6 +1,6 @@
 import { SET_USER, UPDATE_USER_COMPLETION, SET_TEAM } from './actionTypes'
 
-export const setUser = (user) => {
+export const setUser = (user) => {  
   return {
     type: SET_USER,
     payload: user.data

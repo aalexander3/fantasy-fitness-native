@@ -9,9 +9,9 @@ import { setLeague } from '../actions/leagueActions'
 class LeaguePage extends Component {
 
   componentDidMount(){
-    const league_id = this.props.team.league_id
-    const { LeagueAdapter } = RootAdapter
-    LeagueAdapter.show(league_id).then(this.props.setLeague)
+    // const league_id = this.props.team.league_id
+    // const { LeagueAdapter } = RootAdapter
+    // LeagueAdapter.show(league_id).then(this.props.setLeague)
   }
 
   render(){

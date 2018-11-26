@@ -20,11 +20,12 @@ class HomePage extends Component {
   }
 
   componentDidMount(){
-    const { UserAdapter } = RootAdapter
-    UserAdapter.show(7).then((user) => {
-      this.props.setUser(user)
-      this.props.setTeam(user.data.attributes.teams[0])
-    })
+    console.log('hi from home page')
+    // changing where things are getting loaded to a few levels up. Login only happens above!
+    // const { UserAdapter } = RootAdapter
+    // UserAdapter.show(7).then((user) => {
+    //   this.props.setTeam(user.data.attributes.teams[0])
+    // })
   }
 
   changeDisplay = newDisplay => {

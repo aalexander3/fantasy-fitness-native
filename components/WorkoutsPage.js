@@ -10,7 +10,7 @@ class WorkoutsPage extends Component {
 
   componentDidMount(){
     const { WorkoutAdapter } = RootAdapter
-    WorkoutAdapter.index().then(this.props.setWorkouts)
+    // WorkoutAdapter.index().then(this.props.setWorkouts)
   }
 
   render(){
