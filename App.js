@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import LandingPage from './components/LandingPage'
+import LandingPage from './pages/landing/LandingPage'
 import Stack from './stack/Stack'
 
 import initStore from './store'
