@@ -34,8 +34,8 @@ class LandingPage extends Component {
 
   renderHelper = () => {
     const { logged_in } = this.props
-    // return logged_in ? <Stack /> : <Register />
-    return <Register />
+    return logged_in ? <Stack /> : <Register />
+    // return <Register />
   }
 
   render(){
