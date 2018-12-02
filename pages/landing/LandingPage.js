@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
 import Stack from '../../stack/Stack'
-import LoginPage from './LoginPage'
+import Register from './Register'
 import HomePage from '../../components/HomePage'
 import RootAdapter from '../../adapters/RootAdapter'
 
@@ -19,7 +19,7 @@ class LandingPage extends Component {
   _getLogin = async () => {
     const { SessionAdapter } = RootAdapter
     try {
-        let token = await AsyncStorage.getItem('token')
+      let token = await AsyncStorage.getItem('token')
       if (token){
         let user = await SessionAdapter.reauth(token)
           this.props.setUser(user.user)
@@ -34,14 +34,13 @@ class LandingPage extends Component {
 
   renderHelper = () => {
     const { logged_in } = this.props
-    // return logged_in ? <Stack /> : <LoginPage />
-    return <LoginPage />
+    // return logged_in ? <Stack /> : <Register />
+    return <Register />
   }
 
   render(){
     return this.renderHelper()
   }
-
 }
 
 const mapStateToProps = state => {

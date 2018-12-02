@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://10.39.109.98:3000/api/v1/'
+export const BASE_URL = 'http://10.59.108.30:3000/api/v1/'
 
 export const config = (method, body=nil) => {
   return {
@@ -8,6 +8,17 @@ export const config = (method, body=nil) => {
       'Accept': 'application/json',
     },
     body: JSON.stringify(body)
+  }
+}
+
+export const configWithAuth = (token) => {
+    return {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token
+      }
   }
 }
 

@@ -14,7 +14,6 @@ import { signIn } from '../../actions/sessionActions'
 class SignUpPage extends Component {
 
   state = {
-    signUp: true,
     user: {
       username: '',
       email: '',

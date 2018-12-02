@@ -6,7 +6,6 @@ import { AppStyle } from '../../styles/AppStyle'
 import { HomeStyle } from '../../styles/HomeStyle'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
-import SignUpPage from './SignUpPage'
 import InputWithLabel from '../../components/form/InputWithLabel'
 
 import { setUser } from '../../actions/userActions'
@@ -15,7 +14,6 @@ import { signIn } from '../../actions/sessionActions'
 class LoginPage extends Component {
 
   state = {
-    signUp: false,
     user: {
       username: '',
       password: '',
@@ -96,15 +94,10 @@ class LoginPage extends Component {
     )
   }
 
-  renderSignUp = () => {
-    return <SignUpPage />
-  }
-
   render() {
-    const { signUp } = this.state
     return (
       <View style={ HomeStyle.firstLayer }>
-        { signUp ? this.renderSignUp() : this.renderLogin() }
+        { this.renderLogin()}
       </View>
     )
   }
