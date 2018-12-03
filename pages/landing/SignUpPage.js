@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage } from 'react-native'
+import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image, ImagePickerIOS } from 'react-native'
+import { ImagePicker, Permissions } from 'expo'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
@@ -18,8 +19,10 @@ class SignUpPage extends Component {
       username: '',
       email: '',
       password: '',
-      password_confirmation: ''
+      password_confirmation: '',
+      avatar: ''
     },
+    errors: null,
   }
 
   _storeData = async (token) => {
@@ -30,18 +33,47 @@ class SignUpPage extends Component {
     }
   }
 
+  renderErrors = (errors) => {
+    this.setState({errors: errors.message})
+  }
+
   handlePress = () => {
     const { UserAdapter } = RootAdapter
+
+    let formData = this.createFormData()
     // if login ==> take state and submit a login session
     // if sign up ==> take state and submit a users create request
      // on sucessful login ==> save encoded jwt into AsyncStorage
-    UserAdapter.create(this.state.user)
+    UserAdapter.create(formData)
       .then(data => {
+        if (data.message){
+          throw Error(data.message)
+        } else {
+            this._storeData(data.jwt)
+            this.props.setUser(data.user)
+            this.props.signIn()
+        }
         // find a way to global save with the session Reducer
-        this._storeData(data.jwt)
-        this.props.setUser(data.user)
-        this.props.signIn()
       })
+      .catch(err => this.renderErrors(err))
+  }
+
+  createFormData = () => {
+    const { username, email, password, password_confirmation, avatar } = this.state.user
+
+    formData = new FormData()
+    if (avatar !== '') {
+      formData.append('avatar', {
+        uri: avatar,
+        name: 'avatar.jpg',
+        type: 'image/jpg'
+      })
+    }
+    formData.append('username', username)
+    formData.append('email', email)
+    formData.append('password', password)
+    formData.append('password_confirmation', password_confirmation)
+    return formData
   }
 
   handleText = (text, name) => {
@@ -55,12 +87,68 @@ class SignUpPage extends Component {
     })
   }
 
+  handlePhoto = (uri) => {
+    console.log(uri)
+    this.setState(prevState => {
+      return {
+        user: {
+          ...prevState.user,
+          avatar: uri
+        }
+      }
+    })
+  }
+
+  addPhoto = async () => {
+    const options = {
+      allowsEditing: true
+    }
+
+    let permission = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL)
+    console.log(status)
+    if (status === 'granted') {
+      let result = await ImagePicker.launchImageLibraryAsync(options)
+      console.log(result)
+      if (result.uri) return this.handlePhoto(result.uri)
+    }
+    // this.handlePhoto(result)
+    // console.log(ImagePicker)
+
+    // ImagePicker.showImagePicker(options, this.handlePhoto)
+    // ImagePickerIOS.openSelectDialog({},this.handlePhoto, this.cancelPhoto)
+    // ImagePickerIOS.canUseCamera(this.handlePhoto)
+  }
+
   renderSignUp = () => {
     const { username, password, password_confirmation, email } = this.state.user
+    const { errors } = this.state
 
     return (
-      <View >
-        <Text style={ AppStyle.header }>LOGIN</Text>
+      <View style={AppStyle.signUpPage}>
+        <TouchableHighlight
+          onPress={this.addPhoto}
+          underlayColor='transparent'
+        >
+        {this.state.user.avatar !== '' ?
+          <Image
+            source={{uri: this.state.user.avatar }}
+            style={AppStyle.imageUpload} /> :
+          <Image
+            source={{uri: 'http://pluspng.com/img-png/free-png-plus-sign-download-512.png' }}
+            style={AppStyle.imageUpload} />
+        }
+        </TouchableHighlight>
+
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text style={ AppStyle.header }>Sign Up or </Text>
+          <TouchableHighlight
+            onPress={this.props.handlePress}
+            underlayColor='transparent'
+          ><Text style={ AppStyle.link }>Login</Text>
+          </TouchableHighlight>
+        </View>
+        {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
           label="Username"
           name="username"
@@ -74,7 +162,7 @@ class SignUpPage extends Component {
           label="Email"
           name="email"
           type="emailAddress"
-          icon="ios-person"
+          icon="ios-send"
           handleText={this.handleText}
           value={email}
           placeholder='Enter your email...' />
@@ -100,9 +188,11 @@ class SignUpPage extends Component {
         <TouchableHighlight
           style={AppStyle.button}
           onPress={this.handlePress}
+          underlayColor='transparent'
         >
         <Text> Sign Up </Text>
         </TouchableHighlight>
+
       </View>
     )
   }

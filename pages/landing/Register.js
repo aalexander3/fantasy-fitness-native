@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, TouchableHighlight, Text } from 'react-native'
 
 import LoginPage from './LoginPage'
 import SignUpPage from './SignUpPage'
+import { AppStyle } from '../../styles/AppStyle'
 
 
 class Register extends Component {
   state = {
-    signUp: false
+    signUp: true
   }
 
   handlePress = () => {
-    console.log('clicked')
+    this.setState(prevState => {
+      return {
+        signUp: !prevState.signUp
+      }
+    })
   }
 
   render(){

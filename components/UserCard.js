@@ -49,13 +49,13 @@ class UserCard extends Component {
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 275]})
     const opacity = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
-
+    console.log(avatar)
     return (
       <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
         <View style={HomeStyle.userCard} >
-          <Image
-            source={{uri: avatar }}
-            style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
+        <Image
+          source={{uri: avatar }}
+          style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
           <Text style={ AppStyle.header }>
             { `${first_name} ${last_name}` }
           </Text>

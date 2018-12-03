@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage } from 'react-native'
+import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
@@ -64,8 +64,20 @@ class LoginPage extends Component {
     const { signUp, username, password, user, errors } = this.state
 
     return (
-      <View >
-        <Text style={ AppStyle.header }>LOGIN</Text>
+      <View style={ AppStyle.signUpPage }>
+        <Image
+          source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt9wJpJ_lzaO39aKPvLnJiT7oS9RueUTUzxIRr7F7BKb2mbZC8' }}
+          style={ AppStyle.imageUpload } />
+
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text style={ AppStyle.header }>Login or </Text>
+          <TouchableHighlight
+            onPress={this.props.handlePress}
+            underlayColor='transparent'
+          >
+            <Text style={ AppStyle.link }>Sign Up</Text>
+          </TouchableHighlight>
+        </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
           label="Username"
