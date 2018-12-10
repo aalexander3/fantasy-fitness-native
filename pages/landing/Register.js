@@ -7,7 +7,7 @@ import SignUpPage from './SignUpPage'
 
 class Register extends Component {
   state = {
-    signUp: true
+    signUp: false
   }
 
   handlePress = () => {

@@ -22,6 +22,7 @@ class LoginPage extends Component {
   }
 
   _storeData = async (token) => {
+    console.log("token", token)
     try {
       await AsyncStorage.setItem('token', token)
     } catch (error) {
