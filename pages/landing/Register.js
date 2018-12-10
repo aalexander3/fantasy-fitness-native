@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 
 import LoginPage from './LoginPage'
 import SignUpPage from './SignUpPage'
@@ -7,11 +6,10 @@ import SignUpPage from './SignUpPage'
 
 class Register extends Component {
   state = {
-    signUp: false
+    signUp: true
   }
 
   handlePress = () => {
-    console.log('clicked')
   }
 
   render(){

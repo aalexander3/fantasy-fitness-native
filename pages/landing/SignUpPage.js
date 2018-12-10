@@ -60,7 +60,7 @@ class SignUpPage extends Component {
 
     return (
       <View >
-        <Text style={ AppStyle.header }>SIGN UP</Text>
+        <Text style={ AppStyle.header }>LOGIN</Text>
         <InputWithLabel
           label="Username"
           name="username"

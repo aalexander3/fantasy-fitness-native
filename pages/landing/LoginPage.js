@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
