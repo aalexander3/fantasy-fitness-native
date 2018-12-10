@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing } from 'react-native'
+import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../styles/AppStyle';
 import { HomeStyle } from '../styles/HomeStyle';
 import { connect } from 'react-redux'
+import { setTeam } from '../actions/teamActions'
 
 class TeamCard extends Component {
 
@@ -25,7 +26,7 @@ class TeamCard extends Component {
     this.state.profileY,
       {
         toValue: 1,
-        duration: 300,
+        duration: 200,
         easing: Easing.linear
       }
     ).start()
@@ -36,10 +37,16 @@ class TeamCard extends Component {
       this.state.profileY,
         {
           toValue: 0,
-          duration: 300,
+          duration: 50,
           easing: Easing.linear
         }
       ).start(this.props.afterAnimation)
+  }
+
+  goToTeam = () => {
+    // switch to the team page & dispatch state of selected team w/ team id
+    this.props.setTeam(this.props.team)
+    this.props.navigation.navigate('Team')
   }
 
   render(){
@@ -50,14 +57,16 @@ class TeamCard extends Component {
     const opacity = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
 
     return (
-      <Animated.View style={{ opacity }} >
+      <Animated.View style={{ opacity, height }} >
         <View style={ HomeStyle.teamCard } >
           <Image
             source={{uri: image_url }}
             style={ AppStyle.avatar } />
-          <Text style={ AppStyle.header }>
-            { name }
-          </Text>
+          <TouchableHighlight
+            onPress={this.goToTeam}
+            underlayColor='transparent' >
+            <Text style={AppStyle.header}>{name}</Text>
+          </TouchableHighlight>
           <Text>{ motto }</Text>
         </View>
       </Animated.View>
@@ -65,4 +74,4 @@ class TeamCard extends Component {
   }
 }
 
-export default TeamCard
+export default connect(null, { setTeam })(TeamCard)

@@ -6,7 +6,7 @@ import { HomeStyle } from '../styles/HomeStyle';
 class TeamAvatar extends Component {
 
   render(){
-    const { name, motto, image_url, league_id } = this.props.team
+    const { image_url } = this.props
     return (
       <View style={ HomeStyle.teamAvatar } >
         <Image

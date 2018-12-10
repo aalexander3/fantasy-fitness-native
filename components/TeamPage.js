@@ -6,16 +6,17 @@ import { connect } from 'react-redux'
 class TeamPage extends Component {
 
   render(){
+    console.log(this.props.team)
     return (
       <View>
-        <Text>TEAM</Text>
+        <Text>{this.props.team.name}</Text>
       </View>
     )
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return { team: state.team }
 }
 
 export default connect(mapStateToProps)(TeamPage)

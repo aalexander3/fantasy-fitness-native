@@ -1,58 +1,32 @@
 import React, { Component } from 'react'
 import { View, Text, Animated, Easing, Image  } from 'react-native'
 import { HomeStyle } from '../styles/HomeStyle';
+import { AppStyle } from '../styles/AppStyle';
 import { connect } from 'react-redux'
+import RootAdapter from '../adapters/RootAdapter'
+import { setLeague } from '../actions/leagueActions'
 
 class LeaguePage extends Component {
 
-  state = {
-    spinValue: new Animated.Value(0)
-  }
-
-  // constructor() {
-  //   super()
-  //   this.spinValue = new Animated.Value(0)
-  // }
-
-
   componentDidMount(){
-    this.spin()
+    // const league_id = this.props.team.league_id
+    // const { LeagueAdapter } = RootAdapter
+    // LeagueAdapter.show(league_id).then(this.props.setLeague)
   }
-
-  spin = () => {
-    this.setState({spinValue: new Animated.Value(0)}, () => {
-      Animated.timing(
-        this.state.spinValue,
-        {
-          toValue: 1,
-          duration: 2000,
-          easing: Easing.linear
-        }
-      ).start(this.spin)
-    })
-  }
-  //
-  // nextSpin = () => {
-  //   this.setState({spinValue: new Animated.Value(0)}, this.spin)
-  // }
 
   render(){
-    const spin = this.state.spinValue.interpolate({
-      inputRange: [0,1],
-      outputRange: ['0deg', '360deg']
-    })
-
+    const { name, image_url, description, number_of_teams } = this.props.league
     return (
-      <View style={HomeStyle.profile}>
-        <View style={HomeStyle.firstLayer}>
-        <Text >LEAGUE</Text>
-        <Animated.Image
-          style={{
-            width: 227,
-            height: 200,
-            transform: [{rotate: spin}] }}
-            source={{uri: 'https://s3.amazonaws.com/media-p.slid.es/uploads/alexanderfarennikov/images/1198519/reactjs.png'}}
-        />
+      <View style={ HomeStyle.profile } >
+        <View style={ HomeStyle.firstLayer } >
+          <View style={HomeStyle.userCard} >
+            <Text style={ AppStyle.header } >{name}</Text>
+            <Text style={ AppStyle.header } >{description}</Text>
+            <Image
+              source={{uri: image_url }}
+              style={ AppStyle.avatar } />
+            />
+          </View>
         </View>
       </View>
     )
@@ -60,7 +34,10 @@ class LeaguePage extends Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    team: state.team,
+    league: state.league
+   }
 }
 
-export default connect(mapStateToProps)(LeaguePage)
+export default connect(mapStateToProps, { setLeague })(LeaguePage)

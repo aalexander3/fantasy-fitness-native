@@ -4,6 +4,7 @@ import PackAdapter from './PackAdapter'
 import TeamAdapter from './TeamAdapter'
 import UserAdapter from './UserAdapter'
 import WorkoutAdapter from './WorkoutAdapter'
+import SessionAdapter from './SessionAdapter'
 
 const RootAdapter = {
   CompletionAdapter,
@@ -11,7 +12,8 @@ const RootAdapter = {
   PackAdapter,
   TeamAdapter,
   UserAdapter,
-  WorkoutAdapter
+  WorkoutAdapter,
+  SessionAdapter
 }
 
 export default RootAdapter
