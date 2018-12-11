@@ -6,9 +6,9 @@ import SignUpPage from './SignUpPage'
 import { AppStyle } from '../../styles/AppStyle'
 
 
-class Register extends Component {
+class SignInOrUp extends Component {
   state = {
-    signUp: true
+    signUp: false
   }
 
   handlePress = () => {
@@ -30,4 +30,4 @@ class Register extends Component {
 
 }
 
-export default Register
+export default SignInOrUp

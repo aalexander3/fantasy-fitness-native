@@ -1,4 +1,4 @@
-import { SET_TEAM } from '../actions/actionTypes'
+import { SET_TEAM, SET_USER} from '../actions/actionTypes'
 
 const teamState = {}
 
