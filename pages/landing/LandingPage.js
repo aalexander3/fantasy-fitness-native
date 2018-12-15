@@ -8,7 +8,10 @@ import Register from './Register'
 import HomePage from '../../components/HomePage'
 import RootAdapter from '../../adapters/RootAdapter'
 
-import { setUser } from '../../actions/userActions'
+// import { setUser } from '../../actions/userActions'
+import { initialState } from '../../actions/sessionActions'
+
+// import { initSetTeams } from '../../actions/teamActions'
 import { signIn } from '../../actions/sessionActions'
 
 class LandingPage extends Component {
@@ -22,7 +25,7 @@ class LandingPage extends Component {
       let token = await AsyncStorage.getItem('token')
       if (token){
         let user = await SessionAdapter.reauth(token)
-          this.props.setUser(user.user)
+          this.props.initialState(user.user.data)
           this.props.signIn()
       }
       // send reauth request
@@ -33,12 +36,14 @@ class LandingPage extends Component {
   }
 
   renderHelper = () => {
+    console.log("render");
     const { logged_in } = this.props
     return logged_in ? <Stack /> : <Register />
     // return <Register />
   }
 
   render(){
+    console.log('USERRR', this.props.user);
     return this.renderHelper()
   }
 }
@@ -47,4 +52,4 @@ const mapStateToProps = state => {
   return { logged_in: state.session.logged_in }
 }
 
-export default connect(mapStateToProps, { setUser, signIn })(LandingPage)
+export default connect(mapStateToProps, { initialState, signIn})(LandingPage)

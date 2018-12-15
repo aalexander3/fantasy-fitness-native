@@ -32,10 +32,6 @@ class TeamPage extends Component {
   }
 
   changeDisplay = newDisplay => {
-    // what pieces need to be animated??
-    // when do they need to change?
-    // in what order of events does this need to happen?
-    // change to begin animations ==> In/Out ==> setState of display
     this.setState({ nextDisplay: newDisplay })
   }
 
@@ -46,8 +42,8 @@ class TeamPage extends Component {
 
 
   renderCurrentTeam = () => {
-    const { teams } = this.props.user.attributes
-    const { name, motto, image_url } = teams[0]
+    const { team } = this.props
+    const { name, motto, image_url } = team.currentTeam
     const { display } = this.state
     // const fullName = `${first_name} ${last_name}`
 
@@ -66,23 +62,23 @@ class TeamPage extends Component {
             </View>
           </TouchableHighlight>)
     } else {
-      return <CurrentTeamCard team={ teams[0] } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation }/>
+      return <CurrentTeamCard team={ team.currentTeam } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation }/>
     }
   }
 
   renderTeams = () => {
-    const { teams } = this.props.user.attributes
+    const { allTeams } = this.props.team
     const { display } = this.state
 
     if (display === 'TEAMS'){
-      const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+      const teamCards = allTeams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teamCards}
         </ScrollView>
       )
     } else {
-      const teamCards = teams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
+      const teamCards = allTeams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {teamCards}
@@ -93,7 +89,7 @@ class TeamPage extends Component {
 
   renderTeammates = () => {
     //hard coded for first team ---- need to set a current team
-    const { teammates } = this.props.user.attributes.teams[0]
+    const { teammates } = this.props.team.currentTeam
     const { display } = this.state
 
     if (display === 'TEAMMATES'){

@@ -8,6 +8,7 @@ import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 
 import { setUser } from '../../actions/userActions'
+import { setTeam } from '../../actions/teamActions'
 import { signIn } from '../../actions/sessionActions'
 
 class LoginPage extends Component {
@@ -51,6 +52,7 @@ class LoginPage extends Component {
         // find a way to global save with the session Reducer
         this._storeData(data.jwt)
         this.props.setUser(data.user)
+        this.props.setTeam(data.user)
         this.props.signIn()
       })
       .catch(this.renderErrors)
@@ -104,4 +106,4 @@ class LoginPage extends Component {
 }
 
 
-export default connect(null, { signIn, setUser })(LoginPage)
+export default connect(null, { signIn, setUser, setTeam })(LoginPage)

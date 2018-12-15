@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://10.39.108.161:3000/api/v1/'
+export const BASE_URL = 'http://10.54.110.148:3000/api/v1/'
 
 export const config = (method, body=nil) => {
   return {

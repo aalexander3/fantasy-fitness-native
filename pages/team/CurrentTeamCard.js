@@ -45,7 +45,8 @@ class CurrentTeamCard extends Component {
   }
 
   render(){
-    const { name, motto, image_url } = this.props.team
+    console.log('TEAM CARD', this.props);
+    const { name, motto, image_url, league } = this.props.team
 
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 275]})
@@ -61,6 +62,7 @@ class CurrentTeamCard extends Component {
             { name }
           </Text>
           <Text>{ motto }</Text>
+          <Text>League: { league.name }</Text>
         </View>
       </Animated.View >
     )
