@@ -5,7 +5,6 @@ import SignUpPage from './SignUpPage'
 
 
 class SignInOrUp extends Component {
-  // 
   state = {
     signUp: false
   }

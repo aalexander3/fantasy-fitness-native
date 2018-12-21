@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
@@ -12,7 +13,6 @@ import { setTeam } from '../../actions/teamActions'
 import { signIn } from '../../actions/sessionActions'
 
 class LoginPage extends Component {
-  // 
 
   state = {
     user: {
