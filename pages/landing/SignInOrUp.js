@@ -10,6 +10,11 @@ class SignInOrUp extends Component {
   }
 
   handlePress = () => {
+    this.setState(prevState => {
+      return {
+        signUp: !prevState.signUp
+      }
+    })
   }
 
   render(){
