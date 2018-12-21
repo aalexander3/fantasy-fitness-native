@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Button, Image, ScrollView, TouchableHighlight, Animated, Easing } from 'react-native'
 import { AppStyle } from '../styles/AppStyle'
 import { HomeStyle } from '../styles/HomeStyle'
+import { ScrollStyle } from '../styles/ScrollStyle'
 import { connect } from 'react-redux'
 import { setUser } from '../actions/userActions'
 import { setTeam } from '../actions/teamActions'
@@ -17,15 +18,6 @@ class HomePage extends Component {
   state = {
     display: 'PROFILE',
     nextDisplay: 'PROFILE'
-  }
-
-  componentDidMount(){
-    console.log('hi from home page')
-    // changing where things are getting loaded to a few levels up. Login only happens above!
-    // const { UserAdapter } = RootAdapter
-    // UserAdapter.show(7).then((user) => {
-    //   this.props.setTeam(user.data.attributes.teams[0])
-    // })
   }
 
   changeDisplay = newDisplay => {
@@ -72,14 +64,14 @@ class HomePage extends Component {
     if (display === 'TEAMS'){
       const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
-        <ScrollView horizontal style={{padding: 10}} >
+        <ScrollView horizontal style={ScrollStyle.activeScroll} >
           {teamCards}
         </ScrollView>
       )
     } else {
       const teamCards = teams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
       return (
-        <ScrollView horizontal style={{padding: 10}}>
+        <ScrollView horizontal style={ScrollStyle.scrollView}>
           {teamCards}
         </ScrollView>
       )
@@ -96,14 +88,14 @@ class HomePage extends Component {
     if (display === 'WORKOUTS'){
       const workoutCards = completions.map((completion) => <CompletionCard completion={ completion } key={ completion.id } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } />)
       return (
-        <ScrollView horizontal style={{padding: 10}} >
+        <ScrollView horizontal style={ScrollStyle.activeScroll} >
           {workoutCards}
         </ScrollView>
       )
     } else {
       const workoutCards = completions.map((completion) => <TeamAvatar image_url={ completion.workout.image_url } key={ completion.id } />)
       return (
-        <ScrollView horizontal style={{padding: 10}}>
+        <ScrollView horizontal style={ScrollStyle.scrollView}>
           {workoutCards}
         </ScrollView>
       )

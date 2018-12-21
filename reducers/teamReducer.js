@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { SET_INITIAL_STATE, SET_TEAM, INIT_SET_TEAMS } from '../actions/actionTypes'
+=======
+import { SET_TEAM, SET_USER} from '../actions/actionTypes'
+>>>>>>> master
 
 const teamState = {currentTeam: '', allTeams: []}
 

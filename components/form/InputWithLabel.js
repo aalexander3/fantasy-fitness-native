@@ -1,32 +1,46 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, TextInput, Text } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { AppStyle } from '../../styles/AppStyle'
 import { HomeStyle } from '../../styles/HomeStyle'
 
-const InputWithLabel = ({label, icon, handleText, value, placeholder, name, type}) => {
+class InputWithLabel extends Component {
 
-  return (
-    <View>
-      <Text style={ AppStyle.label }>{label}</Text>
-      <View style={ AppStyle.form }>
-        <Ionicons
-          name={icon}
-          transform={[{ rotateX: '45deg' }]}
-          size={30}
-          color={'#424242'} />
-        <TextInput
-          style={ AppStyle.input }
-          onChangeText={(text)=>handleText(text, name)}
-          value={value}
-          placeholder={placeholder}
-          textContentType={type}
-          autoCapitalize='none'
-          secureTextEntry={type==="password"}
-        />
+  state = {
+    focused: false
+  }
+
+  handleFocus = (e) => {
+    this.setState({focused: true})
+  }
+
+  render(){
+    const {label, icon, handleText, value, placeholder, name, type} = this.props
+    const { focused } = this.state
+
+    return (
+      <View>
+        <Text style={ AppStyle.label }>{label}</Text>
+        <View style={ focused ? AppStyle.form : AppStyle.focusedForm }>
+          <Ionicons
+            name={icon}
+            transform={[{ rotateX: '45deg' }]}
+            size={30}
+            color={'#424242'} />
+          <TextInput
+            style={ AppStyle.input }
+            onChangeText={(text) => handleText(text, name)}
+            value={value}
+            placeholder={placeholder}
+            textContentType={type}
+            autoCapitalize='none'
+            secureTextEntry={type==="password"}
+            onFocus={this.handleFocus}
+          />
+        </View>
       </View>
-    </View>
-  )
+    )
+  }
 }
 
 export default InputWithLabel

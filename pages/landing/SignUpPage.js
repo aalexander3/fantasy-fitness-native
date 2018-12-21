@@ -12,6 +12,7 @@ import { setUser } from '../../actions/userActions'
 import { signIn } from '../../actions/sessionActions'
 
 class SignUpPage extends Component {
+  // 
 
   state = {
     user: {

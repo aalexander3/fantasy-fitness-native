@@ -12,6 +12,7 @@ import { setTeam } from '../../actions/teamActions'
 import { signIn } from '../../actions/sessionActions'
 
 class LoginPage extends Component {
+  // 
 
   state = {
     user: {
