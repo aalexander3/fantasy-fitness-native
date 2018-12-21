@@ -28,6 +28,7 @@ class LandingPage extends Component {
       }
       // send reauth request
       // store.dispatch login action
+      // 
     } catch (error) {
 
     }
