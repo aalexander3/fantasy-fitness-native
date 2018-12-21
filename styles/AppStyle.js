@@ -39,6 +39,16 @@ export const AppStyle = StyleSheet.create({
     width: 300,
     margin: 10,
   },
+  focusedForm: {
+    display: 'flex',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+    paddingBottom: 5,
+    height: 40,
+    width: 300,
+    margin: 10,
+  },
   label: {
     fontSize: 14,
     paddingLeft: 10,

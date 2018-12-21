@@ -1,8 +1,8 @@
-export const BASE_URL = 'http://10.54.110.148:3000/api/v1/'
+export const BASE_URL = 'http://10.39.109.228:3000/api/v1/'
 
 export const config = (method, body=nil) => {
   return {
-    method: method,
+    method,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
