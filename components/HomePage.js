@@ -4,10 +4,7 @@ import { AppStyle } from '../styles/AppStyle'
 import { HomeStyle } from '../styles/HomeStyle'
 import { ScrollStyle } from '../styles/ScrollStyle'
 import { connect } from 'react-redux'
-import { setUser } from '../actions/userActions'
-import { setTeam } from '../actions/teamActions'
 
-import RootAdapter from '../adapters/RootAdapter'
 import UserCard from './UserCard'
 import TeamCard from './TeamCard'
 import CompletionCard from './CompletionCard'
@@ -136,4 +133,4 @@ const mapStateToProps = state => {
   return { user: state.user }
 }
 
-export default connect(mapStateToProps, { setUser, setTeam })(HomePage)
+export default connect(mapStateToProps)(HomePage)

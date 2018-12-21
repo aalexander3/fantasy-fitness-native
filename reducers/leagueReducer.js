@@ -5,12 +5,14 @@ const leagueState = {currentLeague: {}, allLeagues: []}
 export const leagueReducer = (state = leagueState, action) => {
   switch (action.type) {
     case SET_INITIAL_STATE:
-        return {...state,
-          currentLeague: action.payload.attributes.leagues[0],
-          allLeagues: action.payload.attributes.leagues
-        }
+      return {...state,
+        currentLeague: action.payload.attributes.leagues[0],
+        allLeagues: action.payload.attributes.leagues
+      }
     case SET_LEAGUE:
-      return action.payload
+      return {...state,
+        currentLeague: action.payload
+      }
     default:
       return state
   }
