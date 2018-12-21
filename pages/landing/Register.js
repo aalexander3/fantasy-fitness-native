@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { View, TouchableHighlight, Text } from 'react-native'
-
+import { View } from 'react-native'
 import LoginPage from './LoginPage'
 import SignUpPage from './SignUpPage'
-import { AppStyle } from '../../styles/AppStyle'
 
 
 class Register extends Component {
@@ -12,11 +10,6 @@ class Register extends Component {
   }
 
   handlePress = () => {
-    this.setState(prevState => {
-      return {
-        signUp: !prevState.signUp
-      }
-    })
   }
 
   render(){

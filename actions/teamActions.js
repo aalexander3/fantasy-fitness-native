@@ -1,9 +1,18 @@
-import { SET_TEAM } from './actionTypes'
+import { INIT_SET_TEAMS, SET_TEAM } from './actionTypes'
 
-export const setTeam = (team) => {
-  console.log(team)
+export const setTeam = (teams) => {
+  // debugger
+  // console.log('TEAM', team);
   return {
     type: SET_TEAM,
-    payload: team
+    payload: teams
+  }
+}
+
+export const initSetTeams = (teams) => {
+  // debugger
+  return {
+    type: INIT_SET_TEAMS,
+    payload: teams
   }
 }

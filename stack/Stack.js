@@ -5,7 +5,7 @@ import { StackStyle } from '../styles/StackStyle'
 // import{ Animated } from 'react-native'
 
 import HomePage from '../components/HomePage'
-import TeamPage from '../components/TeamPage'
+import TeamPage from '../pages/team/TeamPage'
 import LeaguePage from '../components/LeaguePage'
 import WorkoutsPage from '../components/WorkoutsPage'
 

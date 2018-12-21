@@ -1,9 +1,11 @@
-import { SET_USER, UPDATE_USER_COMPLETION } from '../actions/actionTypes'
+import { SET_INITIAL_STATE, SET_USER, UPDATE_USER_COMPLETION } from '../actions/actionTypes'
 
 const userState = {}
 
 export const userReducer = (state = userState, action) => {
   switch (action.type) {
+    case SET_INITIAL_STATE:
+      return action.payload
     case SET_USER:
       return action.payload
     case UPDATE_USER_COMPLETION:
