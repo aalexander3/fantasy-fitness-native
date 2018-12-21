@@ -20,17 +20,6 @@ class TeamPage extends Component {
     nextDisplay: 'TEAM'
   }
 
-  componentDidMount(){
-    console.log('hi from team page')
-
-    // const { TeamAdapter } = RootAdapter
-    // const userId = this.props.user.id
-    // TeamAdapter.index(userId).then(console.log)
-      // (user) => {
-    //   this.props.setTeam(user.data.attributes.teams[0])
-    // })
-  }
-
   changeDisplay = newDisplay => {
     this.setState({ nextDisplay: newDisplay })
   }
@@ -38,8 +27,6 @@ class TeamPage extends Component {
   afterAnimation = () => {
     this.setState({ display: this.state.nextDisplay })
   }
-
-
 
   renderCurrentTeam = () => {
     const { team } = this.props
@@ -88,7 +75,6 @@ class TeamPage extends Component {
   }
 
   renderTeammates = () => {
-    //hard coded for first team ---- need to set a current team
     const { teammates } = this.props.team.currentTeam
     const { display } = this.state
 
@@ -111,6 +97,7 @@ class TeamPage extends Component {
 
 
   // renderCompletions = () => {
+  // this could come in handy soon
   //   const { completions } = this.props.user.attributes
   //   const { display } = this.state
   //

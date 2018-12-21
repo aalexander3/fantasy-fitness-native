@@ -8,11 +8,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 
-import { setUser } from '../../actions/userActions'
-import { signIn } from '../../actions/sessionActions'
+// import { setUser } from '../../actions/userActions'
+import { signIn, setInitialState } from '../../actions/sessionActions'
 
 class LoginPage extends Component {
-  //
 
   state = {
     user: {
@@ -47,11 +46,11 @@ class LoginPage extends Component {
     // if sign up ==> take state and submit a users create request
      // on sucessful login ==> save encoded jwt into AsyncStorage
     SessionAdapter.login(this.state.user)
-      .then(data => {
-        if (data.message) throw Error(data.message)
+      .then(json => {
+        if (json.message) throw Error(json.message)
         // find a way to global save with the session Reducer
-        this._storeData(data.jwt)
-        this.props.setUser(data.user)
+        this._storeData(json.jwt)
+        this.props.setInitialState(json.user.data) // double check this when we have log out function
         this.props.signIn()
       })
       .catch(this.renderErrors)
@@ -117,4 +116,4 @@ class LoginPage extends Component {
 }
 
 
-export default connect(null, { signIn, setUser })(LoginPage)
+export default connect(null, { signIn, setInitialState })(LoginPage)

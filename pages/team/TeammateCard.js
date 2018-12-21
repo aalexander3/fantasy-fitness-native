@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle';
 import { HomeStyle } from '../../styles/HomeStyle';
-import { connect } from 'react-redux'
 
-//change /remove from here
-import { setTeam } from '../../actions/teamActions'
 
 class TeammateCard extends Component {
 
@@ -45,14 +42,7 @@ class TeammateCard extends Component {
       ).start(this.props.afterAnimation)
   }
 
-  // goToTeam = () => {
-  //   // switch to the team page & dispatch state of selected team w/ team id
-  //   this.props.setTeam(this.props.team)
-  //   this.props.navigation.navigate('Team')
-  // }
-
   render(){
-    // const { name, motto, image_url, league_id, } = this.props.team
     const { username, bio, avatar, tagline, } = this.props.teammate
 
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
@@ -77,4 +67,4 @@ class TeammateCard extends Component {
   }
 }
 
-export default connect(null, { setTeam })(TeammateCard)
+export default TeammateCard

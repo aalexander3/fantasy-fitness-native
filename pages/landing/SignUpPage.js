@@ -9,11 +9,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 
-import { setUser } from '../../actions/userActions'
-import { signIn } from '../../actions/sessionActions'
+import { signIn, setInitialState } from '../../actions/sessionActions'
 
 class SignUpPage extends Component {
-  //
 
   state = {
     user: {
@@ -51,10 +49,9 @@ class SignUpPage extends Component {
           throw Error(data.message)
         } else {
             this._storeData(data.jwt)
-            this.props.setUser(data.user)
+            this.props.setInitialState(data.user.data) // assuming this is still the same data
             this.props.signIn()
         }
-        // find a way to global save with the session Reducer
       })
       .catch(err => this.renderErrors(err))
   }
@@ -89,7 +86,6 @@ class SignUpPage extends Component {
   }
 
   handlePhoto = (uri) => {
-    console.log(uri)
     this.setState(prevState => {
       return {
         user: {
@@ -113,12 +109,6 @@ class SignUpPage extends Component {
       console.log(result)
       if (result.uri) return this.handlePhoto(result.uri)
     }
-    // this.handlePhoto(result)
-    // console.log(ImagePicker)
-
-    // ImagePicker.showImagePicker(options, this.handlePhoto)
-    // ImagePickerIOS.openSelectDialog({},this.handlePhoto, this.cancelPhoto)
-    // ImagePickerIOS.canUseCamera(this.handlePhoto)
   }
 
   renderSignUp = () => {
@@ -208,4 +198,4 @@ class SignUpPage extends Component {
 }
 
 
-export default connect(null, { signIn, setUser })(SignUpPage)
+export default connect(null, { signIn, setInitialState })(SignUpPage)

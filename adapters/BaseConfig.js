@@ -22,4 +22,15 @@ export const configWithAuth = (token) => {
   }
 }
 
+export const configWithMultiPart = (data) => {
+  return {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'multipart/form-data'
+    },
+    method: 'POST',
+    body: data
+  }
+}
+
 export const jsonify = (res) => res.json()

@@ -1,15 +1,4 @@
-import {config, BASE_URL, jsonify} from './BaseConfig'
-
-const configWithMultiPart = (data) => {
-  return {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data'
-    },
-    method: 'POST',
-    body: data
-  }
-}
+import {config, BASE_URL, jsonify, configWithMultiPart} from './BaseConfig'
 
 const UserAdapter = {
   index: () => fetch(`${BASE_URL}users`).then(jsonify),
