@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
@@ -9,10 +9,10 @@ import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 
 import { setUser } from '../../actions/userActions'
-import { setTeam } from '../../actions/teamActions'
 import { signIn } from '../../actions/sessionActions'
 
 class LoginPage extends Component {
+  //
 
   state = {
     user: {
@@ -23,7 +23,6 @@ class LoginPage extends Component {
   }
 
   _storeData = async (token) => {
-    console.log("token", token)
     try {
       await AsyncStorage.setItem('token', token)
     } catch (error) {
@@ -53,7 +52,6 @@ class LoginPage extends Component {
         // find a way to global save with the session Reducer
         this._storeData(data.jwt)
         this.props.setUser(data.user)
-        this.props.setTeam(data.user)
         this.props.signIn()
       })
       .catch(this.renderErrors)
@@ -67,8 +65,20 @@ class LoginPage extends Component {
     const { signUp, username, password, user, errors } = this.state
 
     return (
-      <View >
-        <Text style={ AppStyle.header }>LOGIN</Text>
+      <View style={ AppStyle.signUpPage }>
+        <Image
+          source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt9wJpJ_lzaO39aKPvLnJiT7oS9RueUTUzxIRr7F7BKb2mbZC8' }}
+          style={ AppStyle.imageUpload } />
+
+        <View style={{display: 'flex', flexDirection: 'row'}}>
+          <Text style={ AppStyle.header }>Login or </Text>
+          <TouchableHighlight
+            onPress={this.props.handlePress}
+            underlayColor='transparent'
+          >
+            <Text style={ AppStyle.link }>Sign Up</Text>
+          </TouchableHighlight>
+        </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
           label="Username"
@@ -107,4 +117,4 @@ class LoginPage extends Component {
 }
 
 
-export default connect(null, { signIn, setUser, setTeam })(LoginPage)
+export default connect(null, { signIn, setUser })(LoginPage)
