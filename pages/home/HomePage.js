@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, ScrollView, TouchableHighlight, Animated, Easing } from 'react-native'
-import { AppStyle } from '../styles/AppStyle'
-import { HomeStyle } from '../styles/HomeStyle'
-import { ScrollStyle } from '../styles/ScrollStyle'
+import { View, Text, Button, Image, ScrollView, TouchableHighlight } from 'react-native'
+import { AppStyle } from '../../styles/AppStyle'
+import { HomeStyle } from '../../styles/HomeStyle'
+import { ScrollStyle } from '../../styles/ScrollStyle'
 import { connect } from 'react-redux'
 
-import UserCard from './UserCard'
-import TeamCard from './TeamCard'
-import CompletionCard from './CompletionCard'
-import TeamAvatar from './TeamAvatar'
+import UserCard from '../../components/UserCard'
+import TeamCard from '../../components/TeamCard'
+import CompletionCard from '../../components/CompletionCard'
+
+import SmallSquareCard from '../../components/cards/SmallSquareCard'
+import HeaderWithAvatar from '../../components/headers/HeaderWithAvatar'
+import Header from '../../components/headers/Header'
+
 
 class HomePage extends Component {
 
@@ -40,14 +44,7 @@ class HomePage extends Component {
           <TouchableHighlight
             onPress={()=>this.changeDisplay('PROFILE')}
             underlayColor='transparent' >
-            <View style={{display: 'flex', flexDirection: "row", alignItems: 'center' }}>
-              <Image
-                source={{uri: avatar }}
-                style={[AppStyle.avatar, { height: 40, width: 40, borderRadius: 20, marginLeft: 10}]} />
-              <Text style={AppStyle.header}>
-              { fullName }
-              </Text>
-            </View>
+            <HeaderWithAvatar avatar={avatar} text={fullName}/>
           </TouchableHighlight>)
     } else {
       return <UserCard user={ user } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation }/>
@@ -66,7 +63,7 @@ class HomePage extends Component {
         </ScrollView>
       )
     } else {
-      const teamCards = teams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
+      const teamCards = teams.map(team => <SmallSquareCard image_url={ team.image_url } key={ team.name } />)
       return (
         <ScrollView horizontal style={ScrollStyle.scrollView}>
           {teamCards}
@@ -90,7 +87,7 @@ class HomePage extends Component {
         </ScrollView>
       )
     } else {
-      const workoutCards = completions.map((completion) => <TeamAvatar image_url={ completion.workout.image_url } key={ completion.id } />)
+      const workoutCards = completions.map((completion) => <SmallSquareCard image_url={ completion.workout.image_url } key={ completion.id } />)
       return (
         <ScrollView horizontal style={ScrollStyle.scrollView}>
           {workoutCards}
@@ -112,7 +109,7 @@ class HomePage extends Component {
           <TouchableHighlight
             onPress={()=>this.changeDisplay("TEAMS")}
             underlayColor='transparent' >
-            <Text style={AppStyle.header}>My Teams</Text>
+            <Header text="My Teams"/>
           </TouchableHighlight>
           { attributes ? this.renderTeams() : null }
         </View>
@@ -120,7 +117,7 @@ class HomePage extends Component {
           <TouchableHighlight
             onPress={()=>this.changeDisplay("WORKOUTS")}
             underlayColor='transparent' >
-            <Text style={AppStyle.header}>Claimed Workouts</Text>
+            <Header text="Claimed Workouts"/>
           </TouchableHighlight>
           { attributes ? this.renderCompletions() : null }
         </View>
