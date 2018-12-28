@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Button, Image, Animated, Easing } from 'react-native'
+import Header from './headers/Header'
 import { AppStyle } from '../styles/AppStyle';
 import { HomeStyle } from '../styles/HomeStyle';
 import { connect } from 'react-redux'
@@ -20,9 +21,7 @@ class UserCard extends Component {
         <Image
           source={{uri: avatar }}
           style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
-          <Text style={ AppStyle.header }>
-            { `${first_name} ${last_name}` }
-          </Text>
+          <Header text={ `${first_name} ${last_name}` } />
           <Text>{ bio }</Text>
         </View>
       </Animated.View >

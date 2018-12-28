@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text } from 'react-native'
-import { AppStyle } from '../../styles/AppStyle';
+import { HeaderStyles } from '../../styles/HeaderStyles';
 
 
 const Header = ({text}) => {
   return (
-    <Text style={ AppStyle.header }>{text}</Text>
+    <Text style={ HeaderStyles.header }>{text}</Text>
   )
 }
 

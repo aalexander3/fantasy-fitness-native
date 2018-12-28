@@ -12,4 +12,11 @@ export const HeaderStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10,
+  },
 })

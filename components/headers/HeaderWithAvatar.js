@@ -1,7 +1,5 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
-import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
 import { HeaderStyles } from '../../styles/HeaderStyles'
 
 const HeaderWithAvatar = ({ avatar, text }) => {
@@ -11,7 +9,7 @@ const HeaderWithAvatar = ({ avatar, text }) => {
       <Image
         source={{uri: avatar }}
         style={ HeaderStyles.headerAvatar } />
-      <Text style={ AppStyle.header }>
+      <Text style={ HeaderStyles.header }>
         { text }
       </Text>
     </View>
