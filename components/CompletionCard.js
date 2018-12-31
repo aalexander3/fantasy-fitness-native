@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing } from 'react-native'
+import { View, Text, Button, Image, Animated, Easing, AsyncStorage } from 'react-native'
 import IsAnimated from '../HOC/IsAnimated'
 import Header from './headers/Header'
 import { AppStyle } from '../styles/AppStyle';
@@ -10,17 +10,22 @@ import { updateUserCompletion } from '../actions/userActions'
 
 class CompletionCard extends Component {
 
-  updateCompletion = () => {
+  updateCompletion = async () => {
     const { CompletionAdapter } = RootAdapter
     // make a fetch to update the completion from incomplete to complete!
     const id = this.props.completion.id
     const body = {
       completion: {
         completed: !this.props.completion.completed
-        }
+      }
     }
-    CompletionAdapter.update(id, body)
-      .then(completion => this.props.updateUserCompletion(completion))
+
+    let token = await AsyncStorage.getItem('token')
+
+    if (token) {
+      CompletionAdapter.update(id, body, token)
+        .then(completion => this.props.updateUserCompletion(completion))
+    }
   }
 
   render(){
