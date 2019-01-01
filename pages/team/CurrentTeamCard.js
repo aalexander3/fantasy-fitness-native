@@ -4,11 +4,40 @@ import { AppStyle } from '../../styles/AppStyle';
 import { HomeStyle } from '../../styles/HomeStyle';
 import { connect } from 'react-redux'
 
+import { setTeam } from '../../actions/teamActions'
+
+// testing package
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+
+
 
 class CurrentTeamCard extends Component {
 
   state = {
     profileY:  new Animated.Value(0)
+  }
+
+  onSwipeRight(gestureState) {
+    let teams = this.props.team.allTeams
+    let team = this.props.team.currentTeam
+    let teamIndexInTeams = teams.indexOf(team)
+
+    if (teams.length >= teamIndexInTeams + 2){
+      this.props.setTeam(teams[teamIndexInTeams + 1])
+    }else{
+      this.props.setTeam(teams[0])
+    }
+  }
+  onSwipeLeft(gestureState) {
+    let teams = this.props.team.allTeams
+    let team = this.props.team.currentTeam
+    let teamIndexInTeams = teams.indexOf(team)
+
+    if (teamIndexInTeams > 0){
+      this.props.setTeam(teams[teamIndexInTeams - 1])
+    }else{
+      this.props.setTeam(teams[teams.length -1])
+    }
   }
 
   componentDidMount(){
@@ -45,8 +74,9 @@ class CurrentTeamCard extends Component {
   }
 
   render(){
-    console.log('TEAM CARD', this.props);
-    const { name, motto, image_url, league } = this.props.team
+    // console.log('TEAM CARD', this.props);
+    console.log('TEAMYUP', this.props);
+    const { name, motto, image_url, league } = this.props.team.currentTeam
 
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 275]})
@@ -54,19 +84,28 @@ class CurrentTeamCard extends Component {
 
     return (
       <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
-        <View style={HomeStyle.userCard} >
-          <Image
-            source={{uri: image_url }}
-            style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
-          <Text style={ AppStyle.header }>
-            { name }
-          </Text>
-          <Text>{ motto }</Text>
-          <Text>League: { league.name }</Text>
-        </View>
-      </Animated.View >
+        <GestureRecognizer
+          onSwipeRight={(state) => this.onSwipeRight(state)}
+          onSwipeLeft={(state) => this.onSwipeLeft(state)}
+          >
+          <View style={HomeStyle.userCard} >
+            <Image
+              source={{uri: image_url }}
+              style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
+            <Text style={ AppStyle.header }>{ name }</Text>
+            <Text>{ motto }</Text>
+            <Text>League: { league.name }</Text>
+          </View>
+        </GestureRecognizer>
+      </Animated.View>
     )
   }
 }
 
-export default CurrentTeamCard
+const mapStateToProps = state => {
+  return {
+    team: state.team
+  }
+}
+
+export default connect(mapStateToProps, {setTeam})(CurrentTeamCard)
