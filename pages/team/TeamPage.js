@@ -53,19 +53,40 @@ class TeamPage extends Component {
     }
   }
 
-  renderTeams = () => {
-    const { allTeams } = this.props.team
+  // renderTeams = () => {
+  //   const { allTeams } = this.props.team
+  //   const { display } = this.state
+  //
+  //   if (display === 'TEAMS'){
+  //     const teamCards = allTeams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+  //     return (
+  //       <ScrollView horizontal style={{padding: 10}} >
+  //         {teamCards}
+  //       </ScrollView>
+  //     )
+  //   } else {
+  //     const teamCards = allTeams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
+  //     return (
+  //       <ScrollView horizontal style={{padding: 10}}>
+  //         {teamCards}
+  //       </ScrollView>
+  //     )
+  //   }
+  // }
+
+  renderWorkouts = () => {
+    const { league_packs } = this.props.league.currentLeague
     const { display } = this.state
 
-    if (display === 'TEAMS'){
-      const teamCards = allTeams.map(team => <TeamCard team={ team } key={ team.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+    if (display === 'WORKOUTS'){
+      const teamCards = league_packs[0].workouts.map(workout => <TeamCard workout={ workout } key={ workout.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teamCards}
         </ScrollView>
       )
     } else {
-      const teamCards = allTeams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
+      const teamCards = league_packs[0].workouts.map(workout => <TeamAvatar image_url={ workout.image_url } key={ workout.name } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {teamCards}
@@ -133,11 +154,11 @@ class TeamPage extends Component {
         </View>
         <View style={ HomeStyle.secondLayer }>
           <TouchableHighlight
-            onPress={()=>this.changeDisplay("TEAMS")}
+            onPress={()=>this.changeDisplay("WORKOUTS")}
             underlayColor='transparent' >
-            <Text style={AppStyle.header}>My Teams</Text>
+            <Text style={AppStyle.header}>Weekly Workouts</Text>
           </TouchableHighlight>
-          { attributes && this.renderTeams() }
+          { attributes && this.renderWorkouts() }
         </View>
         <View style={ HomeStyle.thirdLayer }>
           <TouchableHighlight
@@ -155,6 +176,7 @@ class TeamPage extends Component {
 const mapStateToProps = state => {
   return {
     team: state.team,
+    league: state.league,
     user: state.user
   }
 }
