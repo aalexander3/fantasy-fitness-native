@@ -74,8 +74,6 @@ class CurrentTeamCard extends Component {
   }
 
   render(){
-    // console.log('TEAM CARD', this.props);
-    console.log('TEAMYUP', this.props);
     const { name, motto, image_url, league } = this.props.team.currentTeam
 
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})

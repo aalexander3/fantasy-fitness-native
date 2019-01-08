@@ -75,18 +75,18 @@ class TeamPage extends Component {
   // }
 
   renderWorkouts = () => {
-    const { league_packs } = this.props.league.currentLeague
+    const { workout_packs } = this.props.league.currentLeague
     const { display } = this.state
 
     if (display === 'WORKOUTS'){
-      const teamCards = league_packs[0].workouts.map(workout => <TeamCard workout={ workout } key={ workout.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+      const teamCards = workout_packs[0].workouts.map(workout => <TeamCard workout={ workout } key={ workout.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teamCards}
         </ScrollView>
       )
     } else {
-      const teamCards = league_packs[0].workouts.map(workout => <TeamAvatar image_url={ workout.image_url } key={ workout.name } />)
+      const teamCards = workout_packs[0].workouts.map(workout => <TeamAvatar image_url={ workout.image_url } key={ workout.name } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {teamCards}

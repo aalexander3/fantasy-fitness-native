@@ -1,4 +1,4 @@
-const workoutState = {all: [], current: null}
+const workoutState = {all: [], packs: [], current: null}
 
 export const workoutReducer = (state = workoutState, action) => {
   switch (action.type) {
