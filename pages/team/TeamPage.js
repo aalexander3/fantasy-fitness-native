@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 //prabably need to changeDisplay
 import UserCard from '../../components/UserCard'
 import TeamAvatar from '../../components/TeamAvatar'
-import TeamCard from '../../components/TeamCard'
+import WorkoutCard from '../workouts/WorkoutCard'
 import CurrentTeamCard from './CurrentTeamCard'
 import TeammateCard from './TeammateCard'
 import RootAdapter from '../../adapters/RootAdapter'
@@ -79,17 +79,17 @@ class TeamPage extends Component {
     const { display } = this.state
 
     if (display === 'WORKOUTS'){
-      const teamCards = workout_packs[0].workouts.map(workout => <TeamCard workout={ workout } key={ workout.name } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+      const workoutCards = workout_packs[0].workouts.map(workout => <WorkoutCard workout={ workout } key={`workout-${workout.id}`} profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
-          {teamCards}
+          {workoutCards}
         </ScrollView>
       )
     } else {
-      const teamCards = workout_packs[0].workouts.map(workout => <TeamAvatar image_url={ workout.image_url } key={ workout.name } />)
+      const workoutCards = workout_packs[0].workouts.map(workout => <TeamAvatar image_url={ workout.image_url } key={`workout-${workout.id}`} />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
-          {teamCards}
+          {workoutCards}
         </ScrollView>
       )
     }
@@ -100,14 +100,14 @@ class TeamPage extends Component {
     const { display } = this.state
 
     if (display === 'TEAMMATES'){
-      const teammatesCard = teammates.map(teammate => <TeammateCard teammate={ teammate } key={ teammate.id } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+      const teammatesCard = teammates.map(teammate => <TeammateCard teammate={ teammate } key={ `teammate-${teammate.id}` } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teammatesCard}
         </ScrollView>
       )
     } else {
-      const teammatesCard = teammates.map(teammate => <TeamAvatar image_url={ teammate.avatar } key={ teammate.id } />)
+      const teammatesCard = teammates.map(teammate => <TeamAvatar image_url={ teammate.avatar } key={ `teammate-${teammate.id}` } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {teammatesCard}

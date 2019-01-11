@@ -7,7 +7,7 @@ import { StackStyle } from '../styles/StackStyle'
 import HomePage from '../components/HomePage'
 import TeamPage from '../pages/team/TeamPage'
 import LeaguePage from '../components/LeaguePage'
-import WorkoutsPage from '../components/WorkoutsPage'
+import WorkoutsPage from '../pages/workouts'
 
 const Stack = createBottomTabNavigator({
     Home: HomePage,

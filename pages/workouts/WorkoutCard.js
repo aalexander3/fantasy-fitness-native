@@ -4,7 +4,7 @@ import { AppStyle } from '../../styles/AppStyle';
 import { HomeStyle } from '../../styles/HomeStyle';
 
 
-class TeammateCard extends Component {
+class WorkoutCard extends Component {
 
   state = {
     profileY:  new Animated.Value(0)
@@ -15,7 +15,7 @@ class TeammateCard extends Component {
   }
 
   componentDidUpdate(prevProps){
-    if (this.props.nextDisplay !== 'TEAMMATES') {
+    if (this.props.nextDisplay !== 'WORKOUTS') {
       this.profileOut()
     }
   }
@@ -43,7 +43,10 @@ class TeammateCard extends Component {
   }
 
   render(){
-    const { username, bio, avatar, tagline, } = this.props.teammate
+    // debugger
+
+    // const { username, bio, avatar, tagline, } = this.props.teammate
+    const { name, category, image_url, description, default_points } = this.props.workout
 
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 300]})
@@ -53,18 +56,19 @@ class TeammateCard extends Component {
       <Animated.View style={{ opacity, height }} >
         <View style={ HomeStyle.teamCard } >
           <Image
-            source={{uri: avatar }}
+            source={{uri: image_url }}
             style={ AppStyle.avatar } />
           <TouchableHighlight
-            onPress={this.goToTeam} // make go to Teammate function?
+            onPress={this.goToTeam} // make go to workout function?
             underlayColor='transparent' >
-            <Text style={AppStyle.header}>{username}</Text>
+            <Text style={AppStyle.header}>Name: {name}</Text>
           </TouchableHighlight>
-          <Text>{ tagline }</Text>
+          <Text>Category: { category }</Text>
+          <Text>Points: { default_points }</Text>
         </View>
       </Animated.View>
     )
   }
 }
 
-export default TeammateCard
+export default WorkoutCard

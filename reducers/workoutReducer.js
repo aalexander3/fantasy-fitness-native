@@ -6,6 +6,8 @@ export const workoutReducer = (state = workoutState, action) => {
       return {...state, all: action.payload}
     case 'SET_WORKOUT':
       return {...state, current: action.payload}
+    case 'SET_WORKOUT_PACKS':
+      return {...state, packs: action.payload}
     default:
       return state
   }
