@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle';
 import { HomeStyle } from '../../styles/HomeStyle';
@@ -18,6 +19,12 @@ class WorkoutCard extends Component {
     if (this.props.nextDisplay !== 'WORKOUTS') {
       this.profileOut()
     }
+  }
+
+  changeCompletionStatus = () => {
+    // debugger
+    // console.log("currentTeam", this.props.currentTeam);
+    console.log('make a Completion?', this.props);
   }
 
   profileIn = () => {
@@ -65,10 +72,19 @@ class WorkoutCard extends Component {
           </TouchableHighlight>
           <Text>Category: { category }</Text>
           <Text>Points: { default_points }</Text>
+          <Button title="TEST" onPress={this.changeCompletionStatus}></Button>
         </View>
       </Animated.View>
     )
   }
 }
 
-export default WorkoutCard
+const mapStateToProps = state => {
+   return {
+     user: state.user,
+     currentTeam: state.team.currentTeam
+   }
+}
+
+
+export default connect(mapStateToProps, null)(WorkoutCard)
