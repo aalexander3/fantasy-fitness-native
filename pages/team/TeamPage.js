@@ -99,15 +99,18 @@ class TeamPage extends Component {
     const { teammates } = this.props.team.currentTeam
     const { display } = this.state
 
+    // temp counter to get rid of duplicat user causing anoying key error message
+    let key_cunter = 0
+
     if (display === 'TEAMMATES'){
-      const teammatesCard = teammates.map(teammate => <TeammateCard teammate={ teammate } key={ `teammate-${teammate.id}` } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
+      const teammatesCard = teammates.map(teammate => <TeammateCard teammate={ teammate } key={ `teammate-${key_cunter++}` } profileY={this.state.profileY} nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation } navigation={this.props.navigation} />)
       return (
         <ScrollView horizontal style={{padding: 10}} >
           {teammatesCard}
         </ScrollView>
       )
     } else {
-      const teammatesCard = teammates.map(teammate => <TeamAvatar image_url={ teammate.avatar } key={ `teammate-${teammate.id}` } />)
+      const teammatesCard = teammates.map(teammate => <TeamAvatar image_url={ teammate.avatar } key={ `teammate-${key_cunter++}` } />)
       return (
         <ScrollView horizontal style={{padding: 10}}>
           {teammatesCard}

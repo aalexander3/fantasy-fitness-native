@@ -43,7 +43,7 @@ class TeammateCard extends Component {
   }
 
   render(){
-    const { username, bio, avatar, tagline, } = this.props.teammate
+    const { username, bio, avatar, tagline, id } = this.props.teammate
 
     const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 300]})
@@ -58,7 +58,7 @@ class TeammateCard extends Component {
           <TouchableHighlight
             onPress={this.goToTeam} // make go to Teammate function?
             underlayColor='transparent' >
-            <Text style={AppStyle.header}>{username}</Text>
+            <Text style={AppStyle.header}>{`${username}`}</Text>
           </TouchableHighlight>
           <Text>{ tagline }</Text>
         </View>
