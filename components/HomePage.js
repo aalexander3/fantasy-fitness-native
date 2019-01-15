@@ -78,7 +78,6 @@ class HomePage extends Component {
   renderCompletions = () => {
     const { completions } = this.props.user.attributes
     const { display } = this.state
-
     // render claimed workouts, with name and icon as a little avatar
     // shows more detail when display is WORKOUTS
 
