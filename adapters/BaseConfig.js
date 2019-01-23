@@ -11,14 +11,15 @@ export const config = (method, body=nil) => {
   }
 }
 
-export const configWithAuth = (token) => {
+export const configWithAuth = (method, token, body) => {
     return {
-      method: "POST",
+      method,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': token
-      }
+      },
+      body: JSON.stringify(body)
   }
 }
 

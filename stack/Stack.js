@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from 'react-navigation'
 import { StackStyle } from '../styles/StackStyle'
 // import{ Animated } from 'react-native'
 
-import HomePage from '../components/HomePage'
+import HomePage from '../pages/home/HomePage'
 import TeamPage from '../pages/team/TeamPage'
-import LeaguePage from '../components/LeaguePage'
-import WorkoutsPage from '../components/WorkoutsPage'
+import LeaguePage from '../pages/league/LeaguePage'
+import WorkoutsPage from '../pages/workouts/WorkoutsPage'
 
 const Stack = createBottomTabNavigator({
     Home: HomePage,
