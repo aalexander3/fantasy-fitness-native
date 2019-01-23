@@ -7,17 +7,19 @@ import Stack from '../../stack/Stack'
 import SignInOrUp from './SignInOrUp'
 import HomePage from '../home/HomePage'
 import RootAdapter from '../../adapters/RootAdapter'
+// import { _getToken, _logout } from '../../actions/asyncActions'
 
 import { setInitialState, signIn } from '../../actions/sessionActions'
 import { setWorkouts, setPacks } from '../../actions/workoutActions'
 
 class LandingPage extends Component {
   componentDidMount(){
+    // this._logout()
     this._getLogin()
   }
 
   _logout = async () => {
-
+    await AsyncStorage.removeItem('token')
   }
 
   _getLogin = async () => {
