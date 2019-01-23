@@ -1,12 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export const AppStyle = StyleSheet.create({
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 10,
-  },
   link: {
     fontSize: 20,
     fontWeight: 'bold',

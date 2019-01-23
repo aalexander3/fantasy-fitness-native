@@ -7,8 +7,8 @@ import { HomeStyle } from '../../styles/HomeStyle'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
+import Header from '../../components/headers/Header'
 
-// import { setUser } from '../../actions/userActions'
 import { signIn, setInitialState } from '../../actions/sessionActions'
 
 class LoginPage extends Component {
@@ -70,7 +70,7 @@ class LoginPage extends Component {
           style={ AppStyle.imageUpload } />
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
-          <Text style={ AppStyle.header }>Login or </Text>
+          <Header text="Login or " />
           <TouchableHighlight
             onPress={this.props.handlePress}
             underlayColor='transparent'

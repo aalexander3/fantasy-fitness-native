@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://10.39.109.228:3000/api/v1/'
+export const BASE_URL = 'http://192.168.1.105:3000/api/v1/'
 
 export const config = (method, body=nil) => {
   return {
@@ -11,14 +11,15 @@ export const config = (method, body=nil) => {
   }
 }
 
-export const configWithAuth = (token) => {
+export const configWithAuth = (method, token, body) => {
     return {
-      method: "POST",
+      method,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': token
-      }
+      },
+      body: JSON.stringify(body)
   }
 }
 
