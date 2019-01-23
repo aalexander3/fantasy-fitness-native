@@ -10,13 +10,18 @@ import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
+import { _getToken, _logout, _saveToken } from '../../actions/asyncActions'
+
 
 class SignUpPage extends Component {
 
   state = {
     user: {
       username: '',
+      first_name: '',
+      last_name: '',
       email: '',
+      bio: '',
       password: '',
       password_confirmation: '',
       avatar: ''
@@ -25,11 +30,7 @@ class SignUpPage extends Component {
   }
 
   _storeData = async (token) => {
-    try {
-      await AsyncStorage.setItem('token', token)
-    } catch (error) {
-
-    }
+    await AsyncStorage.setItem('token', token)
   }
 
   renderErrors = (errors) => {
@@ -57,7 +58,7 @@ class SignUpPage extends Component {
   }
 
   createFormData = () => {
-    const { username, email, password, password_confirmation, avatar } = this.state.user
+    const { username, email, password, password_confirmation, avatar, first_name, last_name, bio } = this.state.user
 
     formData = new FormData()
     if (avatar !== '') {
@@ -68,6 +69,9 @@ class SignUpPage extends Component {
       })
     }
     formData.append('username', username)
+    formData.append('first_name', first_name)
+    formData.append('last_name', last_name)
+    formData.append('bio', bio)
     formData.append('email', email)
     formData.append('password', password)
     formData.append('password_confirmation', password_confirmation)
@@ -103,16 +107,14 @@ class SignUpPage extends Component {
 
     let permission = await Permissions.askAsync(Permissions.CAMERA_ROLL)
     let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL)
-    console.log(status)
     if (status === 'granted') {
       let result = await ImagePicker.launchImageLibraryAsync(options)
-      console.log(result)
       if (result.uri) return this.handlePhoto(result.uri)
     }
   }
 
   renderSignUp = () => {
-    const { username, password, password_confirmation, email } = this.state.user
+    const { username, password, password_confirmation, email, first_name, last_name } = this.state.user
     const { errors } = this.state
 
     return (
@@ -148,6 +150,24 @@ class SignUpPage extends Component {
           handleText={this.handleText}
           value={username}
           placeholder='Enter your username...' />
+
+        <InputWithLabel
+          label="First Name"
+          name="first_name"
+          type="username"
+          icon="ios-person"
+          handleText={this.handleText}
+          value={first_name}
+          placeholder='Enter your first name...' />
+
+        <InputWithLabel
+          label="Last Name"
+          name="last_name"
+          type="username"
+          icon="ios-person"
+          handleText={this.handleText}
+          value={last_name}
+          placeholder='Enter your last name...' />
 
         <InputWithLabel
           label="Email"

@@ -10,6 +10,7 @@ import InputWithLabel from '../../components/form/InputWithLabel'
 
 // import { setUser } from '../../actions/userActions'
 import { signIn, setInitialState } from '../../actions/sessionActions'
+import { _saveToken } from '../../actions/asyncActions'
 
 class LoginPage extends Component {
 
@@ -22,11 +23,7 @@ class LoginPage extends Component {
   }
 
   _storeData = async (token) => {
-    try {
-      await AsyncStorage.setItem('token', token)
-    } catch (error) {
-
-    }
+    await AsyncStorage.setItem('token', token)
   }
 
   handleText = (text, name) => {

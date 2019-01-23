@@ -7,32 +7,29 @@ import Stack from '../../stack/Stack'
 import SignInOrUp from './SignInOrUp'
 import HomePage from '../../components/HomePage'
 import RootAdapter from '../../adapters/RootAdapter'
+// import { _getToken, _logout } from '../../actions/asyncActions'
 
 import { setInitialState } from '../../actions/sessionActions'
 import { signIn } from '../../actions/sessionActions'
 
 class LandingPage extends Component {
   componentDidMount(){
+    // this._logout()
     this._getLogin()
   }
 
   _logout = async () => {
-
+    await AsyncStorage.removeItem('token')
   }
 
   _getLogin = async () => {
     const { SessionAdapter } = RootAdapter
-    try {
-      let token = await AsyncStorage.getItem('token')
-      if (token){
-        let user = await SessionAdapter.reauth(token)
-          this.props.setInitialState(user.user.data)
-          this.props.signIn()
-      }
-      // send reauth request
-      // store.dispatch login action
-    } catch (error) {
-
+    let token = await AsyncStorage.getItem('token')
+    if (token){
+      console.log(token);
+      let user = await SessionAdapter.reauth(token)
+        this.props.setInitialState(user.user.data)
+        this.props.signIn()
     }
   }
 
