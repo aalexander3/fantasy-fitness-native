@@ -103,6 +103,43 @@ class TeamPage extends Component {
     }
   }
 
+  renderTeamPage = () => {
+    if (this.props.team.currentTeam) {
+      const { attributes } = this.props.user
+      const { display } = this.state
+
+      return (
+        <View style={ HomeStyle.profile } >
+          <View style={ HomeStyle.firstLayer } >
+            { attributes && this.renderCurrentTeam() }
+          </View>
+          <View style={ HomeStyle.secondLayer }>
+            <TouchableHighlight
+              onPress={()=>this.changeDisplay("TEAMS")}
+              underlayColor='transparent' >
+              <Header text="My Teams"/>
+            </TouchableHighlight>
+            { attributes && this.renderTeams() }
+          </View>
+          <View style={ HomeStyle.thirdLayer }>
+            <TouchableHighlight
+              onPress={()=>this.changeDisplay("TEAMMATES")}
+              underlayColor='transparent' >
+              <Header text="Teammates"/>
+            </TouchableHighlight>
+            { attributes && this.renderTeammates() }
+          </View>
+        </View>
+      )
+    } else {
+      return (
+        <View style={HomeStyle.firstLayer} >
+          <Header text="No teams yet" />
+        </View>
+      )
+    }
+  }
+
 
   // renderCompletions = () => {
   // this could come in handy soon
@@ -131,32 +168,7 @@ class TeamPage extends Component {
   //
 
   render(){
-    const { attributes } = this.props.user
-    const { display } = this.state
-
-    return (
-      <View style={ HomeStyle.profile } >
-        <View style={ HomeStyle.firstLayer } >
-          { attributes && this.renderCurrentTeam() }
-        </View>
-        <View style={ HomeStyle.secondLayer }>
-          <TouchableHighlight
-            onPress={()=>this.changeDisplay("TEAMS")}
-            underlayColor='transparent' >
-            <Header text="My Teams"/>
-          </TouchableHighlight>
-          { attributes && this.renderTeams() }
-        </View>
-        <View style={ HomeStyle.thirdLayer }>
-          <TouchableHighlight
-            onPress={()=>this.changeDisplay("TEAMMATES")}
-            underlayColor='transparent' >
-            <Header text="Teammates"/>
-          </TouchableHighlight>
-          { attributes && this.renderTeammates() }
-        </View>
-      </View>
-    )
+    return this.renderTeamPage()
   }
 }
 

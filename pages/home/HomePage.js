@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { View, Text, Button, Image, ScrollView, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle'
 import { HomeStyle } from '../../styles/HomeStyle'
@@ -31,6 +31,48 @@ class HomePage extends Component {
 
   afterAnimation = () => {
     this.setState({ display: this.state.nextDisplay })
+  }
+
+  renderHomePage = () => {
+
+    const { attributes } = this.props.user
+    const { display } = this.state
+
+    if (this.props.league){
+      return (
+        <Fragment>
+          <View style={ HomeStyle.secondLayer }>
+            <TouchableHighlight
+              onPress={()=>this.changeDisplay("TEAMS")}
+              underlayColor='transparent' >
+              <Header text="My Teams"/>
+            </TouchableHighlight>
+            { attributes ? this.renderTeams() : null }
+          </View>
+          <View style={ HomeStyle.thirdLayer }>
+            <TouchableHighlight
+              onPress={()=>this.changeDisplay("WORKOUTS")}
+              underlayColor='transparent' >
+              <Header text="Claimed Workouts"/>
+            </TouchableHighlight>
+            { attributes ? this.renderCompletions() : null }
+          </View>
+        </Fragment>
+      )
+    } else {
+        return (
+          <View style={ HomeStyle.secondLayer }>
+            <Header text="It looks like you don't belong to a league yet!" />
+            <TouchableHighlight
+              onPress={()=>{
+                this.props.navigation.navigate('League')
+              }}
+              underlayColor='transparent'>
+              <Header text="Create a new league"/>
+            </TouchableHighlight>
+          </View>
+      )
+    }
   }
 
   renderUser = () => {
@@ -98,36 +140,23 @@ class HomePage extends Component {
 
   render(){
     const { attributes } = this.props.user
-    const { display } = this.state
 
     return (
       <View style={ HomeStyle.profile } >
         <View style={ HomeStyle.firstLayer } >
           { attributes ? this.renderUser() : null }
         </View>
-        <View style={ HomeStyle.secondLayer }>
-          <TouchableHighlight
-            onPress={()=>this.changeDisplay("TEAMS")}
-            underlayColor='transparent' >
-            <Header text="My Teams"/>
-          </TouchableHighlight>
-          { attributes ? this.renderTeams() : null }
-        </View>
-        <View style={ HomeStyle.thirdLayer }>
-          <TouchableHighlight
-            onPress={()=>this.changeDisplay("WORKOUTS")}
-            underlayColor='transparent' >
-            <Header text="Claimed Workouts"/>
-          </TouchableHighlight>
-          { attributes ? this.renderCompletions() : null }
-        </View>
+        {this.renderHomePage()}
       </View>
     )
   }
 }
 
 const mapStateToProps = state => {
-  return { user: state.user }
+  return {
+    user: state.user,
+    league: state.league.currentLeague
+   }
 }
 
 export default connect(mapStateToProps)(HomePage)

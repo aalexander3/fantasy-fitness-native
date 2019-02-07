@@ -23,7 +23,8 @@ class LandingPage extends Component {
   }
 
   _getLogin = async () => {
-    const { SessionAdapter, WorkoutAdapter, PackAdapter } = RootAdapter
+    const { SessionAdapter, WorkoutAdapter, PackAdapter } = RootAdapter;
+
     try {
       let token = await AsyncStorage.getItem('token')
       if (token){
