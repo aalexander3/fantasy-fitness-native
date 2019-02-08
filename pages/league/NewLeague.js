@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Header from '../../components/headers/Header'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import { setLeague } from '../../actions/leagueActions'
+import { setTeam } from '../../actions/teamActions'
 import RootAdapter from '../../adapters/RootAdapter'
 import { HomeStyle } from '../../styles/HomeStyle'
 import { AppStyle } from '../../styles/AppStyle'
@@ -65,7 +66,8 @@ class NewLeague extends Component {
           if (data.message){
             throw Error(data.message)
           } else {
-            this.props.setLeague(data)
+            this.props.setLeague(data.league)
+            this.props.setTeam(data.teams[0])
             // set response as current League!
             // dispatch action
           }
@@ -169,4 +171,4 @@ class NewLeague extends Component {
 
 
 // will need to map user or send proper authorization request
-export default connect(null, { setLeague })(NewLeague)
+export default connect(null, { setLeague, setTeam })(NewLeague)
