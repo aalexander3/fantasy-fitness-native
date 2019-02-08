@@ -23,11 +23,12 @@ export const configWithAuth = (method, token, body) => {
   }
 }
 
-export const configWithMultiPart = (data) => {
+export const configWithMultiPart = (data, token) => {
   return {
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
+      'Authorization': token
     },
     method: 'POST',
     body: data

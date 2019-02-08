@@ -15,7 +15,7 @@ class InputWithLabel extends Component {
   }
 
   render(){
-    const {label, icon, handleText, value, placeholder, name, type} = this.props
+    const {label, icon, handleText, value, placeholder, name, type, keyboard} = this.props
     const { focused } = this.state
 
     return (
@@ -36,6 +36,7 @@ class InputWithLabel extends Component {
             autoCapitalize='none'
             secureTextEntry={type==="password"}
             onFocus={this.handleFocus}
+            keyboardType={keyboard ? keyboard : 'default' }
           />
         </View>
       </View>
