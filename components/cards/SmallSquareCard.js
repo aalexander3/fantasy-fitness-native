@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, } from 'react-native'
-import { CardStyle } from '../../styles/CardStyle'
+import { CardStyle } from './CardStyle'
 
 const SmallSquareCard = ({ image_url }) => {
   return (

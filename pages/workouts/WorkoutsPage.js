@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text  } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import WorkoutCard from './WorkoutCard'
 import Header from '../../components/headers/Header'
-import { AppStyle } from '../../styles/AppStyle';
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 
 import { setWorkout } from '../../actions/workoutActions'
 
@@ -13,14 +12,14 @@ class WorkoutsPage extends Component {
   renderWorkoutPage = () => {
     if (this.props.packs) {
       return (
-        <View style={HomeStyle.firstLayer} >
+        <View style={ViewStyles.firstLayer} >
           <Header text="Workouts" />
           this.packCards()
         </View>
       )
     } else {
       return (
-        <View style={HomeStyle.firstLayer} >
+        <View style={ViewStyles.firstLayer} >
           <Header text="No workouts" />
         </View>
       )

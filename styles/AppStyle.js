@@ -25,14 +25,7 @@ export const AppStyle = StyleSheet.create({
     width: 300,
     alignItems: 'center',
   },
-  signUpPage: {
-    flex: 1,
-    padding: 10,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  imageUpload: {
+  medAvatar: {
     height: 120,
     width: 120,
     borderRadius: 60,

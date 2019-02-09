@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing } from 'react-native'
-import Header from './headers/Header'
-import { AppStyle } from '../styles/AppStyle';
-import { HomeStyle } from '../styles/HomeStyle';
+import { View, Text, Image, Animated } from 'react-native'
+import Header from '../headers/Header'
+import { AppStyle } from '../../styles/AppStyle';
+import { CardStyle } from './CardStyle';
 import { connect } from 'react-redux'
-import IsAnimated from '../HOC/IsAnimated'
+import IsAnimated from '../../HOC/IsAnimated'
 
 
 class UserCard extends Component {
@@ -17,10 +17,10 @@ class UserCard extends Component {
 
     return (
       <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
-        <View style={HomeStyle.userCard} >
+        <View style={CardStyle.userCard} >
         <Image
           source={{uri: avatar }}
-          style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
+          style={ AppStyle.avatar } />
           <Header text={ `${first_name} ${last_name}` } />
           <Text>{ bio }</Text>
         </View>

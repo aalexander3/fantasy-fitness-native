@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
-import { AppStyle } from '../../styles/AppStyle';
-import { HomeStyle } from '../../styles/HomeStyle';
+import { Animated } from 'react-native'
 import VerticalCard from '../../components/cards/VerticalCard'
 import IsAnimated from '../../HOC/IsAnimated'
 

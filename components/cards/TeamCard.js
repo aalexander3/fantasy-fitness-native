@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
-import VerticalCard from './cards/VerticalCard'
-import IsAnimated from '../HOC/IsAnimated'
+import { Animated } from 'react-native'
+import VerticalCard from './VerticalCard'
+import IsAnimated from '../../HOC/IsAnimated'
 
-
-import { AppStyle } from '../styles/AppStyle';
-import { HomeStyle } from '../styles/HomeStyle';
 import { connect } from 'react-redux'
-import { setTeam } from '../actions/teamActions'
+import { setTeam } from '../../actions/teamActions'
 
 class TeamCard extends Component {
 

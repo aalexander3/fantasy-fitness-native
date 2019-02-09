@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { View, TextInput, Text } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { FormStyles } from '../../styles/FormStyles'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { FormStyles } from './FormStyles'
 
 class InputWithLabel extends Component {
 

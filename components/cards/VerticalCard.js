@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableHighlight} from 'react-native'
 import Header from '../headers/Header'
-import { CardStyle } from '../../styles/CardStyle'
+import { CardStyle } from './CardStyle'
 
 const VerticalCard = ({ image_url, mainText, subText, handlePress }) => {
   return (
