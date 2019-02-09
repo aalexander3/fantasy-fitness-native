@@ -8,6 +8,8 @@ import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
+import Header from '../../components/headers/Header'
+import { NormalButton, NormalLink } from '../../components/buttons'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
 import { _getToken, _logout, _saveToken } from '../../actions/asyncActions'
@@ -109,12 +111,8 @@ class SignUpPage extends Component {
         <ImageUpload handlePhoto={this.handlePhoto} imageUrl={avatar} />
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
-          <Text style={ AppStyle.header }>Sign Up or </Text>
-          <TouchableHighlight
-            onPress={this.props.handlePress}
-            underlayColor='transparent' >
-          <Text style={ AppStyle.link }>Login</Text>
-          </TouchableHighlight>
+          <Header text="Sign up or " />
+          <NormalLink text="Login" handlePress={this.props.handlePress}/>
         </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
@@ -171,12 +169,7 @@ class SignUpPage extends Component {
           value={password_confirmation}
           placeholder='Confirm your password...' />
 
-        <TouchableHighlight
-          style={AppStyle.button}
-          onPress={this.handlePress}
-          underlayColor='transparent' >
-          <Text> Sign Up </Text>
-        </TouchableHighlight>
+        <NormalButton text="SIGN UP" handlePress={this.handlePress} />
       </View>
     )
   }
