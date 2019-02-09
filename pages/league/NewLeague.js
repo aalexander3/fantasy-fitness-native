@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, Image, ImagePickerIOS, AsyncStorage } from 'react-native'
-import { ImagePicker, Permissions } from 'expo'
+import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import Header from '../../components/headers/Header'
+import ImageUpload from '../../components/ImageUpload/ImageUpload'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import { setLeague } from '../../actions/leagueActions'
 import { setTeam } from '../../actions/teamActions'
 import RootAdapter from '../../adapters/RootAdapter'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 import { AppStyle } from '../../styles/AppStyle'
 
 
@@ -27,26 +27,14 @@ class NewLeague extends Component {
     description: '',
     motto: '',
     number_of_teams: '',
-    roster_size: ''
+    roster_size: '',
+    passcode: ''
   }
 
   handleText = (text, name) => {
     this.setState({
       [name]: text
     })
-  }
-
-  addPhoto = async () => {
-    const options = {
-      allowsEditing: true
-    }
-
-    let permission = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL)
-    if (status === 'granted') {
-      let result = await ImagePicker.launchImageLibraryAsync(options)
-      if (result.uri) return this.handlePhoto(result.uri)
-    }
   }
 
   handlePhoto = (uri) => {
@@ -68,13 +56,10 @@ class NewLeague extends Component {
           } else {
             this.props.setLeague(data.league)
             this.props.setTeam(data.teams[0])
-            // set response as current League!
-            // dispatch action
           }
         })
         .catch(err => console.log(err))
     }
-
   }
 
   createFormData = () => {
@@ -99,25 +84,12 @@ class NewLeague extends Component {
   render(){
     const { name, image_url, description, motto, number_of_teams, roster_size } = this.state
     return (
-      <View style={HomeStyle.profile} >
-        <View style={HomeStyle.firstLayer}>
+      <View style={ViewStyles.profile} >
+        <View style={ViewStyles.firstLayer}>
           <Header text="Ready to make a new league?" />
           <Text>First we'll need some basic info</Text>
 
-          <TouchableHighlight
-            onPress={this.addPhoto}
-            underlayColor='transparent'
-          >
-          {this.state.image_url !== '' ?
-            <Image
-              source={{uri: this.state.image_url }}
-              style={AppStyle.imageUpload} /> :
-            <Image
-              source={{uri: 'http://pluspng.com/img-png/free-png-plus-sign-download-512.png' }}
-              style={AppStyle.imageUpload} />
-          }
-          </TouchableHighlight>
-
+          <ImageUpload handlePhoto={this.handlePhoto} imageUrl={image_url} />
 
           <InputWithLabel
             label="League Name"

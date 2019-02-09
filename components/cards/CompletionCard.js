@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing, AsyncStorage } from 'react-native'
-import IsAnimated from '../HOC/IsAnimated'
-import Header from './headers/Header'
-import { AppStyle } from '../styles/AppStyle';
-import { HomeStyle } from '../styles/HomeStyle';
+import { View, Button, Image, Animated, AsyncStorage } from 'react-native'
+import IsAnimated from '../../HOC/IsAnimated'
+import Header from '../headers/Header'
+import { AppStyle } from '../../styles/AppStyle';
+import { CardStyle } from './CardStyle';
 import { connect } from 'react-redux'
-import RootAdapter from '../adapters/RootAdapter'
-import { updateUserCompletion } from '../actions/userActions'
+import RootAdapter from '../../adapters/RootAdapter'
+import { updateUserCompletion } from '../../actions/userActions'
 
 class CompletionCard extends Component {
 
@@ -36,7 +36,7 @@ class CompletionCard extends Component {
 
     return (
       <Animated.View style={{ height, opacity }} >
-        <View style={ completed ? HomeStyle.completedCard : HomeStyle.incompleteCard } >
+        <View style={ completed ? CardStyle.completedCard : CardStyle.incompleteCard } >
           <Image
             source={{uri: workout.image_url }}
             style={{ height: 125, width: 125}} />

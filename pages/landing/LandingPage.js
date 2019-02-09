@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 
-import { AppStyle } from '../../styles/AppStyle'
 import Stack from '../../stack/Stack'
 import SignInOrUp from './SignInOrUp'
 import HomePage from '../home/HomePage'

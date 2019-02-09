@@ -1,7 +1,7 @@
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
-import { StackStyle } from '../styles/StackStyle'
+import { StackStyle } from './StackStyle'
 
 import HomePage from '../pages/home/HomePage'
 import TeamPage from '../pages/team/TeamPage'

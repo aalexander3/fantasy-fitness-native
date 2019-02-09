@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { View, Text, Button, Image, ScrollView, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 import { ScrollStyle } from '../../styles/ScrollStyle'
 import { connect } from 'react-redux'
 
-import UserCard from '../../components/UserCard'
-import TeamCard from '../../components/TeamCard'
-import CompletionCard from '../../components/CompletionCard'
-
+import UserCard from '../../components/cards/UserCard'
+import TeamCard from '../../components/cards/TeamCard'
+import CompletionCard from '../../components/cards/CompletionCard'
 import SmallSquareCard from '../../components/cards/SmallSquareCard'
 import HeaderWithAvatar from '../../components/headers/HeaderWithAvatar'
 import Header from '../../components/headers/Header'
@@ -41,7 +40,7 @@ class HomePage extends Component {
     if (this.props.league){
       return (
         <Fragment>
-          <View style={ HomeStyle.secondLayer }>
+          <View style={ ViewStyles.secondLayer }>
             <TouchableHighlight
               onPress={()=>this.changeDisplay("TEAMS")}
               underlayColor='transparent' >
@@ -49,7 +48,7 @@ class HomePage extends Component {
             </TouchableHighlight>
             { attributes ? this.renderTeams() : null }
           </View>
-          <View style={ HomeStyle.thirdLayer }>
+          <View style={ ViewStyles.thirdLayer }>
             <TouchableHighlight
               onPress={()=>this.changeDisplay("WORKOUTS")}
               underlayColor='transparent' >
@@ -61,7 +60,7 @@ class HomePage extends Component {
       )
     } else {
         return (
-          <View style={ HomeStyle.secondLayer }>
+          <View style={ ViewStyles.secondLayer }>
             <Header text="It looks like you don't belong to a league yet!" />
             <TouchableHighlight
               onPress={()=>{
@@ -142,8 +141,8 @@ class HomePage extends Component {
     const { attributes } = this.props.user
 
     return (
-      <View style={ HomeStyle.profile } >
-        <View style={ HomeStyle.firstLayer } >
+      <View style={ ViewStyles.profile } >
+        <View style={ ViewStyles.firstLayer } >
           { attributes ? this.renderUser() : null }
         </View>
         {this.renderHomePage()}

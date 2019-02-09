@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing } from 'react-native'
+import { View, Text, Image, Animated } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle';
-import { HomeStyle } from '../../styles/HomeStyle';
+import { CardStyle } from '../../components/cards/CardStyle';
 import { connect } from 'react-redux'
 import IsAnimated from '../../HOC/IsAnimated'
 import Header from '../../components/headers/Header'
@@ -17,7 +17,7 @@ class CurrentTeamCard extends Component {
 
     return (
       <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
-        <View style={HomeStyle.userCard} >
+        <View style={CardStyle.userCard} >
           <Image
             source={{uri: image_url }}
             style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />

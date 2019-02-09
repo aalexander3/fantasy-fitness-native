@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image, ImagePickerIOS } from 'react-native'
-import { ImagePicker, Permissions } from 'expo'
+import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
+import ImageUpload from '../../components/ImageUpload/ImageUpload'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
@@ -100,45 +100,20 @@ class SignUpPage extends Component {
     })
   }
 
-  addPhoto = async () => {
-    const options = {
-      allowsEditing: true
-    }
-
-    let permission = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL)
-    if (status === 'granted') {
-      let result = await ImagePicker.launchImageLibraryAsync(options)
-      if (result.uri) return this.handlePhoto(result.uri)
-    }
-  }
-
   renderSignUp = () => {
-    const { username, password, password_confirmation, email, first_name, last_name } = this.state.user
+    const { username, password, password_confirmation, email, first_name, last_name, avatar } = this.state.user
     const { errors } = this.state
 
     return (
-      <View style={AppStyle.signUpPage}>
-        <TouchableHighlight
-          onPress={this.addPhoto}
-          underlayColor='transparent'
-        >
-        {this.state.user.avatar !== '' ?
-          <Image
-            source={{uri: this.state.user.avatar }}
-            style={AppStyle.imageUpload} /> :
-          <Image
-            source={{uri: 'http://pluspng.com/img-png/free-png-plus-sign-download-512.png' }}
-            style={AppStyle.imageUpload} />
-        }
-        </TouchableHighlight>
+      <View style={ViewStyles.signUpPage}>
+        <ImageUpload handlePhoto={this.handlePhoto} imageUrl={avatar} />
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
           <Text style={ AppStyle.header }>Sign Up or </Text>
           <TouchableHighlight
             onPress={this.props.handlePress}
-            underlayColor='transparent'
-          ><Text style={ AppStyle.link }>Login</Text>
+            underlayColor='transparent' >
+          <Text style={ AppStyle.link }>Login</Text>
           </TouchableHighlight>
         </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
@@ -199,18 +174,16 @@ class SignUpPage extends Component {
         <TouchableHighlight
           style={AppStyle.button}
           onPress={this.handlePress}
-          underlayColor='transparent'
-        >
-        <Text> Sign Up </Text>
+          underlayColor='transparent' >
+          <Text> Sign Up </Text>
         </TouchableHighlight>
-
       </View>
     )
   }
 
   render() {
     return (
-      <View style={ HomeStyle.firstLayer }>
+      <View style={ ViewStyles.firstLayer }>
         {this.renderSignUp()}
       </View>
     )

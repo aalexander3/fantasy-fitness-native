@@ -3,7 +3,7 @@ import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image } from '
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
@@ -61,10 +61,10 @@ class LoginPage extends Component {
     const { signUp, username, password, user, errors } = this.state
 
     return (
-      <View style={ AppStyle.signUpPage }>
+      <View style={ ViewStyles.signUpPage }>
         <Image
           source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt9wJpJ_lzaO39aKPvLnJiT7oS9RueUTUzxIRr7F7BKb2mbZC8' }}
-          style={ AppStyle.imageUpload } />
+          style={ AppStyle.medAvatar } />
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
           <Header text="Login or " />
@@ -105,7 +105,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <View style={ HomeStyle.firstLayer }>
+      <View style={ ViewStyles.firstLayer }>
         { this.renderLogin()}
       </View>
     )

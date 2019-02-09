@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
-import { HeaderStyles } from '../../styles/HeaderStyles'
+import { HeaderStyles } from './HeaderStyles'
 
 const HeaderWithAvatar = ({ avatar, text }) => {
 

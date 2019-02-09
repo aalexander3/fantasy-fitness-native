@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, ScrollView, TouchableHighlight, Animated, Easing } from 'react-native'
-import { AppStyle } from '../../styles/AppStyle';
-import { HomeStyle } from '../../styles/HomeStyle'
+import { View, ScrollView, TouchableHighlight } from 'react-native'
+import { ViewStyles } from '../../styles/ViewStyles'
 import { connect } from 'react-redux'
 
 //prabably need to changeDisplay
-import UserCard from '../../components/UserCard'
-import TeamCard from '../../components/TeamCard'
+import TeamCard from '../../components/cards/TeamCard'
 import CurrentTeamCard from './CurrentTeamCard'
 import TeammateCard from './TeammateCard'
-import RootAdapter from '../../adapters/RootAdapter'
 
 import SmallSquareCard from '../../components/cards/SmallSquareCard'
 import HeaderWithAvatar from '../../components/headers/HeaderWithAvatar'
 import Header from '../../components/headers/Header'
-
 
 
 class TeamPage extends Component {
@@ -109,11 +105,11 @@ class TeamPage extends Component {
       const { display } = this.state
 
       return (
-        <View style={ HomeStyle.profile } >
-          <View style={ HomeStyle.firstLayer } >
+        <View style={ ViewStyles.profile } >
+          <View style={ ViewStyles.firstLayer } >
             { attributes && this.renderCurrentTeam() }
           </View>
-          <View style={ HomeStyle.secondLayer }>
+          <View style={ ViewStyles.secondLayer }>
             <TouchableHighlight
               onPress={()=>this.changeDisplay("TEAMS")}
               underlayColor='transparent' >
@@ -121,7 +117,7 @@ class TeamPage extends Component {
             </TouchableHighlight>
             { attributes && this.renderTeams() }
           </View>
-          <View style={ HomeStyle.thirdLayer }>
+          <View style={ ViewStyles.thirdLayer }>
             <TouchableHighlight
               onPress={()=>this.changeDisplay("TEAMMATES")}
               underlayColor='transparent' >
@@ -133,7 +129,7 @@ class TeamPage extends Component {
       )
     } else {
       return (
-        <View style={HomeStyle.firstLayer} >
+        <View style={ViewStyles.firstLayer} >
           <Header text="No teams yet" />
         </View>
       )
