@@ -5,7 +5,6 @@ export const HeaderStyles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 20,
-    marginLeft: 10
   },
   headerView: {
     display: 'flex',
@@ -17,6 +16,5 @@ export const HeaderStyles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
     marginBottom: 10,
-    marginLeft: 10,
   },
 })

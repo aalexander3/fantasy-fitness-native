@@ -8,6 +8,8 @@ export const ViewStyles = StyleSheet.create({
   firstLayer: {
     flex: 1,
     paddingTop: 80,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: '#D5DDE7'
   },
   secondLayer: {
@@ -15,12 +17,16 @@ export const ViewStyles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopEndRadius: 15,
     paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     marginBottom: -15,
   },
   thirdLayer: {
     backgroundColor: '#B994D8',
     borderTopLeftRadius: 15,
     borderTopEndRadius: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   signUpPage: {
     flex: 1,

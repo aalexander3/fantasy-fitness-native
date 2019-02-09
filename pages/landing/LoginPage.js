@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import Header from '../../components/headers/Header'
+import { NormalButton, NormalLink } from '../../components/buttons'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
 import { _saveToken } from '../../actions/asyncActions'
@@ -68,12 +69,7 @@ class LoginPage extends Component {
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
           <Header text="Login or " />
-          <TouchableHighlight
-            onPress={this.props.handlePress}
-            underlayColor='transparent'
-          >
-            <Text style={ AppStyle.link }>Sign Up</Text>
-          </TouchableHighlight>
+          <NormalLink text="Sign up" handlePress={this.props.handlePress} />
         </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
@@ -93,12 +89,7 @@ class LoginPage extends Component {
           value={password}
           placeholder='Enter your password...' />
 
-        <TouchableHighlight
-          style={AppStyle.button}
-          onPress={this.handlePress}
-        >
-        <Text> Log in </Text>
-        </TouchableHighlight>
+        <NormalButton text="LOGIN" handlePress={this.handlePress} />
       </View>
     )
   }
