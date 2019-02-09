@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://10.62.104.145:3000/api/v1/'
+export const BASE_URL = 'http://192.168.0.4:3000/api/v1/'
 
 export const config = (method, body=nil) => {
   return {
@@ -23,11 +23,12 @@ export const configWithAuth = (method, token, body) => {
   }
 }
 
-export const configWithMultiPart = (data) => {
+export const configWithMultiPart = (data, token) => {
   return {
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
+      'Authorization': token
     },
     method: 'POST',
     body: data
