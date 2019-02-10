@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, AsyncStorage } from 'react-native'
+import { View, Text, ScrollView, AsyncStorage, Alert } from 'react-native'
 import { ViewStyles } from '../../styles/ViewStyles'
-import { NormalLink, NormalButton } from '../../components/buttons'
+import { NormalLink, NormalButton, IconButton } from '../../components/buttons'
 import { Header } from '../../components/headers'
 import Invite from './Invite'
 import { LeagueAdapter } from '../../adapters'
@@ -18,10 +18,6 @@ class InvitationForm extends Component {
       invitations: [{name: '', email: ''}]
     }
   }
-
-  // needs state to hold dynamic form info
-  // array of objects with first name and email address
-  // button on click adds a new obj to the form
 
   handleText = (text, name, idx) => {
     let invitations = [...this.state.invitations]
@@ -56,22 +52,35 @@ class InvitationForm extends Component {
     if (token){
       let id = this.props.currentLeague.id
       LeagueAdapter.invite(id, this.state.invitations, token)
-        .then(()=> console.log('invitations sent!'))
+        .then(this.completeInvites)
         // some kind of flash message and clearing out of state.
+        // should also set some kind of feedback
+        // this.props.goBack() // takes you back to LeaguePage
     }
+  }
+
+  completeInvites = (res) => {
+    this.setState({ invitations: [{name: '', email: ''}] })
+    Alert.alert(
+      'Invites Sent!',
+      res.message,
+      [{ text: 'OK', onPress: this.props.goBack }]
+    )
   }
 
   render(){
     return (
       <View style={ViewStyles.firstLayer}>
-        <Header text="Enter email addresses to invite your friends" />
-        <NormalLink handlePress={this.props.goBack} text="Back to league"/>
-        <View style={{maxHeight: 500}}>
-          <ScrollView
-            ref={this.scrollView} >
-            {this.renderForm()}
-          </ScrollView>
-          <NormalLink handlePress={this.addInvite} text="Add another invitation"/>
+        <IconButton handlePress={this.props.goBack} iconName="ios-arrow-back"/>
+        <View style={ViewStyles.signUpPage}>
+          <Header text="Enter email addresses to invite your friends" />
+          <View style={{maxHeight: 500, alignItems: 'center', marginBottom: 10}}>
+            <ScrollView
+              ref={this.scrollView} >
+              {this.renderForm()}
+            </ScrollView>
+            <IconButton handlePress={this.addInvite} iconName="ios-add-circle-outline"/>
+          </View>
           <NormalButton handlePress={this.sendInvites} text="Send Invitations!"/>
         </View>
       </View>

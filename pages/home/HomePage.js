@@ -9,8 +9,9 @@ import UserCard from '../../components/cards/UserCard'
 import TeamCard from '../../components/cards/TeamCard'
 import CompletionCard from '../../components/cards/CompletionCard'
 import SmallSquareCard from '../../components/cards/SmallSquareCard'
-import HeaderWithAvatar from '../../components/headers/HeaderWithAvatar'
-import Header from '../../components/headers/Header'
+import { HeaderWithAvatar, Header } from '../../components/headers'
+import { TransparentLink } from '../../components/buttons'
+
 
 
 class HomePage extends Component {
@@ -41,19 +42,11 @@ class HomePage extends Component {
       return (
         <Fragment>
           <View style={ ViewStyles.secondLayer }>
-            <TouchableHighlight
-              onPress={()=>this.changeDisplay("TEAMS")}
-              underlayColor='transparent' >
-              <Header text="My Teams"/>
-            </TouchableHighlight>
+            <TransparentLink text="My Teams" handlePress={()=>this.changeDisplay("TEAMS")} />
             { attributes ? this.renderTeams() : null }
           </View>
           <View style={ ViewStyles.thirdLayer }>
-            <TouchableHighlight
-              onPress={()=>this.changeDisplay("WORKOUTS")}
-              underlayColor='transparent' >
-              <Header text="Claimed Workouts"/>
-            </TouchableHighlight>
+            <TransparentLink text="Claimed Workouts" handlePress={()=>this.changeDisplay("WORKOUTS")} />
             { attributes ? this.renderCompletions() : null }
           </View>
         </Fragment>
@@ -62,13 +55,7 @@ class HomePage extends Component {
         return (
           <View style={ ViewStyles.secondLayer }>
             <Header text="It looks like you don't belong to a league yet!" />
-            <TouchableHighlight
-              onPress={()=>{
-                this.props.navigation.navigate('League')
-              }}
-              underlayColor='transparent'>
-              <Header text="Create a new league"/>
-            </TouchableHighlight>
+            <TransparentLink text="Create a new league" handlePress={()=>{ this.props.navigation.navigate('League') }} />
           </View>
       )
     }

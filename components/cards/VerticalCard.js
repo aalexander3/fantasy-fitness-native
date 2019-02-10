@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableHighlight} from 'react-native'
-import Header from '../headers/Header'
+import { Header } from '../headers'
+import { TransparentLink } from '../buttons'
 import { CardStyle } from './CardStyle'
 
 const VerticalCard = ({ image_url, mainText, subText, handlePress }) => {
@@ -9,11 +10,7 @@ const VerticalCard = ({ image_url, mainText, subText, handlePress }) => {
       <Image
         source={{uri: image_url }}
         style={ CardStyle.avatar } />
-      <TouchableHighlight
-        onPress={handlePress}
-        underlayColor='transparent' >
-        <Header text={mainText} />
-      </TouchableHighlight>
+      <TransparentLink text={mainText} handlePress={handlePress} />
       <Text>{ subText }</Text>
     </View>
   )

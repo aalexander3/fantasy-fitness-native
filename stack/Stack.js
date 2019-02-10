@@ -47,12 +47,12 @@ const Stack = createBottomTabNavigator({
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'white',
-      inactiveTintColor: 'lightgrey',
+      activeTintColor: '#5481AF',
+      inactiveTintColor: 'black',
       // showLabel: false,
       style: StackStyle.navigation
     },
-    initialRouteName: 'League',
+    initialRouteName: 'Home',
   }
 );
 

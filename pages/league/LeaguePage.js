@@ -36,11 +36,12 @@ class LeaguePage extends Component {
 
         return (
           <View style={ ViewStyles.profile } >
-            <View style={ ViewStyles.firstLayer } >
+            <View style={ ViewStyles.signUpPage } >
               <UserCard user={leagueInfo} />
               {this.addInvitations()}
             </View>
             <View style={ ViewStyles.secondLayer } >
+              <Header text="Workouts" />
             </View>
             <View style={ ViewStyles.thirdLayer } >
               {this.renderTeams()}
@@ -62,11 +63,14 @@ class LeaguePage extends Component {
   }
 
   addInvitations = () => {
-    // if the league is full - don't have the option to invite friends... how to tell?
-    if (false) return null
-    return (
-      <NormalLink text="Invite your friends" handlePress={this.getInvitations}/>
-    )
+    // if the league is full - don't have the option to invite friends
+
+    let { roster_size, number_of_teams } = this.props.currentLeague
+
+    let leagueCount = this.props.currentLeague.teams.reduce((acc, team) => { return acc + team.teammates.length }, 0)
+
+    if (leagueCount >= (roster_size * number_of_teams)) return null
+    return <NormalLink text="Invite your friends" handlePress={this.getInvitations}/>
   }
 
   renderTeams = () => {
