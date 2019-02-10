@@ -8,6 +8,7 @@ export const setUser = (user) => {
 }
 
 export const updateUserCompletion = (completion) => {
+  console.log("COMPLETION", completion);
   return {
     type: UPDATE_USER_COMPLETION,
     payload: completion

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle';
 import { HomeStyle } from '../../styles/HomeStyle';
+import { updateUserCompletion } from '../../actions/userActions'
 import RootAdapter from '../../adapters/RootAdapter'
 
 
@@ -25,7 +26,6 @@ class WorkoutCard extends Component {
   changeCompletionStatus = () => {
     let { CompletionAdapter } = RootAdapter
     let {user, currentTeam, league_pack, workout, pack} = this.props
-
     let workoutPack = league_pack.workout_packs.find(wop => {
       return wop.pack_id  === pack.id  && wop.workout_id === workout.id
     })
@@ -38,8 +38,7 @@ class WorkoutCard extends Component {
       completed: true
     }
 
-    CompletionAdapter.create(completionObj).then(console.log)
-
+    CompletionAdapter.create(completionObj).then(updateUserCompletion)
   }
 
   // t.integer "user_id"
@@ -71,7 +70,7 @@ class WorkoutCard extends Component {
   }
 
   render(){
-    // debugger
+        // debugger
 
     // const { username, bio, avatar, tagline, } = this.props.teammate
     const { name, category, image_url, description, default_points } = this.props.workout
@@ -94,7 +93,7 @@ class WorkoutCard extends Component {
           <Text>Category: { category }</Text>
           <Text>Points: { default_points }</Text>
           {/* <Text>{}</Text> */}
-          <Button title="TEST" onPress={this.changeCompletionStatus}></Button>
+          <Button title="Mark As Complete" onPress={this.changeCompletionStatus}></Button>
         </View>
       </Animated.View>
     )

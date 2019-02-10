@@ -8,7 +8,6 @@ export const signIn = () => {
 }
 
 export const setInitialState = (user) => {
-  console.log('init state', user);
   return {
     type: SET_INITIAL_STATE,
     payload: user
