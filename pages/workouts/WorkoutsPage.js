@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import WorkoutCard from './WorkoutCard'
 import Header from '../../components/headers/Header'
 import { ViewStyles } from '../../styles/ViewStyles'
+// import WorkoutStack from './WorkoutStack'
+
+// react navigation doesn't like having two different stacks. will just create a similar tab bar for the top instead...
 
 import { setWorkout } from '../../actions/workoutActions'
 
@@ -29,7 +32,11 @@ class WorkoutsPage extends Component {
   packCards = () => this.props.packs.map(pack => <WorkoutCard workout={pack} key={pack.id} />)
 
   render(){
-    return this.renderWorkoutPage()
+    return (
+      <View style={ViewStyles.firstLayer}>
+        {this.renderWorkoutPage()}
+      </View>
+    )
   }
 }
 

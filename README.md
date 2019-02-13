@@ -58,9 +58,14 @@ WORKOUTS:
  - category browser
 
 
-
-
 DONE:
+---
+HOME:
+ - BIG refactor for the home page. Much more readable and usable
+
+TEAM:
+
+LEAGUE:
  - league creation
  - email mailer w/ league invite / team invite
  - list all available teams in league on league page
@@ -70,3 +75,5 @@ DONE:
    - dynamic form with ability to increase number of invites
    - email address & name
    - people don't get saved - just request sent to backend to send invitations
+
+WORKOUTS:
