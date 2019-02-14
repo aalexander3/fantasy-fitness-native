@@ -1,17 +1,17 @@
 import React from 'react'
 import { View, TouchableHighlight, Text } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle'
+import { Header } from '../headers'
 
-
-const NormalButton = ({ text, handlePress }) => {
+const TransparentLink = ({ text, handlePress }) => {
 
   return (
     <TouchableHighlight
-      style={AppStyle.button}
+      underlayColor='transparent'
       onPress={handlePress} >
-      <Text style={{color: 'white'}}> {text} </Text>
+      <Header text={text} />
     </TouchableHighlight>
   )
 }
 
-export default NormalButton
+export default TransparentLink

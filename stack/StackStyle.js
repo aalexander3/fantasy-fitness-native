@@ -4,7 +4,9 @@ export const StackStyle = StyleSheet.create({
   navigation: {
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: 'black',
+    backgroundColor: '#fff',
+    borderColor: '#fff',
+    borderWidth: 0,
     flex: .07,
   }
 })

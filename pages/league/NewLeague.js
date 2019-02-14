@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
-import Header from '../../components/headers/Header'
+import { Header } from '../../components/headers'
+import { NormalButton, IconButton } from '../../components/buttons'
 import ImageUpload from '../../components/ImageUpload/ImageUpload'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import { setLeague } from '../../actions/leagueActions'
 import { setTeam } from '../../actions/teamActions'
-import RootAdapter from '../../adapters/RootAdapter'
+import { LeagueAdapter } from '../../adapters'
 import { ViewStyles } from '../../styles/ViewStyles'
 import { AppStyle } from '../../styles/AppStyle'
 
@@ -44,7 +45,6 @@ class NewLeague extends Component {
   }
 
   handlePress = async () => {
-    const { LeagueAdapter } = RootAdapter
     let token = await AsyncStorage.getItem('token')
 
     let formData = this.createFormData()
@@ -84,8 +84,7 @@ class NewLeague extends Component {
   render(){
     const { name, image_url, description, motto, number_of_teams, roster_size } = this.state
     return (
-      <View style={ViewStyles.profile} >
-        <View style={ViewStyles.firstLayer}>
+        <View style={ViewStyles.signUpPage}>
           <Header text="Ready to make a new league?" />
           <Text>First we'll need some basic info</Text>
 
@@ -129,14 +128,8 @@ class NewLeague extends Component {
             placeholder='Enter maximum roster size'
             keyboard="numeric" />
 
-            <TouchableHighlight
-              style={AppStyle.button}
-              onPress={this.handlePress}
-              underlayColor='transparent' >
-              <Text> Create new league! </Text>
-            </TouchableHighlight>
+          <NormalButton text="Create a new league!" handlePress={this.handlePress}/>
         </View>
-      </View>
     )
   }
 }
