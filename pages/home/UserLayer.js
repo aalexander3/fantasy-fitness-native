@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import { UserCard  } from '../../components/cards'
 import { HeaderWithAvatar } from '../../components/headers'
+import { ViewStyles } from '../../styles/ViewStyles'
 
 const UserLayer = ({ user, nextDisplay, display, changeDisplay, afterAnimation }) => {
   const renderUser = () => {
@@ -24,7 +25,9 @@ const UserLayer = ({ user, nextDisplay, display, changeDisplay, afterAnimation }
   }
 
   return (
-    renderUser()
+    <View style={ ViewStyles.firstLayer } >
+      {renderUser()}
+    </View>
   )
 }
 

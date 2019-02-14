@@ -1,11 +1,13 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { Header } from '../../components/headers'
+import { ViewStyles } from '../../styles/ViewStyles'
 
 
 const WorkoutList = () => {
   return (
-    <View>
-      <Text>Hello workout list here</Text>
+    <View style={ViewStyles.firstLayer} >
+      <Header text="Workouts" />
     </View>
   )
 }

@@ -1,7 +1,7 @@
-import {config, BASE_URL, jsonify} from './BaseConfig'
+import {config, BASE_URL, jsonify, configWithAuth } from './BaseConfig'
 
 const WorkoutAdapter = {
-  index: () => fetch(`${BASE_URL}workouts`).then(jsonify),
+  index: (token) => fetch(`${BASE_URL}workouts`, configWithAuth("GET", token)).then(jsonify),
   show: (id) => fetch(`${BASE_URL}workouts/${id}`).then(jsonify),
 }
 

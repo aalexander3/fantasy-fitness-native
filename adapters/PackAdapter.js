@@ -1,7 +1,7 @@
-import {config, BASE_URL, jsonify} from './BaseConfig'
+import {config, BASE_URL, jsonify, configWithAuth} from './BaseConfig'
 
 const PackAdapter = {
-  index: () => fetch(`${BASE_URL}packs`).then(jsonify),
+  index: (token) => fetch(`${BASE_URL}packs`, configWithAuth("GET", token)).then(jsonify),
   show: (id) => fetch(`${BASE_URL}packs/${id}`).then(jsonify),
   create: (id, body) => fetch(`${BASE_URL}packs/${id}`, config("POST", body)).then(jsonify),
 }

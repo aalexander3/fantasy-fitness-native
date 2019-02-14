@@ -28,15 +28,9 @@ class HomePage extends Component {
 
     return (
       <View style={ ViewStyles.profile } >
-        <View style={ ViewStyles.firstLayer } >
-          { attributes && <UserLayer nextDisplay={nextDisplay} display={display} afterAnimation={this.afterAnimation} changeDisplay={this.changeDisplay} />}
-        </View>
-        <View style={ ViewStyles.secondLayer } >
-          { attributes && <TeamLayer nextDisplay={nextDisplay} display={display} afterAnimation={this.afterAnimation} changeDisplay={this.changeDisplay} /> }
-        </View>
-        <View style={ ViewStyles.thirdLayer } >
-          { attributes && <CompletionLayer nextDisplay={nextDisplay} display={display} afterAnimation={this.afterAnimation} changeDisplay={this.changeDisplay} /> }
-        </View>
+        { attributes && <UserLayer nextDisplay={nextDisplay} display={display} afterAnimation={this.afterAnimation} changeDisplay={this.changeDisplay} />}
+        { attributes && <TeamLayer nextDisplay={nextDisplay} display={display} afterAnimation={this.afterAnimation} changeDisplay={this.changeDisplay} /> }
+        { attributes && <CompletionLayer nextDisplay={nextDisplay} display={display} afterAnimation={this.afterAnimation} changeDisplay={this.changeDisplay} /> }
       </View>
     )
   }

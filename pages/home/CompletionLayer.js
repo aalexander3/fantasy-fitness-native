@@ -6,6 +6,7 @@ import { CompletionCard, SmallSquareCard } from '../../components/cards'
 import { HorizontalScroll, ScrollStyle } from '../../components/scrollviews'
 import { Header } from '../../components/headers'
 import { TransparentLink } from '../../components/buttons'
+import { ViewStyles } from '../../styles/ViewStyles'
 
 const CompletionLayer = ({ user, nextDisplay, display, afterAnimation, changeDisplay }) => {
 
@@ -43,7 +44,9 @@ const CompletionLayer = ({ user, nextDisplay, display, afterAnimation, changeDis
 
 
   return (
-    renderCompletions()
+    <View style={ViewStyles.thirdLayer} >
+      {renderCompletions()}
+    </View>
   )
 }
 

@@ -6,6 +6,7 @@ import { TeamCard, SmallSquareCard } from '../../components/cards'
 import { HorizontalScroll, ScrollStyle } from '../../components/scrollviews'
 import { Header } from '../../components/headers'
 import { TransparentLink } from '../../components/buttons'
+import { ViewStyles } from '../../styles/ViewStyles'
 
 const TeamLayer = ({ user, league, nextDisplay, display, changeDisplay, afterAnimation, navigation }) => {
   const checkForLeagues = () => {
@@ -42,7 +43,9 @@ const TeamLayer = ({ user, league, nextDisplay, display, changeDisplay, afterAni
   }
 
   return (
-    renderTeams()
+    <View style={ ViewStyles.secondLayer } >
+      {renderTeams()}
+    </View>
   )
 }
 
