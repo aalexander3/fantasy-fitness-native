@@ -15,3 +15,5 @@ export const SET_INITIAL_STATE = 'SET_INITIAL_STATE'
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_UP = 'SIGN_UP'
 export const SIGN_OUT = 'SIGN_OUT'
+// Exercise Reducer
+export const SET_EXERCISES = 'SET_EXERCISES'

@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image, ImageBackground } from 'react-native'
+import { WorkoutStyles } from './WorkoutStyles'
+import { Header } from '../../components/headers'
 
-const WorkoutCard = (props) => {
+const WorkoutCard = ({ workout }) => {
+  const { name, image_url } = workout.attributes
+
   return (
-    <View>
-      <Text>
-        {props.workout.attributes.name}
-      </Text>
+    <View style={WorkoutStyles.workoutCard} >
+      <ImageBackground source={{uri: image_url}} style={{width: '100%', height: '100%', opacity: '.8'}} >
+        <Header text={name} />
+      </ImageBackground>
     </View>
   )
 }

@@ -5,13 +5,12 @@ import Header from '../headers/Header'
 import { AppStyle } from '../../styles/AppStyle';
 import { CardStyle } from './CardStyle';
 import { connect } from 'react-redux'
-import RootAdapter from '../../adapters/RootAdapter'
+import { CompletionAdapter } from '../../adapters'
 import { updateUserCompletion } from '../../actions/userActions'
 
 class CompletionCard extends Component {
 
   updateCompletion = async () => {
-    const { CompletionAdapter } = RootAdapter
     // make a fetch to update the completion from incomplete to complete!
     const id = this.props.completion.id
     const body = {

@@ -5,10 +5,11 @@ import { connect } from 'react-redux'
 import Stack from '../../stack/Stack'
 import SignInOrUp from './SignInOrUp'
 import HomePage from '../home/HomePage'
-import { SessionAdapter, WorkoutAdapter, PackAdapter } from '../../adapters'
+import { SessionAdapter, WorkoutAdapter, PackAdapter, ExerciseAdapter } from '../../adapters'
 
 import { setInitialState, signIn } from '../../actions/sessionActions'
 import { setWorkouts, setPacks } from '../../actions/workoutActions'
+import { setExercises } from '../../actions/exerciseActions'
 
 class LandingPage extends Component {
   componentDidMount(){
@@ -26,10 +27,12 @@ class LandingPage extends Component {
         let user = await SessionAdapter.reauth(token)
         let workouts = await WorkoutAdapter.index(token)
         let packs = await PackAdapter.index(token)
+        let exercises = await ExerciseAdapter.index(token)
           this.props.setInitialState(user.user.data)
           this.props.signIn()
           this.props.setWorkouts(workouts)
           this.props.setPacks(packs)
+          this.props.setExercises(exercises)
       }
     } catch (error) {
 
@@ -51,4 +54,4 @@ const mapStateToProps = state => {
   return { logged_in: state.session.logged_in }
 }
 
-export default connect(mapStateToProps, { setInitialState, signIn, setWorkouts, setPacks })(LandingPage)
+export default connect(mapStateToProps, { setInitialState, signIn, setWorkouts, setPacks, setExercises })(LandingPage)

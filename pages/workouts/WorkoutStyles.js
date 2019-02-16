@@ -12,5 +12,13 @@ export const WorkoutStyles = StyleSheet.create({
     justifyContent: 'space-around',
     borderBottomColor: 'white',
     borderBottomWidth: 1,
+  },
+  workoutCard: {
+    padding: 5,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: 350,
+    height: 150,
+    margin: 2,
   }
 })
