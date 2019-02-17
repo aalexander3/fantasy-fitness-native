@@ -1,4 +1,4 @@
-import { SET_WORKOUTS, SET_WORKOUT, SET_PACKS } from './actionTypes'
+import { SET_WORKOUTS, SET_WORKOUT, SET_PACKS, CLEAR_WORKOUT } from './actionTypes'
 
 export const setWorkouts = (workouts) => {
   return {
@@ -17,6 +17,13 @@ export const setPacks = (packs) => {
 export const setWorkout = (workout) => {
   return {
     type: SET_WORKOUT,
-    payload: workout.data
+    payload: workout
+  }
+}
+
+export const clearWorkout = (workout) => {
+  return {
+    type: CLEAR_WORKOUT,
+    payload: workout
   }
 }

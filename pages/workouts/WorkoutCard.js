@@ -1,18 +1,25 @@
 import React from 'react'
-import { View, Text, Image, ImageBackground } from 'react-native'
+import { View, Text, ImageBackground, TouchableHighlight } from 'react-native'
+import { connect } from 'react-redux'
 import { WorkoutStyles } from './WorkoutStyles'
 import { Header } from '../../components/headers'
+import { setWorkout } from '../../actions/workoutActions'
 
-const WorkoutCard = ({ workout }) => {
+
+const WorkoutCard = ({ workout, setWorkout }) => {
   const { name, image_url } = workout.attributes
 
   return (
     <View style={WorkoutStyles.workoutCard} >
-      <ImageBackground source={{uri: image_url}} style={{width: '100%', height: '100%', opacity: '.8'}} >
-        <Header text={name} />
-      </ImageBackground>
+      <TouchableHighlight onPress={()=>setWorkout(workout)} underlayColor='transparent' >
+        <ImageBackground source={{uri: image_url}} style={WorkoutStyles.backgroundImage} >
+          <View style={WorkoutStyles.cardHeader}>
+            <Header text={name} style={{color: 'white'}}/>
+          </View>
+        </ImageBackground>
+      </TouchableHighlight>
     </View>
   )
 }
 
-export default WorkoutCard
+export default connect(null, { setWorkout })(WorkoutCard)

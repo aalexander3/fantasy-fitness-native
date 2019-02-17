@@ -47,7 +47,7 @@ const Stack = createBottomTabNavigator({
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#5481AF',
+      activeTintColor: '#E53B49',
       inactiveTintColor: 'black',
       // showLabel: false,
       style: StackStyle.navigation

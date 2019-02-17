@@ -5,6 +5,7 @@ import WorkoutCard from './WorkoutCard'
 import WorkoutTabs from './WorkoutTabs'
 import WorkoutList from './WorkoutList'
 import ExerciseList from './ExerciseList'
+import WorkoutDisplay from './WorkoutDisplay'
 import PackList from './PackList'
 import { Header } from '../../components/headers'
 import { ViewStyles } from '../../styles/ViewStyles'
@@ -34,13 +35,21 @@ class WorkoutsPage extends Component {
   }
 
   render(){
+    const { currentWorkout } = this.props
+
     return (
       <View style={ViewStyles.profile}>
         <WorkoutTabs activeTab={this.state.display} handlePress={this.handlePress}/>
-        {this.renderWorkoutPage()}
+        {currentWorkout ? <WorkoutDisplay currentWorkout={currentWorkout} /> : this.renderWorkoutPage()}
       </View>
     )
   }
 }
 
-export default WorkoutsPage
+const mapStateToProps = state => {
+  return {
+    currentWorkout: state.workout.current
+  }
+}
+
+export default connect(mapStateToProps)(WorkoutsPage)

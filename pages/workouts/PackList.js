@@ -13,9 +13,9 @@ const PackList = ({packs}) => {
   return (
     <View style={ViewStyles.firstLayer} >
       <Header text="Packs" />
-        <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginBottom: '10%'}}>
-          <VerticalScroll children={packCards()} />
-        </View>
+      <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginBottom: '10%'}}>
+        <VerticalScroll children={packCards()} />
+      </View>
     </View>
   )
 }
