@@ -1,4 +1,4 @@
-  export const BASE_URL = 'http://10.39.108.140:3000/api/v1/'
+  export const BASE_URL = 'http://10.197.70.77:3000/api/v1/'
 
 export const config = (method, body=nil) => {
   return {
@@ -11,22 +11,24 @@ export const config = (method, body=nil) => {
   }
 }
 
-export const configWithAuth = (token) => {
+export const configWithAuth = (method, token, body) => {
     return {
-      method: "POST",
+      method,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': token
-      }
+      },
+      body: JSON.stringify(body)
   }
 }
 
-export const configWithMultiPart = (data) => {
+export const configWithMultiPart = (data, token) => {
   return {
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'multipart/form-data'
+      'Content-Type': 'multipart/form-data',
+      'Authorization': token
     },
     method: 'POST',
     body: data

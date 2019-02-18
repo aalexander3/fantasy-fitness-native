@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Button, Image, Animated, Easing, TouchableHighlight } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle';
-import { HomeStyle } from '../../styles/HomeStyle';
+
+import { CardStyle } from '../../components/cards/CardStyle';
+// import { HomeStyle } from '../../styles/HomeStyle';
+
 import { updateUserCompletion } from '../../actions/userActions'
 import RootAdapter from '../../adapters/RootAdapter'
 
@@ -81,7 +84,7 @@ class WorkoutCard extends Component {
 
     return (
       <Animated.View style={{ opacity, height }} >
-        <View style={ HomeStyle.teamCard } >
+        <View style={ CardStyle.teamCard } >
           <Image
             source={{uri: image_url }}
             style={ AppStyle.avatar } />
@@ -101,6 +104,7 @@ class WorkoutCard extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('STATE', state)
    return {
      user: state.user,
      currentTeam: state.team.currentTeam
@@ -108,4 +112,21 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, null)(WorkoutCard)
+export default connect(mapStateToProps, { updateUserCompletion })(WorkoutCard)
+
+
+// import React from 'react'
+// import { View, Text } from 'react-native'
+//
+// const WorkoutCard = (props) => {
+//   // debugger
+//   return (
+//     <View>
+//       <Text>
+//         {props.workout.name}
+//       </Text>
+//     </View>
+//   )
+// }
+//
+// export default WorkoutCard

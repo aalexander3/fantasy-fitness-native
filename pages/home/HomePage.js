@@ -1,14 +1,17 @@
-import React, { Component } from 'react'
-import { View, Text, Button, Image, ScrollView, TouchableHighlight, Animated, Easing } from 'react-native'
-import { AppStyle } from '../styles/AppStyle'
-import { HomeStyle } from '../styles/HomeStyle'
-import { ScrollStyle } from '../styles/ScrollStyle'
+import React, { Component, Fragment } from 'react'
+import { View, Text, Button, Image, ScrollView, TouchableHighlight } from 'react-native'
+import { AppStyle } from '../../styles/AppStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
+import { ScrollStyle } from '../../styles/ScrollStyle'
 import { connect } from 'react-redux'
 
-import UserCard from './UserCard'
-import TeamCard from './TeamCard'
-import CompletionCard from './CompletionCard'
-import TeamAvatar from './TeamAvatar'
+import UserCard from '../../components/cards/UserCard'
+import TeamCard from '../../components/cards/TeamCard'
+import CompletionCard from '../../components/cards/CompletionCard'
+import SmallSquareCard from '../../components/cards/SmallSquareCard'
+import HeaderWithAvatar from '../../components/headers/HeaderWithAvatar'
+import Header from '../../components/headers/Header'
+
 
 class HomePage extends Component {
 
@@ -29,6 +32,48 @@ class HomePage extends Component {
     this.setState({ display: this.state.nextDisplay })
   }
 
+  renderHomePage = () => {
+
+    const { attributes } = this.props.user
+    const { display } = this.state
+
+    if (this.props.league){
+      return (
+        <Fragment>
+          <View style={ ViewStyles.secondLayer }>
+            <TouchableHighlight
+              onPress={()=>this.changeDisplay("TEAMS")}
+              underlayColor='transparent' >
+              <Header text="My Teams"/>
+            </TouchableHighlight>
+            { attributes ? this.renderTeams() : null }
+          </View>
+          <View style={ ViewStyles.thirdLayer }>
+            <TouchableHighlight
+              onPress={()=>this.changeDisplay("WORKOUTS")}
+              underlayColor='transparent' >
+              <Header text="Claimed Workouts"/>
+            </TouchableHighlight>
+            { attributes ? this.renderCompletions() : null }
+          </View>
+        </Fragment>
+      )
+    } else {
+        return (
+          <View style={ ViewStyles.secondLayer }>
+            <Header text="It looks like you don't belong to a league yet!" />
+            <TouchableHighlight
+              onPress={()=>{
+                this.props.navigation.navigate('League')
+              }}
+              underlayColor='transparent'>
+              <Header text="Create a new league"/>
+            </TouchableHighlight>
+          </View>
+      )
+    }
+  }
+
   renderUser = () => {
     const { user } = this.props
     const { first_name, last_name, avatar } = user.attributes
@@ -40,14 +85,7 @@ class HomePage extends Component {
           <TouchableHighlight
             onPress={()=>this.changeDisplay('PROFILE')}
             underlayColor='transparent' >
-            <View style={{display: 'flex', flexDirection: "row", alignItems: 'center' }}>
-              <Image
-                source={{uri: avatar }}
-                style={[AppStyle.avatar, { height: 40, width: 40, borderRadius: 20, marginLeft: 10}]} />
-              <Text style={AppStyle.header}>
-              { fullName }
-              </Text>
-            </View>
+            <HeaderWithAvatar avatar={avatar} text={fullName}/>
           </TouchableHighlight>)
     } else {
       return <UserCard user={ user } nextDisplay={ this.state.nextDisplay } afterAnimation={ this.afterAnimation }/>
@@ -66,7 +104,7 @@ class HomePage extends Component {
         </ScrollView>
       )
     } else {
-      const teamCards = teams.map(team => <TeamAvatar image_url={ team.image_url } key={ team.name } />)
+      const teamCards = teams.map(team => <SmallSquareCard image_url={ team.image_url } key={ team.name } />)
       return (
         <ScrollView horizontal style={ScrollStyle.scrollView}>
           {teamCards}
@@ -89,7 +127,7 @@ class HomePage extends Component {
         </ScrollView>
       )
     } else {
-      const workoutCards = completions.map((completion) => <TeamAvatar image_url={ completion.workout.image_url } key={ completion.id } />)
+      const workoutCards = completions.map((completion) => <SmallSquareCard image_url={ completion.workout.image_url } key={ completion.id } />)
       return (
         <ScrollView horizontal style={ScrollStyle.scrollView}>
           {workoutCards}
@@ -100,36 +138,23 @@ class HomePage extends Component {
 
   render(){
     const { attributes } = this.props.user
-    const { display } = this.state
 
     return (
-      <View style={ HomeStyle.profile } >
-        <View style={ HomeStyle.firstLayer } >
+      <View style={ ViewStyles.profile } >
+        <View style={ ViewStyles.firstLayer } >
           { attributes ? this.renderUser() : null }
         </View>
-        <View style={ HomeStyle.secondLayer }>
-          <TouchableHighlight
-            onPress={()=>this.changeDisplay("TEAMS")}
-            underlayColor='transparent' >
-            <Text style={AppStyle.header}>My Teams</Text>
-          </TouchableHighlight>
-          { attributes ? this.renderTeams() : null }
-        </View>
-        <View style={ HomeStyle.thirdLayer }>
-          <TouchableHighlight
-            onPress={()=>this.changeDisplay("WORKOUTS")}
-            underlayColor='transparent' >
-            <Text style={AppStyle.header}>Claimed Workouts</Text>
-          </TouchableHighlight>
-          { attributes ? this.renderCompletions() : null }
-        </View>
+        {this.renderHomePage()}
       </View>
     )
   }
 }
 
 const mapStateToProps = state => {
-  return { user: state.user }
+  return {
+    user: state.user,
+    league: state.league.currentLeague
+   }
 }
 
 export default connect(mapStateToProps)(HomePage)

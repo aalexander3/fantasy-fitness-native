@@ -1,4 +1,5 @@
-import { SET_WORKOUTS, SET_WORKOUT, SET_WORKOUT_PACKS } from './actionTypes'
+import { SET_WORKOUTS, SET_WORKOUT, SET_PACKS } from './actionTypes'
+// import { SET_WORKOUTS, SET_WORKOUT, SET_WORKOUT_PACKS } from './actionTypes'
 
 export const setWorkouts = (workouts) => {
   return {
@@ -6,6 +7,14 @@ export const setWorkouts = (workouts) => {
     payload: workouts.data
   }
 }
+
+export const setPacks = (packs) => {
+  return {
+    type: SET_PACKS,
+    payload: packs.data
+  }
+}
+
 export const setWorkout = (workout) => {
   return {
     type: SET_WORKOUT,
@@ -13,9 +22,9 @@ export const setWorkout = (workout) => {
   }
 }
 
-export const setWorkoutPacks = (packs) => {
-  return {
-    type: SET_WORKOUT_PACKS,
-    payload: packs
-  }
-}
+// export const setWorkoutPacks = (packs) => {
+//   return {
+//     type: SET_WORKOUT_PACKS,
+//     payload: packs
+//   }
+// }

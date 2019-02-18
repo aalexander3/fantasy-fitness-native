@@ -10,7 +10,8 @@ export const leagueReducer = (state = leagueState, action) => {
         allLeagues: action.payload.attributes.leagues
       }
     case SET_LEAGUE:
-      return {...state,
+      return {
+        ...state,
         currentLeague: action.payload
       }
     default:

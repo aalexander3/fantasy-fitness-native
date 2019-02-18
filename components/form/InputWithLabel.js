@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { View, TextInput, Text } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { FormStyles } from './FormStyles'
 
 class InputWithLabel extends Component {
 
@@ -15,20 +14,20 @@ class InputWithLabel extends Component {
   }
 
   render(){
-    const {label, icon, handleText, value, placeholder, name, type} = this.props
+    const { label, icon, handleText, value, placeholder, name, type, keyboard } = this.props
     const { focused } = this.state
 
     return (
       <View>
-        <Text style={ AppStyle.label }>{label}</Text>
-        <View style={ focused ? AppStyle.form : AppStyle.focusedForm }>
+        <Text style={ FormStyles.label }>{label}</Text>
+        <View style={ focused ? FormStyles.form : FormStyles.focusedForm }>
           <Ionicons
             name={icon}
             transform={[{ rotateX: '45deg' }]}
             size={30}
             color={'#424242'} />
           <TextInput
-            style={ AppStyle.input }
+            style={ FormStyles.input }
             onChangeText={(text) => handleText(text, name)}
             value={value}
             placeholder={placeholder}
@@ -36,6 +35,7 @@ class InputWithLabel extends Component {
             autoCapitalize='none'
             secureTextEntry={type==="password"}
             onFocus={this.handleFocus}
+            keyboardType={keyboard ? keyboard : 'default' }
           />
         </View>
       </View>

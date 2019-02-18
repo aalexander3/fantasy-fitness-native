@@ -4,14 +4,14 @@ import { AppStyle } from '../../styles/AppStyle';
 import { connect } from 'react-redux'
 
 import RootAdapter from '../../adapters/RootAdapter'
-import { setWorkouts, setWorkout, setWorkoutPacks } from '../../actions/workoutActions'
+import { setWorkouts, setWorkout, setPacks  } from '../../actions/workoutActions'
 
 class WorkoutsPage extends Component {
 
   componentDidMount(){
     const { WorkoutAdapter, PackAdapter } = RootAdapter
     WorkoutAdapter.index().then(this.props.setWorkouts)
-    PackAdapter.index().then(this.props.setWorkoutPacks)
+    PackAdapter.index().then(this.props.setPacks )
   }
 
   // renderWorkouts = () => {
@@ -49,4 +49,4 @@ const mapStateToProps = state => {
    return { workout: state.workout }
 }
 
-export default connect(mapStateToProps, { setWorkouts, setWorkoutPacks})(WorkoutsPage)
+export default connect(mapStateToProps, { setWorkouts, setPacks })(WorkoutsPage)

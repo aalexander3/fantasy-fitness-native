@@ -1,22 +1,29 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image, ImagePickerIOS } from 'react-native'
-import { ImagePicker, Permissions } from 'expo'
+import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
+import ImageUpload from '../../components/ImageUpload/ImageUpload'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
+import Header from '../../components/headers/Header'
+import { NormalButton, NormalLink } from '../../components/buttons'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
+import { _getToken, _logout, _saveToken } from '../../actions/asyncActions'
+
 
 class SignUpPage extends Component {
 
   state = {
     user: {
       username: '',
+      first_name: '',
+      last_name: '',
       email: '',
+      bio: '',
       password: '',
       password_confirmation: '',
       avatar: ''
@@ -25,11 +32,7 @@ class SignUpPage extends Component {
   }
 
   _storeData = async (token) => {
-    try {
-      await AsyncStorage.setItem('token', token)
-    } catch (error) {
-
-    }
+    await AsyncStorage.setItem('token', token)
   }
 
   renderErrors = (errors) => {
@@ -57,7 +60,7 @@ class SignUpPage extends Component {
   }
 
   createFormData = () => {
-    const { username, email, password, password_confirmation, avatar } = this.state.user
+    const { username, email, password, password_confirmation, avatar, first_name, last_name, bio } = this.state.user
 
     formData = new FormData()
     if (avatar !== '') {
@@ -68,6 +71,9 @@ class SignUpPage extends Component {
       })
     }
     formData.append('username', username)
+    formData.append('first_name', first_name)
+    formData.append('last_name', last_name)
+    formData.append('bio', bio)
     formData.append('email', email)
     formData.append('password', password)
     formData.append('password_confirmation', password_confirmation)
@@ -96,48 +102,17 @@ class SignUpPage extends Component {
     })
   }
 
-  addPhoto = async () => {
-    const options = {
-      allowsEditing: true
-    }
-
-    let permission = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    let { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL)
-    console.log(status)
-    if (status === 'granted') {
-      let result = await ImagePicker.launchImageLibraryAsync(options)
-      console.log(result)
-      if (result.uri) return this.handlePhoto(result.uri)
-    }
-  }
-
   renderSignUp = () => {
-    const { username, password, password_confirmation, email } = this.state.user
+    const { username, password, password_confirmation, email, first_name, last_name, avatar } = this.state.user
     const { errors } = this.state
 
     return (
-      <View style={AppStyle.signUpPage}>
-        <TouchableHighlight
-          onPress={this.addPhoto}
-          underlayColor='transparent'
-        >
-        {this.state.user.avatar !== '' ?
-          <Image
-            source={{uri: this.state.user.avatar }}
-            style={AppStyle.imageUpload} /> :
-          <Image
-            source={{uri: 'http://pluspng.com/img-png/free-png-plus-sign-download-512.png' }}
-            style={AppStyle.imageUpload} />
-        }
-        </TouchableHighlight>
+      <View style={ViewStyles.signUpPage}>
+        <ImageUpload handlePhoto={this.handlePhoto} imageUrl={avatar} />
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
-          <Text style={ AppStyle.header }>Sign Up or </Text>
-          <TouchableHighlight
-            onPress={this.props.handlePress}
-            underlayColor='transparent'
-          ><Text style={ AppStyle.link }>Login</Text>
-          </TouchableHighlight>
+          <Header text="Sign up or " />
+          <NormalLink text="Login" handlePress={this.props.handlePress}/>
         </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
@@ -148,6 +123,24 @@ class SignUpPage extends Component {
           handleText={this.handleText}
           value={username}
           placeholder='Enter your username...' />
+
+        <InputWithLabel
+          label="First Name"
+          name="first_name"
+          type="username"
+          icon="ios-person"
+          handleText={this.handleText}
+          value={first_name}
+          placeholder='Enter your first name...' />
+
+        <InputWithLabel
+          label="Last Name"
+          name="last_name"
+          type="username"
+          icon="ios-person"
+          handleText={this.handleText}
+          value={last_name}
+          placeholder='Enter your last name...' />
 
         <InputWithLabel
           label="Email"
@@ -176,21 +169,14 @@ class SignUpPage extends Component {
           value={password_confirmation}
           placeholder='Confirm your password...' />
 
-        <TouchableHighlight
-          style={AppStyle.button}
-          onPress={this.handlePress}
-          underlayColor='transparent'
-        >
-        <Text> Sign Up </Text>
-        </TouchableHighlight>
-
+        <NormalButton text="SIGN UP" handlePress={this.handlePress} />
       </View>
     )
   }
 
   render() {
     return (
-      <View style={ HomeStyle.firstLayer }>
+      <View style={ ViewStyles.firstLayer }>
         {this.renderSignUp()}
       </View>
     )

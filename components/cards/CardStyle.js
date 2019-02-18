@@ -1,9 +1,42 @@
 import { StyleSheet } from 'react-native';
 
-export const HomeStyle = StyleSheet.create({
-  profile: {
-    flex: 1,
-    backgroundColor: '#D5DDE7'
+export const CardStyle = StyleSheet.create({
+  smallSquare: {
+    height: 75,
+    width: 75,
+    flexDirection: 'column',
+    marginRight: 20,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  smallSquareImage: {
+    height: 75,
+    width: 75,
+    borderRadius: 10,
+  },
+  avatar: {
+    borderColor: 'black',
+    borderWidth: 1,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+  },
+  teamCard: {
+    height: 300,
+    width: 200,
+    flexDirection: 'column',
+    marginRight: 20,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderStyle: 'solid',
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 10,
+    shadowColor: 'grey',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
   },
   userCard: {
     alignItems: 'center',
@@ -62,43 +95,5 @@ export const HomeStyle = StyleSheet.create({
     shadowRadius: 2,
     borderColor: 'green',
     borderWidth: 2,
-  },
-  completionHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 2,
-    marginBottom: 2,
-    padding: 2,
-  },
-  teamAvatar: {
-    height: 75,
-    width: 75,
-    flexDirection: 'column',
-    marginRight: 20,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 10,
-  },
-  avatar: {
-    height: 75,
-    width: 75,
-    borderRadius: 10,
-  },
-  firstLayer: {
-    flex: 1,
-    paddingTop: 80,
-    backgroundColor: '#D5DDE7'
-  },
-  secondLayer: {
-    backgroundColor: '#B5C9D3',
-    borderTopLeftRadius: 15,
-    borderTopEndRadius: 15,
-    paddingBottom: 20,
-    marginBottom: -15,
-  },
-  thirdLayer: {
-    backgroundColor: '#B994D8',
-    borderTopLeftRadius: 15,
-    borderTopEndRadius: 15,
   },
 })

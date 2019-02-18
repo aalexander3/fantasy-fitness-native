@@ -1,13 +1,13 @@
 import React from 'react'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { createBottomTabNavigator } from 'react-navigation'
-import { StackStyle } from '../styles/StackStyle'
-// import{ Animated } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation'
+import { StackStyle } from './StackStyle'
 
-import HomePage from '../components/HomePage'
+import HomePage from '../pages/home/HomePage'
 import TeamPage from '../pages/team/TeamPage'
-import LeaguePage from '../components/LeaguePage'
-import WorkoutsPage from '../pages/workouts'
+import LeaguePage from '../pages/league/LeaguePage'
+import WorkoutsPage from '../pages/workouts/WorkoutsPage'
+
 
 const Stack = createBottomTabNavigator({
     Home: HomePage,
@@ -16,25 +16,25 @@ const Stack = createBottomTabNavigator({
     Workouts: WorkoutsPage,
   },
   {
-    navigationOptions: ({ navigation }) => ({
+    defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
           case 'Home':
-            iconName = `ios-person${focused ? '' : '-outline'}`
+            iconName = `ios-person`
             break;
           case 'Team':
-            iconName = `ios-people${focused ? '' : '-outline'}`
+            iconName = `ios-people`
             break;
           case 'League':
-            iconName = `ios-trophy${focused ? '' : '-outline'}`
+            iconName = `ios-trophy`
             break;
           case 'Workouts':
-            iconName = `ios-heart${focused ? '' : '-outline'}`
+            iconName = `ios-heart`
             break;
           default:
-            iconName = `ios-heart${focused ? '' : '-outline'}`
+            iconName = `ios-heart`
             break;
         }
         // You can return any component that you like here! We usually use an
@@ -52,8 +52,12 @@ const Stack = createBottomTabNavigator({
       // showLabel: false,
       style: StackStyle.navigation
     },
-    initialRouteName: 'Home',
+    initialRouteName: 'League',
   }
 );
 
-export default Stack
+
+const AppContainer = createAppContainer(Stack)
+
+
+export default AppContainer

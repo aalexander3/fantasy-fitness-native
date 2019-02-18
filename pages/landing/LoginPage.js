@@ -3,13 +3,15 @@ import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image } from '
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
-import { HomeStyle } from '../../styles/HomeStyle'
+import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import RootAdapter from '../../adapters/RootAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
+import Header from '../../components/headers/Header'
+import { NormalButton, NormalLink } from '../../components/buttons'
 
-// import { setUser } from '../../actions/userActions'
 import { signIn, setInitialState } from '../../actions/sessionActions'
+import { _saveToken } from '../../actions/asyncActions'
 
 class LoginPage extends Component {
 
@@ -22,11 +24,7 @@ class LoginPage extends Component {
   }
 
   _storeData = async (token) => {
-    try {
-      await AsyncStorage.setItem('token', token)
-    } catch (error) {
-
-    }
+    await AsyncStorage.setItem('token', token)
   }
 
   handleText = (text, name) => {
@@ -64,19 +62,14 @@ class LoginPage extends Component {
     const { signUp, username, password, user, errors } = this.state
 
     return (
-      <View style={ AppStyle.signUpPage }>
+      <View style={ ViewStyles.signUpPage }>
         <Image
           source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt9wJpJ_lzaO39aKPvLnJiT7oS9RueUTUzxIRr7F7BKb2mbZC8' }}
-          style={ AppStyle.imageUpload } />
+          style={ AppStyle.medAvatar } />
 
         <View style={{display: 'flex', flexDirection: 'row'}}>
-          <Text style={ AppStyle.header }>Login or </Text>
-          <TouchableHighlight
-            onPress={this.props.handlePress}
-            underlayColor='transparent'
-          >
-            <Text style={ AppStyle.link }>Sign Up</Text>
-          </TouchableHighlight>
+          <Header text="Login or " />
+          <NormalLink text="Sign up" handlePress={this.props.handlePress} />
         </View>
         {errors && <Text style={AppStyle.label}>{errors}</Text>}
         <InputWithLabel
@@ -96,19 +89,14 @@ class LoginPage extends Component {
           value={password}
           placeholder='Enter your password...' />
 
-        <TouchableHighlight
-          style={AppStyle.button}
-          onPress={this.handlePress}
-        >
-        <Text> Log in </Text>
-        </TouchableHighlight>
+        <NormalButton text="LOGIN" handlePress={this.handlePress} />
       </View>
     )
   }
 
   render() {
     return (
-      <View style={ HomeStyle.firstLayer }>
+      <View style={ ViewStyles.firstLayer }>
         { this.renderLogin()}
       </View>
     )

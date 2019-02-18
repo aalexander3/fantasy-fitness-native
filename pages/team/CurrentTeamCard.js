@@ -1,23 +1,20 @@
 import React, { Component } from 'react'
-import { View, Text, Button, Image, Animated, Easing } from 'react-native'
+import { View, Text, Image, Animated } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle';
-import { HomeStyle } from '../../styles/HomeStyle';
+import { CardStyle } from '../../components/cards/CardStyle';
 import { connect } from 'react-redux'
+import IsAnimated from '../../HOC/IsAnimated'
+import Header from '../../components/headers/Header'
 
 import { setTeam } from '../../actions/teamActions'
 
 // testing package
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
-
-
 class CurrentTeamCard extends Component {
 
-  state = {
-    profileY:  new Animated.Value(0)
-  }
-
   onSwipeRight(gestureState) {
+    // Make sure this still works with multiple teams
     let teams = this.props.team.allTeams
     let team = this.props.team.currentTeam
     let teamIndexInTeams = teams.indexOf(team)
@@ -28,6 +25,7 @@ class CurrentTeamCard extends Component {
       this.props.setTeam(teams[0])
     }
   }
+
   onSwipeLeft(gestureState) {
     let teams = this.props.team.allTeams
     let team = this.props.team.currentTeam
@@ -40,45 +38,13 @@ class CurrentTeamCard extends Component {
     }
   }
 
-  componentDidMount(){
-    this.setState({ profileY: new Animated.Value(0)}, this.profileIn)
-  }
-
-  componentDidUpdate(prevProps){
-    if (this.props.nextDisplay !== 'TEAM') {
-      this.profileOut()
-      // this.setState({ profileY:  new Animated.Value(1)}, this.profileOut)
-    }
-  }
-
-  profileIn = () => {
-    Animated.timing(
-    this.state.profileY,
-      {
-        toValue: 1,
-        duration: 200,
-        easing: Easing.linear
-      }
-    ).start()
-  }
-
-  profileOut = () => {
-    Animated.timing(
-      this.state.profileY,
-        {
-          toValue: 0,
-          duration: 50,
-          easing: Easing.linear
-        }
-      ).start(this.props.afterAnimation)
-  }
-
   render(){
+    // might need to grab from this.props.currentTeam????
     const { name, motto, image_url, league } = this.props.team.currentTeam
 
-    const profileY = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
-    const height = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [100, 275]})
-    const opacity = this.state.profileY.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
+    const profileY = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
+    const height = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [100, 275]})
+    const opacity = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
 
     return (
       <Animated.View style={{ transform: [{translateY: profileY }], height, opacity }} >
@@ -86,7 +52,7 @@ class CurrentTeamCard extends Component {
           onSwipeRight={(state) => this.onSwipeRight(state)}
           onSwipeLeft={(state) => this.onSwipeLeft(state)}
           >
-          <View style={HomeStyle.userCard} >
+          <View style={CardStyle.userCard} >
             <Image
               source={{uri: image_url }}
               style={[AppStyle.avatar, { height: 150, width: 150}, {borderRadius: 75}]} />
@@ -106,4 +72,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {setTeam})(CurrentTeamCard)
+
+export default IsAnimated(connect(null, {setTeam})(CurrentTeamCard))

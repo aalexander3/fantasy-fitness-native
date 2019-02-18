@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 import { Animated } from 'react-native'
-import VerticalCard from '../../components/cards/VerticalCard'
+import VerticalCard from './VerticalCard'
 import IsAnimated from '../../HOC/IsAnimated'
 
-class TeammateCard extends Component {
+import { connect } from 'react-redux'
+import { setTeam } from '../../actions/teamActions'
+
+class TeamCard extends Component {
+
+  goToTeam = () => {
+    // switch to the team page & dispatch state of selected team w/ team id
+    this.props.setTeam(this.props.team)
+    this.props.navigation.navigate('Team')
+  }
 
   render(){
-    const { username, bio, avatar, tagline, id } = this.props.teammate
+    const { name, motto, image_url, league_id } = this.props.team
 
     const profileY = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [100, 300]})
@@ -15,13 +24,13 @@ class TeammateCard extends Component {
     return (
       <Animated.View style={{ opacity, height }} >
         <VerticalCard
-          image_url={avatar}
-          mainText={username}
-          subText={tagline}
+          image_url={image_url}
+          mainText={name}
+          subText={motto}
           handlePress={this.goToTeam} />
       </Animated.View>
     )
   }
 }
 
-export default IsAnimated(TeammateCard)
+export default IsAnimated(connect(null, { setTeam })(TeamCard))

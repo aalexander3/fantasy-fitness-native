@@ -3,7 +3,8 @@ export const SET_USER = 'SET_USER'
 // Workout Reducer
 export const SET_WORKOUTS = 'SET_WORKOUTS'
 export const SET_WORKOUT = 'SET_WORKOUT'
-export const SET_WORKOUT_PACKS = 'SET_WORKOUT_PACKS'
+export const SET_PACKS = 'SET_PACKS'
+// export const SET_WORKOUT_PACKS = 'SET_WORKOUT_PACKS'
 // Completion  Reducer
 export const UPDATE_USER_COMPLETION = 'UPDATE_USER_COMPLETION'
 // Team Reducer
