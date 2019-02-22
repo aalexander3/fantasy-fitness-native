@@ -12,8 +12,7 @@ const WorkoutList = ({ workouts }) => {
   workoutMap = workouts.map(workout => <WorkoutCard key={workout.id} workout={workout} />)
 
   return (
-    <View style={ViewStyles.firstLayer} >
-      <Header text="Workouts" />
+    <View style={ViewStyles.profile} >
       <View style={WorkoutStyles.centeredView}>
         <VerticalScroll children={workoutMap} />
       </View>

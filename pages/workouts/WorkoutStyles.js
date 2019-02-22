@@ -10,8 +10,6 @@ export const WorkoutStyles = StyleSheet.create({
     flex: .07,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderBottomColor: 'white',
-    borderBottomWidth: 1,
   },
   workoutCard: {
     backgroundColor: '#fff',
@@ -47,5 +45,25 @@ export const WorkoutStyles = StyleSheet.create({
     width: '100%',
     paddingTop: 10,
     flex: 1,
-  }
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  bannerHeader: {
+    color: '#fff',
+    fontSize: 40,
+    fontWeight: 'bold',
+    fontVariant: ['small-caps'],
+    textTransform: 'uppercase',
+  },
+  bannerText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontVariant: ['small-caps'],
+  },
 })

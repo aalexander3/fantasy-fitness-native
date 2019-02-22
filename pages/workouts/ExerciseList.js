@@ -11,11 +11,10 @@ const ExerciseList = ({ exercises }) => {
   const exerciseMap = exercises.map(exercise => <WorkoutCard key={exercise.id} workout={exercise}/>)
 
   return (
-    <View style={ViewStyles.firstLayer} >
-      <Header text="Exercises" />
-        <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginBottom: '10%'}}>
-          <VerticalScroll children={exerciseMap} />
-        </View>
+    <View style={ViewStyles.profile} >
+      <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginBottom: '10%'}}>
+        <VerticalScroll children={exerciseMap} />
+      </View>
     </View>
   )
 }
