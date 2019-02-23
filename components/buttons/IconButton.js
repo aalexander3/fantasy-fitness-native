@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { AppStyle } from '../../styles/AppStyle'
 
 
-const IconButton = ({ text, handlePress, iconName }) => {
+const IconButton = ({ handlePress, iconName }) => {
 
   return (
     <TouchableHighlight

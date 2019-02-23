@@ -24,7 +24,7 @@ const TeamLayer = ({ user, league, nextDisplay, display, changeDisplay, afterAni
     if (!league) return checkForLeagues()
 
     if (display === 'TEAMS'){
-      const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } nextDisplay={ nextDisplay } afterAnimation={ afterAnimation } navigation={navigation} />)
+      const teamCards = teams.map(team => <TeamCard team={ team } key={ team.name } nextDisplay={ nextDisplay } afterAnimation={ afterAnimation } />)
       return (
         <Fragment>
           <TransparentLink text="My Teams" handlePress={()=>changeDisplay("TEAMS")} />

@@ -2,18 +2,19 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import WorkoutCard from './WorkoutCard'
+import { WorkoutStyles } from './WorkoutStyles'
 import { Header } from '../../components/headers'
 import { VerticalScroll } from '../../components/scrollviews'
 import { ViewStyles } from '../../styles/ViewStyles'
 
 
 const PackList = ({packs}) => {
-  const packCards = () => packs.map(pack => <WorkoutCard workout={pack} key={pack.id} />)
+  const packCards = packs.map(pack => <WorkoutCard workout={pack} key={pack.id} />)
 
   return (
     <View style={ViewStyles.profile} >
-      <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginBottom: '10%'}}>
-        <VerticalScroll children={packCards()} />
+      <View style={WorkoutStyles.centeredView}>
+        <VerticalScroll children={packCards} />
       </View>
     </View>
   )

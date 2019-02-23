@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Animated } from 'react-native'
 import VerticalCard from './VerticalCard'
 import IsAnimated from '../../HOC/IsAnimated'
+import { withNavigation } from 'react-navigation';
 
 import { connect } from 'react-redux'
 import { setTeam } from '../../actions/teamActions'
@@ -9,6 +10,7 @@ import { setTeam } from '../../actions/teamActions'
 class TeamCard extends Component {
 
   goToTeam = () => {
+    console.log(this.props);
     // switch to the team page & dispatch state of selected team w/ team id
     this.props.setTeam(this.props.team)
     this.props.navigation.navigate('Team')
@@ -33,4 +35,4 @@ class TeamCard extends Component {
   }
 }
 
-export default IsAnimated(connect(null, { setTeam })(TeamCard))
+export default IsAnimated(withNavigation(connect(null, { setTeam })(TeamCard)))

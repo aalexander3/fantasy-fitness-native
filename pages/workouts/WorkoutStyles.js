@@ -21,7 +21,7 @@ export const WorkoutStyles = StyleSheet.create({
   },
   cardHeader: {
     backgroundColor: '#22272E',
-    opacity: .7,
+    opacity: .8,
     height: '100%',
     width: '100%',
     overflow: 'hidden',
@@ -32,14 +32,17 @@ export const WorkoutStyles = StyleSheet.create({
     width: '100%',
     height: '100%',
     opacity: .8,
-    resizeMode: 'cover'
+    resizeMode: 'cover',
+    borderRadius: 10,
   },
   centeredView: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    marginBottom: '10%'
+    height: '90%',
+    marginBottom: '10%',
+    paddingBottom: '10%',
   },
   workoutDisplay: {
     width: '100%',

@@ -5,7 +5,7 @@ export const AppStyle = StyleSheet.create({
   link: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#2F669E',
+    color: '#E53B49',
     marginTop: 10,
     marginBottom: 10,
     textDecorationLine: 'underline',
@@ -23,8 +23,8 @@ export const AppStyle = StyleSheet.create({
   },
   button: {
     padding: 10,
-    backgroundColor: '#2F669E',
-    width: 275,
+    backgroundColor: '#E53B49',
+    width: 225,
     borderRadius: 50,
     alignItems: 'center',
   },
@@ -38,7 +38,7 @@ export const AppStyle = StyleSheet.create({
   },
   icon: {
     padding: 10,
-    backgroundColor: '#2F669E',
+    backgroundColor: '#E53B49',
     width: 50,
     borderRadius: 25,
     alignItems: 'center',
