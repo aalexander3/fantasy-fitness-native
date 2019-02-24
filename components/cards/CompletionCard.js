@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, Button, Image, Animated, AsyncStorage } from 'react-native'
 import IsAnimated from '../../HOC/IsAnimated'
 import Header from '../headers/Header'
-import { AppStyle } from '../../styles/AppStyle';
 import { CardStyle } from './CardStyle';
 import { connect } from 'react-redux'
 import { CompletionAdapter } from '../../adapters'

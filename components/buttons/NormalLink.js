@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, Text } from 'react-native'
+import { TouchableHighlight, Text } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle'
 
 

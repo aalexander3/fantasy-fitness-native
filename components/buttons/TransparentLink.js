@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, Text } from 'react-native'
-import { AppStyle } from '../../styles/AppStyle'
+import { TouchableHighlight } from 'react-native'
 import { Header } from '../headers'
 
 const TransparentLink = ({ text, handlePress, active }) => {

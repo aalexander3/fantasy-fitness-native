@@ -19,7 +19,6 @@ class TeamCard extends Component {
   render(){
     const { name, motto, image_url, league_id } = this.props.team
 
-    const profileY = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [100, 300]})
     const opacity = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
 
