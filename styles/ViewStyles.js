@@ -3,19 +3,19 @@ import { StyleSheet } from 'react-native';
 export const ViewStyles = StyleSheet.create({
   profile: {
     flex: 1,
-    backgroundColor: '#E53B49',
+    backgroundColor: '#EDEDED',
   },
   firstLayer: {
     flex: 1,
     paddingTop: 80,
     paddingLeft: 10,
     paddingRight: 10,
-    backgroundColor: '#E53B49',
+    backgroundColor: '#EDEDED',
     opacity: 1,
   },
   secondLayer: {
-    backgroundColor: '#E53B49',
-    borderTopColor: 'white',
+    backgroundColor: '#EDEDED',
+    borderTopColor: 'black',
     borderTopWidth: 1,
     borderTopLeftRadius: 15,
     borderTopEndRadius: 15,
@@ -26,8 +26,8 @@ export const ViewStyles = StyleSheet.create({
     opacity: .9,
   },
   thirdLayer: {
-    backgroundColor: '#E53B49',
-    borderTopColor: 'white',
+    backgroundColor: '#EDEDED',
+    borderTopColor: 'black',
     borderTopWidth: 1,
     borderTopLeftRadius: 15,
     borderTopEndRadius: 15,

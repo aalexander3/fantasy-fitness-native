@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import RootAdapter from '../../adapters/RootAdapter'
+import { SessionAdapter } from '../../adapters'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import Header from '../../components/headers/Header'
 import { NormalButton, NormalLink } from '../../components/buttons'
@@ -39,7 +39,6 @@ class LoginPage extends Component {
   }
 
   handlePress = () => {
-    const { SessionAdapter } = RootAdapter
     // if login ==> take state and submit a login session
     // if sign up ==> take state and submit a users create request
      // on sucessful login ==> save encoded jwt into AsyncStorage

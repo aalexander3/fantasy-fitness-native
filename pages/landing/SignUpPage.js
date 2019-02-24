@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import RootAdapter from '../../adapters/RootAdapter'
+import { UserAdapter } from '../../adapters/UserAdapter'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import Header from '../../components/headers/Header'
 import { NormalButton, NormalLink } from '../../components/buttons'
@@ -40,8 +40,6 @@ class SignUpPage extends Component {
   }
 
   handlePress = () => {
-    const { UserAdapter } = RootAdapter
-
     let formData = this.createFormData()
     // if login ==> take state and submit a login session
     // if sign up ==> take state and submit a users create request
