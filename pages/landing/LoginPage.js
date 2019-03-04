@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image } from 'react-native'
+import { View, Text, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { SessionAdapter } from '../../adapters'
 import InputWithLabel from '../../components/form/InputWithLabel'
 import Header from '../../components/headers/Header'
