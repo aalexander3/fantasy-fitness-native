@@ -1,19 +1,25 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { HeaderWithAvatar } from '../../components/headers'
 import { NormalLink } from '../../components/buttons'
 import { ViewStyles, TouchableHighlight } from '../../styles/ViewStyles'
+import { TeamAdapter } from '../../adapters'
 
 const TeamItem = ({ team, rosterSize, currentUser, leagueId }) => {
 
-  // need to know current person & if they're already on a team or not.
-  // if not - show buttons to join team
-  const joinTeam = () => {
+  const joinTeam = async () => {
     // sends request to add current user to that team
     // create a new user_team
     // needs teamId and userId and authorization ?
-    console.log(team);
+    // NOTE: do this soon and verify that it works!
+    // w/ token and teamId should be able to make the join
+    let token = await AsyncStorage.getItem('token')
+    const teamId = team.id
+    if (token){
+      TeamAdapter.join(teamId, token)
+        .then(console.log)
+    }
   }
 
   const renderLink = () => {

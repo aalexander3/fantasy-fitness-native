@@ -10,7 +10,6 @@ import { setTeam } from '../../actions/teamActions'
 class TeamCard extends Component {
 
   goToTeam = () => {
-    console.log(this.props);
     // switch to the team page & dispatch state of selected team w/ team id
     this.props.setTeam(this.props.team)
     this.props.navigation.navigate('Team')

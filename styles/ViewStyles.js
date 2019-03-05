@@ -37,6 +37,7 @@ export const ViewStyles = StyleSheet.create({
   },
   signUpPage: {
     flex: 1,
+    paddingTop: 80,
     padding: 10,
     display: 'flex',
     flexDirection: 'column',

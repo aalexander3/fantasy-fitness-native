@@ -35,7 +35,7 @@ const CompletionLayer = ({ user, nextDisplay, display, afterAnimation, changeDis
       const workoutCards = completions.map((completion) => <SmallSquareCard image_url={ completion.workout.image_url } key={ completion.id } />)
       return (
         <Fragment>
-          <TransparentLink text="Claimed Workouts" handlePress={()=>this.changeDisplay("WORKOUTS")} />
+          <TransparentLink text="Claimed Workouts" handlePress={()=> changeDisplay("WORKOUTS")} />
           <HorizontalScroll active={false} children={workoutCards}/>
         </Fragment>
       )

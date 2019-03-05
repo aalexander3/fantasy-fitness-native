@@ -1,26 +1,36 @@
 import React, { Component } from 'react'
-import { View, Text, ImageBackground } from 'react-native'
+import { View, Text, ImageBackground, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { WorkoutStyles } from './WorkoutStyles'
 import { Header } from '../../components/headers'
 import { NormalButton, IconButton, NormalLink } from '../../components/buttons'
 import { VideoPlayer } from '../../components/videos'
 import { setWorkout } from '../../actions/workoutActions'
+import { addCompletion } from '../../actions/userActions'
 import { CompletionAdapter } from '../../adapters'
-import { AsyncStorage } from 'react-native'
-
 
 class WorkoutDisplay extends Component {
 
   state = {
-    playing: false
+    playing: false,
+    completed: false
   }
 
-  completeWorkout = () => {
+  completeWorkout = async () => {
+    const { currentTeam, currentWorkout, addCompletion } = this.props
+    const token = await AsyncStorage.getItem('token')
     // sends request to add completion for current user
     // response gets added to store
-
-    CompletionAdapter.create()
+    // and changes the button to a green check mark!
+    // needs user_id, team_id, workout_id
+    if (token){
+      let body = { team_id: currentTeam.id, workout_id: currentWorkout.id }
+      CompletionAdapter.create(body, token)
+        .then(workout => {
+          addCompletion(workout)
+          this.setState({ completed: true })
+        })
+    }
   }
 
   playTutorial = () => {
@@ -35,14 +45,14 @@ class WorkoutDisplay extends Component {
     return (this.state.playing ? <IconButton iconName="ios-close" handlePress={this.playTutorial} /> : <IconButton iconName="ios-play" handlePress={this.playTutorial} />)
   }
 
-  renderExercises = () => { 
+  renderExercises = () => {
     const { exercises } = this.props.currentWorkout.attributes
     return exercises.map(exercise => <NormalLink key={exercise.id} text={exercise.name} handlePress={() => console.log('setting the exercise to selected workout')/*this.props.setWorkout(exercise)*/} />)
-  } 
+  }
 
   render(){
     const { currentWorkout, display } = this.props
-    const { name, image_url, description, default_points, exercises, tutorial,  } = currentWorkout.attributes
+    const { name, image_url, description, default_points, exercises, tutorial } = currentWorkout.attributes
     // buttons to mark as complete and to watch a tutorial video, if it exists
     // also need points scored if they exist
 
@@ -64,4 +74,13 @@ class WorkoutDisplay extends Component {
   }
 }
 
-export default connect(null, { setWorkout })(WorkoutDisplay)
+const mapStateToProps = state => {
+  // for creating a completion
+  return {
+    user: state.user,
+    currentTeam: state.team.currentTeam,
+    currentLeague: state.league.currentLeague,
+  }
+}
+
+export default connect(mapStateToProps, { setWorkout, addCompletion })(WorkoutDisplay)

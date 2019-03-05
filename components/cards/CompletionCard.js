@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { View, Button, Image, Animated, AsyncStorage } from 'react-native'
+import { View, Image, Animated, AsyncStorage, ImageBackground } from 'react-native'
 import IsAnimated from '../../HOC/IsAnimated'
-import Header from '../headers/Header'
+import { Header } from '../headers'
+import { NormalButton } from '../buttons'
 import { CardStyle } from './CardStyle';
 import { connect } from 'react-redux'
 import { CompletionAdapter } from '../../adapters'
 import { updateUserCompletion } from '../../actions/userActions'
+import { WorkoutStyles } from '../../pages/workouts/WorkoutStyles'
+
 
 class CompletionCard extends Component {
 
@@ -31,21 +34,19 @@ class CompletionCard extends Component {
     const profileY = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [-200, 0]})
     const height = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [100, 325]})
     const opacity = this.props.profile.interpolate({inputRange: [0, 1], outputRange: [.35, 1]})
-
+    const pointsAccounted = points + " points " + (completed ? "accounted" : "available")
     return (
       <Animated.View style={{ height, opacity }} >
-        <View style={ completed ? CardStyle.completedCard : CardStyle.incompleteCard } >
-          <Image
-            source={{uri: workout.image_url }}
-            style={{ height: 125, width: 125}} />
-            <View>
-              <Header text={ completed ? "Complete" : "Incomplete" } />
-              <Header text={ points + " points available" } />
-              <Header text={ workout.name } />
-              <Button
-                title={completed ? "Mark incomplete" : "Mark complete"}
-                onPress={this.updateCompletion}/>
+        <View style={WorkoutStyles.workoutCard} >
+          <ImageBackground source={{uri: workout.image_url}} style={WorkoutStyles.backgroundImage} >
+            <View style={WorkoutStyles.cardHeader}>
+              <Header text={workout.name} style={{color: 'white'}}/>
+              <Header text={ pointsAccounted } style={{color: 'white'}} />
+              <NormalButton
+                text={completed ? "Mark incomplete" : "Mark complete"}
+                handlePress={this.updateCompletion} />
             </View>
+          </ImageBackground>
         </View>
       </Animated.View>
     )

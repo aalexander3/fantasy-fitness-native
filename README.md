@@ -12,6 +12,12 @@ THOUGHTS:
 
 TODO:
 ---
+LOGIN/SIGNUP:
+---
+ - needs input to take in league code
+ - league code automatically adds new person to the league with that code
+ 
+
 HOME:
 ---
  - personal weekly score tally
