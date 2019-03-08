@@ -9,11 +9,7 @@ THOUGHTS:
  - can then complete them freely to score open ended points
  - maybe the packs are more like suggestions / challenges that are worth extra points
 
----
-ASYNC STORAGE: 
- - can we turn most of the async storage actions into a higher order comp?
- - anything wrapped gets passed a few functions in props
-   - getToken, setToken, removeToken, etc...
+
 
 TODO:
 ---
@@ -44,9 +40,9 @@ TEAM:
 
 LEAGUE:
 ---
-- display this weeks workout pack
-- dropdown to check out previous weeks
-- click on the pack takes you to workouts - displays that pack and its different workouts / exercises
+- display this weeks workout pack ( necessary or redundant? )
+  - dropdown to check out previous weeks
+  - click on the pack takes you to workouts - displays that pack and its different workouts / exercises
 - scoreboard / standings
 - matchup view ( comparison across teams )
 - MVP (who's contributed the most this week?)
@@ -55,17 +51,6 @@ LEAGUE:
 
 WORKOUTS:
 ---
- - workout list (in vertical scroll view)
-  - exercise name
-  - image
-  - curate better list of workouts
-  - good pictures
- - clicking on a workout shows more information about it
-  - what exercises
-  - how long
-  - general description
-  - what muscles are being worked?
-  - button to click as completed
  - category browser
 
 
@@ -88,3 +73,20 @@ LEAGUE:
    - people don't get saved - just request sent to backend to send invitations
 
 WORKOUTS:
+- workout list (in vertical scroll view)
+ - exercise name
+ - image
+ - curate better list of workouts
+ - good pictures
+- clicking on a workout shows more information about it
+ - what exercises
+ - how long
+ - general description
+ - what muscles are being worked?
+ - button to click as completed
+
+---
+ASYNC STORAGE:
+ - can we turn most of the async storage actions into a higher order comp?
+ - anything wrapped gets passed a few functions in props
+   - getToken, setToken, removeToken, etc...

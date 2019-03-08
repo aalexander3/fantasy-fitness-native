@@ -7,14 +7,13 @@ import { compose } from 'redux'
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
 import { ImageUpload } from '../../components/ImageUpload'
-import { UserAdapter } from '../../adapters/UserAdapter'
+import { UserAdapter } from '../../adapters'
 import { InputWithLabel } from '../../components/form'
 import { Header } from '../../components/headers'
 import { NormalButton, NormalLink } from '../../components/buttons'
 import IsAsync from '../../HOC/IsAsync'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
-
 
 class SignUpPage extends Component {
 
@@ -27,7 +26,8 @@ class SignUpPage extends Component {
       bio: '',
       password: '',
       password_confirmation: '',
-      avatar: ''
+      avatar: '',
+      league_code: null
     },
     errors: null,
   }
@@ -55,7 +55,7 @@ class SignUpPage extends Component {
   }
 
   createFormData = () => {
-    const { username, email, password, password_confirmation, avatar, first_name, last_name, bio } = this.state.user
+    const { username, email, password, password_confirmation, avatar, first_name, last_name, bio, league_code } = this.state.user
 
     formData = new FormData()
     if (avatar !== '') {
@@ -72,6 +72,7 @@ class SignUpPage extends Component {
     formData.append('email', email)
     formData.append('password', password)
     formData.append('password_confirmation', password_confirmation)
+    formData.append('league_code', league_code)
     return formData
   }
 
@@ -97,8 +98,32 @@ class SignUpPage extends Component {
     })
   }
 
+  renderLeagueCode = () => {
+    if (this.state.user.league_code) {
+      return <InputWithLabel
+              label="League Code"
+              name="league_code"
+              icon='ios-lock'
+              handleText={this.handleText}
+              value={this.state.user.league_code}
+              placeholder='Enter your league code...' />
+    } else {
+      return <NormalLink text="Have a league code?" handlePress={this.leagueCodeClick}/>
+    }
+  }
+
+  leagueCodeClick = () => {
+    this.setState({
+      ...this.state,
+      user: {
+        ...this.state.user,
+        league_code: true
+      }
+    })
+  }
+
   renderSignUp = () => {
-    const { username, password, password_confirmation, email, first_name, last_name, avatar } = this.state.user
+    const { username, password, password_confirmation, email, first_name, last_name, avatar, league_code } = this.state.user
     const { errors } = this.state
 
     return (
@@ -163,6 +188,8 @@ class SignUpPage extends Component {
           handleText={this.handleText}
           value={password_confirmation}
           placeholder='Confirm your password...' />
+
+        {this.renderLeagueCode()}
 
         <NormalButton text="SIGN UP" handlePress={this.handlePress} />
       </View>
