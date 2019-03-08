@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, ImageBackground, AsyncStorage } from 'react-native'
+import { View, Text, ImageBackground } from 'react-native'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { WorkoutStyles } from './WorkoutStyles'
 import { Header } from '../../components/headers'
 import { NormalButton, IconButton, NormalLink } from '../../components/buttons'
@@ -8,6 +9,7 @@ import { VideoPlayer } from '../../components/videos'
 import { setWorkout } from '../../actions/workoutActions'
 import { addCompletion } from '../../actions/userActions'
 import { CompletionAdapter } from '../../adapters'
+import IsAsync from '../../HOC/IsAsync'
 
 class WorkoutDisplay extends Component {
 
@@ -18,7 +20,7 @@ class WorkoutDisplay extends Component {
 
   completeWorkout = async () => {
     const { currentTeam, currentWorkout, addCompletion } = this.props
-    const token = await AsyncStorage.getItem('token')
+    const token = await this.props.getToken()
     // sends request to add completion for current user
     // response gets added to store
     // and changes the button to a green check mark!
@@ -83,4 +85,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { setWorkout, addCompletion })(WorkoutDisplay)
+let enhance = compose(
+  IsAsync,
+  connect(mapStateToProps, { setWorkout, addCompletion })
+)
+
+export default enhance(WorkoutDisplay)

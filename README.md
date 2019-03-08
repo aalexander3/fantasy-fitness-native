@@ -9,6 +9,11 @@ THOUGHTS:
  - can then complete them freely to score open ended points
  - maybe the packs are more like suggestions / challenges that are worth extra points
 
+---
+ASYNC STORAGE: 
+ - can we turn most of the async storage actions into a higher order comp?
+ - anything wrapped gets passed a few functions in props
+   - getToken, setToken, removeToken, etc...
 
 TODO:
 ---
@@ -16,7 +21,7 @@ LOGIN/SIGNUP:
 ---
  - needs input to take in league code
  - league code automatically adds new person to the league with that code
- 
+
 
 HOME:
 ---

@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, AsyncStorage } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { HeaderWithAvatar } from '../../components/headers'
 import { NormalLink } from '../../components/buttons'
 import { ViewStyles, TouchableHighlight } from '../../styles/ViewStyles'
 import { TeamAdapter } from '../../adapters'
+import IsAsync from '../../HOC/IsAsync'
 
-const TeamItem = ({ team, rosterSize, currentUser, leagueId }) => {
+const TeamItem = ({ team, rosterSize, currentUser, leagueId, getToken }) => {
 
   const joinTeam = async () => {
     // sends request to add current user to that team
@@ -14,7 +16,7 @@ const TeamItem = ({ team, rosterSize, currentUser, leagueId }) => {
     // needs teamId and userId and authorization ?
     // NOTE: do this soon and verify that it works!
     // w/ token and teamId should be able to make the join
-    let token = await AsyncStorage.getItem('token')
+    let token = await getToken()
     const teamId = team.id
     if (token){
       TeamAdapter.join(teamId, token)
@@ -44,4 +46,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(TeamItem)
+const enhance = compose(
+  IsAsync,
+  connect(mapStateToProps)
+)
+
+export default enhance(TeamItem)

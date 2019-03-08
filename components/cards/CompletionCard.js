@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Image, Animated, AsyncStorage, ImageBackground } from 'react-native'
+import { View, Image, Animated, ImageBackground } from 'react-native'
+import { compose } from 'redux'
 import IsAnimated from '../../HOC/IsAnimated'
 import { Header } from '../headers'
 import { NormalButton } from '../buttons'
@@ -8,6 +9,7 @@ import { connect } from 'react-redux'
 import { CompletionAdapter } from '../../adapters'
 import { updateUserCompletion } from '../../actions/userActions'
 import { WorkoutStyles } from '../../pages/workouts/WorkoutStyles'
+import IsAsync from '../../HOC/IsAsync'
 
 
 class CompletionCard extends Component {
@@ -21,7 +23,7 @@ class CompletionCard extends Component {
       }
     }
 
-    let token = await AsyncStorage.getItem('token')
+    let token = await this.props.getToken()
 
     if (token) {
       CompletionAdapter.update(id, body, token)
@@ -53,4 +55,10 @@ class CompletionCard extends Component {
   }
 }
 
-export default IsAnimated(connect(null, { updateUserCompletion })(CompletionCard))
+const enhance = compose(
+  IsAsync,
+  IsAnimated,
+  connect(null, { updateUserCompletion })
+)
+
+export default enhance(CompletionCard)

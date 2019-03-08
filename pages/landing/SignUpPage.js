@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
-import ImageUpload from '../../components/ImageUpload/ImageUpload'
+import { View, Text, TouchableHighlight } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { ImageUpload } from '../../components/ImageUpload'
 import { UserAdapter } from '../../adapters/UserAdapter'
-import InputWithLabel from '../../components/form/InputWithLabel'
-import Header from '../../components/headers/Header'
+import { InputWithLabel } from '../../components/form'
+import { Header } from '../../components/headers'
 import { NormalButton, NormalLink } from '../../components/buttons'
+import IsAsync from '../../HOC/IsAsync'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
-import { _getToken, _logout, _saveToken } from '../../actions/asyncActions'
 
 
 class SignUpPage extends Component {
@@ -31,10 +32,6 @@ class SignUpPage extends Component {
     errors: null,
   }
 
-  _storeData = async (token) => {
-    await AsyncStorage.setItem('token', token)
-  }
-
   renderErrors = (errors) => {
     this.setState({errors: errors.message})
   }
@@ -43,13 +40,13 @@ class SignUpPage extends Component {
     let formData = this.createFormData()
     // if login ==> take state and submit a login session
     // if sign up ==> take state and submit a users create request
-     // on sucessful login ==> save encoded jwt into AsyncStorage
+     // on sucessful login ==> save encoded jwt into storage
     UserAdapter.create(formData)
       .then(data => {
         if (data.message){
           throw Error(data.message)
         } else {
-            this._storeData(data.jwt)
+            this.this.props.setToken(data.jwt)
             this.props.setInitialState(data.user.data) // assuming this is still the same data
             this.props.signIn()
         }
@@ -182,4 +179,10 @@ class SignUpPage extends Component {
 }
 
 
-export default connect(null, { signIn, setInitialState })(SignUpPage)
+const enhance = compose(
+  IsAsync,
+  connect(null, { signIn, setInitialState })
+)
+
+
+export default enhance(SignUpPage)

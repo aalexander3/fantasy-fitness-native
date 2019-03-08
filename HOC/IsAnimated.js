@@ -10,11 +10,7 @@ const IsAnimated = (WrappedComponent) => {
     componentDidMount(){
       this.setState({ profile: new Animated.Value(0)}, this.profileIn)
     }
-
-    // componentWillUnmount() {
-    //   this.profileOut()
-    // }
-
+    
     componentDidUpdate(prevProps){
       if (prevProps.nextDisplay !== this.props.nextDisplay) {
         this.profileOut()

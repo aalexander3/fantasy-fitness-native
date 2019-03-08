@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, AsyncStorage } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 import Stack from '../../stack/Stack'
 import SignInOrUp from './SignInOrUp'
@@ -10,19 +11,18 @@ import { SessionAdapter, WorkoutAdapter, PackAdapter, ExerciseAdapter } from '..
 import { setInitialState, signIn } from '../../actions/sessionActions'
 import { setWorkouts, setPacks } from '../../actions/workoutActions'
 import { setExercises } from '../../actions/exerciseActions'
+import IsAsync from '../../HOC/IsAsync'
 
 class LandingPage extends Component {
   componentDidMount(){
     this._getLogin()
   }
 
-  _logout = async () => {
-    await AsyncStorage.removeItem('token')
-  }
+  _logout = async () => this.props.removeToken()
 
   _getLogin = async () => {
     try {
-      let token = await AsyncStorage.getItem('token')
+      let token = await this.props.getToken()
       if (token){
         let user = await SessionAdapter.reauth(token)
         let workouts = await WorkoutAdapter.index(token)
@@ -54,4 +54,9 @@ const mapStateToProps = state => {
   return { logged_in: state.session.logged_in }
 }
 
-export default connect(mapStateToProps, { setInitialState, signIn, setWorkouts, setPacks, setExercises })(LandingPage)
+const enhance = compose(
+  IsAsync,
+  connect(mapStateToProps, { setInitialState, signIn, setWorkouts, setPacks, setExercises })
+)
+
+export default enhance(LandingPage)
