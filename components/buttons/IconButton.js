@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, Image } from 'react-native'
+import { TouchableHighlight } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { AppStyle } from '../../styles/AppStyle'
 

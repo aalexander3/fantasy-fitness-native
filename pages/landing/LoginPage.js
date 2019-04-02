@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, TextInput, AsyncStorage, Image } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
+import { compose} from 'redux'
 
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { SessionAdapter } from '../../adapters'
-import InputWithLabel from '../../components/form/InputWithLabel'
-import Header from '../../components/headers/Header'
+import { InputWithLabel } from '../../components/form'
+import { Header } from '../../components/headers'
 import { NormalButton, NormalLink } from '../../components/buttons'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
-import { _saveToken } from '../../actions/asyncActions'
+import IsAsync from '../../HOC/IsAsync'
 
 class LoginPage extends Component {
 
@@ -21,10 +21,6 @@ class LoginPage extends Component {
       password: '',
     },
     errors: null
-  }
-
-  _storeData = async (token) => {
-    await AsyncStorage.setItem('token', token)
   }
 
   handleText = (text, name) => {
@@ -41,12 +37,12 @@ class LoginPage extends Component {
   handlePress = () => {
     // if login ==> take state and submit a login session
     // if sign up ==> take state and submit a users create request
-     // on sucessful login ==> save encoded jwt into AsyncStorage
+     // on sucessful login ==> save encoded jwt into storage
     SessionAdapter.login(this.state.user)
       .then(json => {
         if (json.message) throw Error(json.message)
         // find a way to global save with the session Reducer
-        this._storeData(json.jwt)
+        this.props.setToken(json.jwt)
         this.props.setInitialState(json.user.data) // double check this when we have log out function
         this.props.signIn()
       })
@@ -103,4 +99,9 @@ class LoginPage extends Component {
 }
 
 
-export default connect(null, { signIn, setInitialState })(LoginPage)
+let enhance = compose(
+  IsAsync,
+  connect(null, { signIn, setInitialState })
+)
+
+export default enhance(LoginPage)

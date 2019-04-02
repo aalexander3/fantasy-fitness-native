@@ -1,15 +1,14 @@
 import React from 'react'
-import { View, TouchableHighlight, Text } from 'react-native'
+import { TouchableHighlight, Text } from 'react-native'
 import { AppStyle } from '../../styles/AppStyle'
 
 
-const NormalButton = ({ text, handlePress }) => {
-  
+const NormalButton = ({ text, handlePress, style }) => {
   return (
     <TouchableHighlight
       underlayColor='transparent'
       onPress={handlePress} >
-      <Text style={AppStyle.link} > {text} </Text>
+      <Text style={[AppStyle.link, style]} > {text} </Text>
     </TouchableHighlight>
   )
 }

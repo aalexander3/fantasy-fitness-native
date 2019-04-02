@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
-import ImageUpload from '../../components/ImageUpload/ImageUpload'
+import { View, Text, TouchableHighlight } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 import { AppStyle } from '../../styles/AppStyle'
 import { ViewStyles } from '../../styles/ViewStyles'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { UserAdapter } from '../../adapters/UserAdapter'
-import InputWithLabel from '../../components/form/InputWithLabel'
-import Header from '../../components/headers/Header'
+import { ImageUpload } from '../../components/ImageUpload'
+import { UserAdapter } from '../../adapters'
+import { InputWithLabel } from '../../components/form'
+import { Header } from '../../components/headers'
 import { NormalButton, NormalLink } from '../../components/buttons'
+import IsAsync from '../../HOC/IsAsync'
 
 import { signIn, setInitialState } from '../../actions/sessionActions'
-import { _getToken, _logout, _saveToken } from '../../actions/asyncActions'
-
 
 class SignUpPage extends Component {
 
@@ -26,13 +26,10 @@ class SignUpPage extends Component {
       bio: '',
       password: '',
       password_confirmation: '',
-      avatar: ''
+      avatar: '',
+      league_code: null
     },
     errors: null,
-  }
-
-  _storeData = async (token) => {
-    await AsyncStorage.setItem('token', token)
   }
 
   renderErrors = (errors) => {
@@ -43,13 +40,13 @@ class SignUpPage extends Component {
     let formData = this.createFormData()
     // if login ==> take state and submit a login session
     // if sign up ==> take state and submit a users create request
-     // on sucessful login ==> save encoded jwt into AsyncStorage
+     // on sucessful login ==> save encoded jwt into storage
     UserAdapter.create(formData)
       .then(data => {
         if (data.message){
           throw Error(data.message)
         } else {
-            this._storeData(data.jwt)
+            this.this.props.setToken(data.jwt)
             this.props.setInitialState(data.user.data) // assuming this is still the same data
             this.props.signIn()
         }
@@ -58,7 +55,7 @@ class SignUpPage extends Component {
   }
 
   createFormData = () => {
-    const { username, email, password, password_confirmation, avatar, first_name, last_name, bio } = this.state.user
+    const { username, email, password, password_confirmation, avatar, first_name, last_name, bio, league_code } = this.state.user
 
     formData = new FormData()
     if (avatar !== '') {
@@ -75,6 +72,7 @@ class SignUpPage extends Component {
     formData.append('email', email)
     formData.append('password', password)
     formData.append('password_confirmation', password_confirmation)
+    formData.append('league_code', league_code)
     return formData
   }
 
@@ -100,8 +98,32 @@ class SignUpPage extends Component {
     })
   }
 
+  renderLeagueCode = () => {
+    if (this.state.user.league_code) {
+      return <InputWithLabel
+              label="League Code"
+              name="league_code"
+              icon='ios-lock'
+              handleText={this.handleText}
+              value={this.state.user.league_code}
+              placeholder='Enter your league code...' />
+    } else {
+      return <NormalLink text="Have a league code?" handlePress={this.leagueCodeClick}/>
+    }
+  }
+
+  leagueCodeClick = () => {
+    this.setState({
+      ...this.state,
+      user: {
+        ...this.state.user,
+        league_code: true
+      }
+    })
+  }
+
   renderSignUp = () => {
-    const { username, password, password_confirmation, email, first_name, last_name, avatar } = this.state.user
+    const { username, password, password_confirmation, email, first_name, last_name, avatar, league_code } = this.state.user
     const { errors } = this.state
 
     return (
@@ -167,6 +189,8 @@ class SignUpPage extends Component {
           value={password_confirmation}
           placeholder='Confirm your password...' />
 
+        {this.renderLeagueCode()}
+
         <NormalButton text="SIGN UP" handlePress={this.handlePress} />
       </View>
     )
@@ -182,4 +206,10 @@ class SignUpPage extends Component {
 }
 
 
-export default connect(null, { signIn, setInitialState })(SignUpPage)
+const enhance = compose(
+  IsAsync,
+  connect(null, { signIn, setInitialState })
+)
+
+
+export default enhance(SignUpPage)

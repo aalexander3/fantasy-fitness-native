@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, AsyncStorage, Alert } from 'react-native'
+import { View, Text, ScrollView, Alert } from 'react-native'
 import { ViewStyles } from '../../styles/ViewStyles'
 import { NormalLink, NormalButton, IconButton } from '../../components/buttons'
 import { Header } from '../../components/headers'
 import Invite from './Invite'
 import { LeagueAdapter } from '../../adapters'
+import IsAsync from '../../HOC/IsAsync'
 
 
 class InvitationForm extends Component {
@@ -48,7 +49,7 @@ class InvitationForm extends Component {
   }
 
   sendInvites = async () => {
-    let token = await AsyncStorage.getItem('token')
+    let token = await this.props.getToken()
     if (token){
       let id = this.props.currentLeague.id
       LeagueAdapter.invite(id, this.state.invitations, token)
@@ -88,4 +89,4 @@ class InvitationForm extends Component {
   }
 }
 
-export default InvitationForm
+export default IsAsync(InvitationForm)

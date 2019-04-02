@@ -3,7 +3,6 @@ import { View, Text, Image, Animated } from 'react-native'
 import Header from '../headers/Header'
 import { AppStyle } from '../../styles/AppStyle';
 import { CardStyle } from './CardStyle';
-import { connect } from 'react-redux'
 import IsAnimated from '../../HOC/IsAnimated'
 
 

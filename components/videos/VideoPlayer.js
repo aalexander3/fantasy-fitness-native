@@ -1,6 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
-import { Audio, Video } from 'expo'
+import { Video } from 'expo'
 
 
 const VideoPlayer = ({ source }) => {

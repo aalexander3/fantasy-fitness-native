@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableHighlight, AsyncStorage } from 'react-native'
+import { View, Text, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import { Header } from '../../components/headers'
 import { NormalButton, IconButton } from '../../components/buttons'
-import ImageUpload from '../../components/ImageUpload/ImageUpload'
-import InputWithLabel from '../../components/form/InputWithLabel'
+import { ImageUpload } from '../../components/ImageUpload'
+import { InputWithLabel } from '../../components/form'
 import { setLeague } from '../../actions/leagueActions'
 import { setTeam } from '../../actions/teamActions'
 import { LeagueAdapter } from '../../adapters'
 import { ViewStyles } from '../../styles/ViewStyles'
 import { AppStyle } from '../../styles/AppStyle'
+import IsAsync from '../../HOC/IsAsync'
 
 
 // schema for a league
@@ -45,7 +47,7 @@ class NewLeague extends Component {
   }
 
   handlePress = async () => {
-    let token = await AsyncStorage.getItem('token')
+    let token = await this.props.getToken()
 
     let formData = this.createFormData()
     if (token) {
@@ -134,6 +136,9 @@ class NewLeague extends Component {
   }
 }
 
+const enhance = compose(
+  IsAsync,
+  connect(null, { setLeague, setTeam })
+)
 
-// will need to map user or send proper authorization request
-export default connect(null, { setLeague, setTeam })(NewLeague)
+export default enhance(NewLeague)

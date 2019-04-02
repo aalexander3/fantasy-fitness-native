@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableHighlight} from 'react-native'
-import { Header } from '../headers'
+import { View, Text, Image } from 'react-native'
 import { TransparentLink } from '../buttons'
 import { CardStyle } from './CardStyle'
 
